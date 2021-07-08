@@ -7,6 +7,8 @@ use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository
 {
+    // todo: add caching support?
+
     /**
      * @var bool Use composer dependencies instead of list of dependencies from the config
      */
