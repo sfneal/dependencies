@@ -1,11 +1,11 @@
 {
-    "name": "sfneal/php-package-boilerplate",
-    "description": "Boilerplate for PHP package repo's",
+    "name": "sfneal/dependencies",
+    "description": "Track your application dependencies and there status within a Laravel Application",
     "keywords": [
         "sfneal",
-        "php-package-boilerplate"
+        "dependencies"
     ],
-    "homepage": "https://github.com/sfneal/php-package-boilerplate",
+    "homepage": "https://github.com/sfneal/dependencies",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sfneal\\PhpPackageBoilerplate\\": "src"
+            "Sfneal\\Dependencies\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sfneal\\PhpPackageBoilerplate\\Tests\\": "tests"
+            "Sfneal\\Dependencies\\Tests\\": "tests"
         }
     },
     "scripts": {
