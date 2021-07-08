@@ -2,13 +2,22 @@
 
 namespace Sfneal\Dependencies\Tests;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Application;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 
-class TestCase extends TestCase
+abstract class TestCase extends OrchestraTestCase
 {
-    /** @test */
-    public function true_is_true()
+    /**
+     * Register package service providers.
+     *
+     * @param Application $app
+     * @return array|string
+     */
+    protected function getPackageProviders($app)
     {
-        $this->assertTrue(true);
+        return [
+            DependenciesServiceProvider::class
+        ];
     }
 }
