@@ -20,4 +20,18 @@ abstract class TestCase extends OrchestraTestCase
             DependenciesServiceProvider::class,
         ];
     }
+
+    /**
+     * Retrieve an array of packages.
+     *
+     * @return array
+     */
+    public function packageProvider(): array
+    {
+        return [
+            ['sfneal/actions'],
+            ['sfneal/aws-s3-helpers'],
+            ['sfneal/laravel-helpers'],
+        ];
+    }
 }
