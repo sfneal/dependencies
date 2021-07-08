@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies;
-
 
 use Illuminate\Support\Collection;
 use Sfneal\Helpers\Strings\StringHelpers;
@@ -46,6 +44,7 @@ class DependenciesRepository
         if ($this->allComposerDependencies) {
             return self::getComposerRequirements();
         }
+
         return self::getConfigDependencies() ?? self::getComposerRequirements();
     }
 
@@ -76,7 +75,7 @@ class DependenciesRepository
     {
         // Retrieve 'require' array from composer.json with only package names (the keys
         return collect(array_keys(
-                json_decode(file_get_contents(base_path('composer.json')), true )['require'])
+                json_decode(file_get_contents(base_path('composer.json')), true)['require'])
             )
 
             // Remove 'php' & php extensions from the packages array
