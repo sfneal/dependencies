@@ -15,7 +15,9 @@ class DependencyServiceTest extends TestCase
      */
     public function github_url(string $package)
     {
-        $url = (new DependenciesService($package))->gitHub();
+        $url = (new DependenciesService($package))
+            ->gitHub()
+            ->url();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);
@@ -30,7 +32,9 @@ class DependencyServiceTest extends TestCase
      */
     public function travis_url(string $package)
     {
-        $url = (new DependenciesService($package))->travis();
+        $url = (new DependenciesService($package))
+            ->travis()
+            ->url();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);
@@ -45,7 +49,9 @@ class DependencyServiceTest extends TestCase
      */
     public function version_url(string $package)
     {
-        $url = (new DependenciesService($package))->version();
+        $url = (new DependenciesService($package))
+            ->version()
+            ->url();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);
@@ -60,7 +66,9 @@ class DependencyServiceTest extends TestCase
      */
     public function travis_svg(string $package)
     {
-        $url = (new DependenciesService($package))->travis(true);
+        $url = (new DependenciesService($package))
+            ->travis()
+            ->svg();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);
@@ -77,7 +85,9 @@ class DependencyServiceTest extends TestCase
      */
     public function version_svg(string $package)
     {
-        $url = (new DependenciesService($package))->version(true);
+        $url = (new DependenciesService($package))
+            ->version()
+            ->svg();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);
@@ -93,7 +103,9 @@ class DependencyServiceTest extends TestCase
      */
     public function last_commit_svg(string $package)
     {
-        $url = (new DependenciesService($package))->lastCommit();
+        $url = (new DependenciesService($package))
+            ->lastCommit()
+            ->svg();
         $response = Http::get($url);
 
         $this->assertStringContainsString($package, $url);

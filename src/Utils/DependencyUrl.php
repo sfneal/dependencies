@@ -24,11 +24,21 @@ class DependencyUrl
     /**
      * Retrieve the Dependency URL.
      *
-     * @param string|null $uri
      * @return string
      */
-    public function url(string $uri = null): string
+    public function url(): string
     {
-        return 'https://'.$uri ?? $this->uri;
+        return self::generateUrl($this->uri);
+    }
+
+    /**
+     * Generate a URL.
+     *
+     * @param string $uri
+     * @return string
+     */
+    protected static function generateUrl(string $uri): string
+    {
+        return 'https://'.$uri;
     }
 }

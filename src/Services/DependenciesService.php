@@ -2,6 +2,9 @@
 
 namespace Sfneal\Dependencies\Services;
 
+use Sfneal\Dependencies\Utils\DependencySvg;
+use Sfneal\Dependencies\Utils\DependencyUrl;
+
 class DependenciesService
 {
     /**
@@ -28,94 +31,73 @@ class DependenciesService
     /**
      * Retrieve a GitHub URL for a dependency.
      *
-     * @return string
+     * @return DependencyUrl
      */
-    public function gitHub(): string
+    public function gitHub(): DependencyUrl
     {
-        return self::url("github.com/{$this->package}");
+        return new DependencyUrl("github.com/{$this->package}");
     }
 
     /**
      * Retrieve a Travis CI build status SVG URL for a dependency.
      *
-     * @param bool $svg
-     * @return string
+     * @return DependencySvg
      */
-    public function travis(bool $svg = false): string
+    public function travis(): DependencySvg
     {
-        return self::url("travis-ci.com/{$this->package}".($svg ? '.svg?branch=master' : ''));
+        return new DependencySvg(
+            "travis-ci.com/{$this->package}",
+            "travis-ci.com/{$this->package}.svg?branch=master",
+            ''
+        );
     }
 
     /**
      * Retrieve the Dependencies latest version.
      *
-     * @param bool $svg
-     * @return string
+     * @return DependencySvg
      */
-    public function version(bool $svg = false): string
+    public function version(): DependencySvg
     {
-        return $this->type == 'composer' ? $this->packagist($svg) : $this->docker($svg);
+        return $this->type == 'composer' ? $this->packagist() : $this->docker();
     }
 
     /**
      * Retrieve date of the last GitHub commit.
      *
-     * @return string
+     * @return DependencySvg
      */
-    public function lastCommit(): string
+    public function lastCommit(): DependencySvg
     {
-        return self::imgShieldUrl("/github/last-commit/{$this->package}");
+        return new DependencySvg(
+            "github.com/{$this->package}",
+            "github/last-commit/{$this->package}"
+        );
     }
 
     /**
      * Retrieve a Packagist versions SVG URL for a dependency.
      *
-     * @param bool $svg
-     * @return string
+     * @return DependencySvg
      */
-    private function packagist(bool $svg = false): string
+    private function packagist(): DependencySvg
     {
-        if ($svg) {
-            return self::imgShieldUrl("/packagist/v/{$this->package}.svg");
-        } else {
-            return self::url("packagist.org/packages/{$this->package}");
-        }
+        return new DependencySvg(
+            "packagist.org/packages/{$this->package}",
+            "packagist/v/{$this->package}.svg"
+        );
     }
 
     /**
      * Retrieve the latest Docker image tag for a dependency.
      *
-     * @param bool $svg
-     * @return string
+     * @return DependencySvg
      */
-    private function docker(bool $svg = false): string
+    private function docker(): DependencySvg
     {
-        if ($svg) {
-            return self::imgShieldUrl("/docker/v/{$this->package}.svg?sort=semver");
-        } else {
-            return self::url("hub.docker.com/r/{$this->package}");
-        }
-    }
-
-    /**
-     * Retrieve a image shield url.
-     *
-     * @param string $endpoint
-     * @return string
-     */
-    private static function imgShieldUrl(string $endpoint): string
-    {
-        return self::url('img.shields.io'.$endpoint);
-    }
-
-    /**
-     * Retrieve a secure url.
-     *
-     * @param string $uri
-     * @return string
-     */
-    private static function url(string $uri): string
-    {
-        return 'http'."://{$uri}";
+        return new DependencySvg(
+            "hub.docker.com/r/{$this->package}",
+            "docker/v/{$this->package}.svg?sort=semver"
+        );
     }
 }

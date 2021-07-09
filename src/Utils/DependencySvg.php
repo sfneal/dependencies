@@ -12,14 +12,21 @@ class DependencySvg extends DependencyUrl
     private $svg;
 
     /**
+     * @var string
+     */
+    private $baseUrl;
+
+    /**
      * DependencySvg constructor.
      * @param string $uri
      * @param string $svg
+     * @param string $baseUrl
      */
-    public function __construct(string $uri, string $svg)
+    public function __construct(string $uri, string $svg, string $baseUrl = 'img.shields.io/')
     {
         parent::__construct($uri);
         $this->svg = $svg;
+        $this->baseUrl = $baseUrl;
     }
 
     /**
@@ -29,6 +36,6 @@ class DependencySvg extends DependencyUrl
      */
     public function svg(): string
     {
-        return $this->url('img.shields.io'.$this->svg);
+        return self::generateUrl($this->baseUrl.$this->svg);
     }
 }
