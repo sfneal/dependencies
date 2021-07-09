@@ -61,8 +61,10 @@ class DependencyServiceTest extends TestCase
     {
         $url = (new DependenciesService($package))->travis(true);
         $response = (new Client())->request('get', $url);
+        $contents = $response->getBody()->getContents();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStringContainsString('build', $contents);
     }
 
     /**
@@ -75,8 +77,10 @@ class DependencyServiceTest extends TestCase
     {
         $url = (new DependenciesService($package))->version(true);
         $response = (new Client())->request('get', $url);
+        $contents = $response->getBody()->getContents();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStringContainsString('<title>packagist: v', $contents);
     }
 
     /**
@@ -89,7 +93,9 @@ class DependencyServiceTest extends TestCase
     {
         $url = (new DependenciesService($package))->lastCommit();
         $response = (new Client())->request('get', $url);
+        $contents = $response->getBody()->getContents();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStringContainsString('last commit', $contents);
     }
 }
