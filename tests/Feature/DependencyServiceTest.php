@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Tests\Feature;
-
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
