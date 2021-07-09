@@ -3,7 +3,7 @@
 namespace Sfneal\Dependencies;
 
 use Illuminate\Support\Collection;
-use Sfneal\Dependencies\Utils\DependenciesService;
+use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository

@@ -3,8 +3,8 @@
 namespace Sfneal\Dependencies\Tests\Feature;
 
 use Illuminate\Support\Facades\Http;
+use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Utils\DependenciesService;
 
 class DependencyServiceTest extends TestCase
 {
