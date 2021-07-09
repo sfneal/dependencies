@@ -126,11 +126,10 @@ class DependenciesService
      * Retrieve a secure url.
      *
      * @param string $uri
-     * @param bool $secure use https
      * @return string
      */
-    private static function url(string $uri, bool $secure = true): string
+    private static function url(string $uri): string
     {
-        return 'http'.($secure ? 's' : '')."://{$uri}";
+        return 'http'."://{$uri}";
     }
 }
