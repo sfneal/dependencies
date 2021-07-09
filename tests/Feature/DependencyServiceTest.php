@@ -2,8 +2,6 @@
 
 namespace Sfneal\Dependencies\Tests\Feature;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Tests\TestCase;
 use Sfneal\Dependencies\Utils\DependenciesService;
