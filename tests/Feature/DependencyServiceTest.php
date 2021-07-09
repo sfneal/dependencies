@@ -2,10 +2,11 @@
 
 namespace Sfneal\Dependencies\Tests\Feature;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use Sfneal\Dependencies\DependenciesService;
+use Illuminate\Support\Facades\Http;
+use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
+use Sfneal\Dependencies\Utils\DependencySvg;
+use Sfneal\Dependencies\Utils\DependencyUrl;
 
 class DependencyServiceTest extends TestCase
 {
@@ -13,102 +14,108 @@ class DependencyServiceTest extends TestCase
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function github_url(string $package)
     {
-        $url = (new DependenciesService($package))->gitHub();
-        $response = (new Client())->request('get', $url);
+        $generator = (new DependenciesService($package))->gitHub();
+        $url = $generator->url();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github.com', $url);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->ok());
     }
 
     /**
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function travis_url(string $package)
     {
-        $url = (new DependenciesService($package))->travis();
-        $response = (new Client())->request('get', $url);
+        $generator = (new DependenciesService($package))->travis();
+        $url = $generator->url();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('travis-ci.com', $url);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->ok());
     }
 
     /**
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function version_url(string $package)
     {
-        $url = (new DependenciesService($package))->version();
-        $response = (new Client())->request('get', $url);
+        $generator = (new DependenciesService($package))->version();
+        $url = $generator->url();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('packagist.org/packages', $url);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($response->ok());
     }
 
     /**
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function travis_svg(string $package)
     {
-        $url = (new DependenciesService($package))->travis(true);
-        $response = (new Client())->request('get', $url);
-        $contents = $response->getBody()->getContents();
+        $generator = (new DependenciesService($package))->travis();
+        $url = $generator->svg();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('travis-ci.com', $url);
         $this->assertStringContainsString('.svg?branch=master', $url);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertStringContainsString('build', $contents);
+        $this->assertTrue($response->ok());
+        $this->assertStringContainsString('build', $response->body());
     }
 
     /**
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function version_svg(string $package)
     {
-        $url = (new DependenciesService($package))->version(true);
-        $response = (new Client())->request('get', $url);
-        $contents = $response->getBody()->getContents();
+        $generator = (new DependenciesService($package))->version();
+        $url = $generator->svg();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('img.shields.io/packagist/v', $url);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertStringContainsString('<title>packagist: v', $contents);
+        $this->assertTrue($response->ok());
+        $this->assertStringContainsString('<title>packagist: v', $response->body());
     }
 
     /**
      * @test
      * @dataProvider packageProvider
      * @param string $package
-     * @throws GuzzleException
      */
     public function last_commit_svg(string $package)
     {
-        $url = (new DependenciesService($package))->lastCommit();
-        $response = (new Client())->request('get', $url);
-        $contents = $response->getBody()->getContents();
+        $generator = (new DependenciesService($package))->lastCommit();
+        $url = $generator->svg();
+        $response = Http::get($url);
 
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('img.shields.io/github/last-commit', $url);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertStringContainsString('last commit', $contents);
+        $this->assertTrue($response->ok());
+        $this->assertStringContainsString('last commit', $response->body());
     }
 }
