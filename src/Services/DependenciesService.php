@@ -32,7 +32,7 @@ class DependenciesService
      */
     public function gitHub(): string
     {
-        return self::url("github.com/{$this->packageName()}");
+        return self::url("github.com/{$this->package}");
     }
 
     /**
@@ -43,7 +43,7 @@ class DependenciesService
      */
     public function travis(bool $svg = false): string
     {
-        return self::url("travis-ci.com/{$this->packageName()}".($svg ? '.svg?branch=master' : ''));
+        return self::url("travis-ci.com/{$this->package}".($svg ? '.svg?branch=master' : ''));
     }
 
     /**
@@ -64,7 +64,7 @@ class DependenciesService
      */
     public function lastCommit(): string
     {
-        return self::imgShieldUrl("/github/last-commit/{$this->packageName()}");
+        return self::imgShieldUrl("/github/last-commit/{$this->package}");
     }
 
     /**
@@ -95,20 +95,6 @@ class DependenciesService
         } else {
             return self::url("hub.docker.com/r/{$this->package}");
         }
-    }
-
-    /**
-     * Retrieve the correct name for a package.
-     *
-     * @return string
-     */
-    private function packageName(): string
-    {
-        if ($this->type == 'docker') {
-            return str_replace('stephenneal', 'sfneal', $this->package);
-        }
-
-        return $this->package;
     }
 
     /**
