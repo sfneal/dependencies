@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Utils;
-
 
 class DependencySvg extends DependencyUrl
 {
