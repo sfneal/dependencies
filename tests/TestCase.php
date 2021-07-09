@@ -32,6 +32,8 @@ abstract class TestCase extends OrchestraTestCase
             ['sfneal/actions'],
             ['sfneal/aws-s3-helpers'],
             ['sfneal/laravel-helpers'],
+            ['laravel/framework'],
+            ['spatie/laravel-view-models'],
         ];
     }
 }
