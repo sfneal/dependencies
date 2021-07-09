@@ -4,8 +4,8 @@ namespace Sfneal\Dependencies\Tests\Feature;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Sfneal\Dependencies\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
+use Sfneal\Dependencies\Utils\DependenciesService;
 
 class DependencyServiceTest extends TestCase
 {

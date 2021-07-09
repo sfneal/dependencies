@@ -1,6 +1,6 @@
 <?php
 
-namespace Sfneal\Dependencies;
+namespace Sfneal\Dependencies\Utils;
 
 class DependenciesService
 {
