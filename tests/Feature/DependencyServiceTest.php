@@ -19,7 +19,7 @@ class DependencyServiceTest extends TestCase
      */
     public function travis_svg(string $package)
     {
-        $this->assertGithubSvg($package, (new DependenciesService($package))->travis());
+        $this->assertTravisSvg($package, (new DependenciesService($package))->travis());
     }
 
     /**

@@ -14,7 +14,7 @@ trait SvgAssertions
      * @param string $package
      * @param DependencySvg $generator
      */
-    public function assertGithubSvg(string $package, DependencySvg $generator)
+    public function assertTravisSvg(string $package, DependencySvg $generator)
     {
         $url = $generator->svg();
         $response = Http::get($url);
