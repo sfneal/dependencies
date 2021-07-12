@@ -27,7 +27,7 @@ class DependenciesRepository
     }
 
     /**
-     * Retrieve a Collection of Dependencies with GitHub, Packagist verison & Travis CI build status URLs.
+     * Retrieve a Collection of Dependencies with GitHub, Packagist version & Travis CI build status URLs.
      *
      * @return Collection
      */
