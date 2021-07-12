@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Tests\Traits;
-
 
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Utils\DependencySvg;
