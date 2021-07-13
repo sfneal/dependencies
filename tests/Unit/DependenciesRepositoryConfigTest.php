@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Tests\Unit;
-
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
