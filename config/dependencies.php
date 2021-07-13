@@ -38,5 +38,5 @@ return [
     | Supported: path to composer.json file
     |
     */
-    'composer_json_path' => base_path('composer.json')
+    'composer_json_path' => base_path('composer.json'),
 ];

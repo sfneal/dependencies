@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Utils;
-
 
 class ComposerDependencies
 {
@@ -22,7 +20,7 @@ class ComposerDependencies
     }
 
     /**
-     * Retrieve an array of composer package dependencies from the composer.json
+     * Retrieve an array of composer package dependencies from the composer.json.
      *
      * @return array
      */
