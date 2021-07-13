@@ -27,4 +27,4 @@ All notable changes to `dependencies` will be documented in this file
 
 ## 0.2.2 - 2021-07-13
 - add use of `SvgAssertions` & `UrlAssertions` traits in `TestCase`
-- start making DependenciesRepository unit tests
+- start making `DependenciesRepository` unit tests
