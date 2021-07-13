@@ -5,9 +5,14 @@ namespace Sfneal\Dependencies\Tests;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
+use Sfneal\Dependencies\Tests\Traits\SvgAssertions;
+use Sfneal\Dependencies\Tests\Traits\UrlAssertions;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    use SvgAssertions;
+    use UrlAssertions;
+
     /**
      * Register package service providers.
      *

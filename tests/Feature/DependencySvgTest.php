@@ -3,13 +3,10 @@
 namespace Sfneal\Dependencies\Tests\Feature;
 
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Tests\Traits\SvgAssertions;
 use Sfneal\Dependencies\Utils\DependencySvg;
 
 class DependencySvgTest extends TestCase
 {
-    use SvgAssertions;
-
     /**
      * @test
      * @dataProvider packageProvider

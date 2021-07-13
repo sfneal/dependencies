@@ -4,14 +4,9 @@ namespace Sfneal\Dependencies\Tests\Feature;
 
 use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Tests\Traits\SvgAssertions;
-use Sfneal\Dependencies\Tests\Traits\UrlAssertions;
 
 class DependencyServiceTest extends TestCase
 {
-    use SvgAssertions;
-    use UrlAssertions;
-
     /**
      * @test
      * @dataProvider packageProvider

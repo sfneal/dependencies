@@ -9,6 +9,7 @@ use Sfneal\Helpers\Strings\StringHelpers;
 class DependenciesRepository
 {
     // todo: add caching support?
+    // todo: add ability to pass an array of dependencies? (array, type) params
 
     /**
      * @var bool Use composer dependencies instead of list of dependencies from the config
@@ -26,7 +27,7 @@ class DependenciesRepository
     }
 
     /**
-     * Retrieve a Collection of Dependencies with GitHub, Packagist verison & Travis CI build status URLs.
+     * Retrieve a Collection of Dependencies with GitHub, Packagist version & Travis CI build status URLs.
      *
      * @return Collection
      */
