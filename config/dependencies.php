@@ -25,4 +25,18 @@ return [
             //
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | composer.json path
+    |--------------------------------------------------------------------------
+    |
+    | Specify the path to the composer.json file that contains your
+    | application's dependencies.  Default is the composer.json in the project
+    | root.
+    |
+    | Supported: path to composer.json file
+    |
+    */
+    'composer_json_path' => base_path('composer.json'),
 ];

@@ -14,6 +14,7 @@ class ConfigTest extends TestCase
         $this->assertNotNull($config);
         $this->assertIsArray($config);
         $this->assertArrayHasKey('dependencies', $config);
+        $this->assertArrayHasKey('composer_json_path', $config);
     }
 
     /** @test */
@@ -28,5 +29,13 @@ class ConfigTest extends TestCase
     {
         $this->assertArrayHasKey('docker', config('dependencies.dependencies'));
         $this->assertIsArray(config('dependencies.dependencies.docker'));
+    }
+
+    /** @test */
+    public function composer_json_path()
+    {
+        $this->assertArrayHasKey('composer_json_path', config('dependencies'));
+        $this->assertIsString(config('dependencies.composer_json_path'));
+        $this->assertEquals(base_path('composer.json'), config('dependencies.composer_json_path'));
     }
 }

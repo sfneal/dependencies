@@ -4,6 +4,7 @@ namespace Sfneal\Dependencies;
 
 use Illuminate\Support\Collection;
 use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Utils\ComposerDependencies;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository
@@ -17,13 +18,20 @@ class DependenciesRepository
     private $allComposerDependencies;
 
     /**
+     * @var bool Include composer dev dependencies
+     */
+    private $devComposerDependencies;
+
+    /**
      * DependenciesRepository constructor.
      *
      * @param bool $allComposerDependencies
+     * @param bool $devComposerDependencies
      */
-    public function __construct(bool $allComposerDependencies = false)
+    public function __construct(bool $allComposerDependencies = false, bool $devComposerDependencies = false)
     {
         $this->allComposerDependencies = $allComposerDependencies;
+        $this->devComposerDependencies = $devComposerDependencies;
     }
 
     /**
@@ -49,7 +57,7 @@ class DependenciesRepository
             return self::getComposerRequirements();
         }
 
-        return self::getConfigDependencies() ?? self::getComposerRequirements();
+        return self::getConfigDependencies() ?? $this->getComposerRequirements();
     }
 
     /**
@@ -57,7 +65,7 @@ class DependenciesRepository
      *
      * @return Collection
      */
-    private function getConfigDependencies(): Collection
+    private static function getConfigDependencies(): Collection
     {
         // Convert array of dependency type keys & array of dependency values
         // to a flat array of dependency keys and type values
@@ -75,12 +83,11 @@ class DependenciesRepository
      *
      * @return Collection
      */
-    private static function getComposerRequirements(): Collection
+    private function getComposerRequirements(): Collection
     {
         // Retrieve 'require' array from composer.json with only package names (the keys
-        return collect(array_keys(
-                json_decode(file_get_contents(base_path('composer.json')), true)['require'])
-            )
+        // todo: remove keys?
+        return collect(array_keys((new ComposerDependencies($this->devComposerDependencies))->get()))
 
             // Remove 'php' & php extensions from the packages array
             ->filter(function (string $dep) {
