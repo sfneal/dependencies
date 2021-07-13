@@ -28,3 +28,8 @@ All notable changes to `dependencies` will be documented in this file
 ## 0.2.2 - 2021-07-13
 - add use of `SvgAssertions` & `UrlAssertions` traits in `TestCase`
 - start making `DependenciesRepository` unit tests
+
+
+## 0.3.0 - 2021-07-13
+- make `ComposerDependencies` utility for retrieving package dependencies from composer.json files
+- add 'composer_json_path' key to config for specifying the composer.json path
