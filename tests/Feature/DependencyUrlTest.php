@@ -3,13 +3,10 @@
 namespace Sfneal\Dependencies\Tests\Feature;
 
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Tests\Traits\UrlAssertions;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 
 class DependencyUrlTest extends TestCase
 {
-    use UrlAssertions;
-
     /**
      * @test
      * @dataProvider packageProvider
