@@ -35,4 +35,12 @@ class DependenciesRepositoryConfigTest extends TestCase
 
         $this->assertDependencyServiceCollection($collection, 5);
     }
+
+    /** @test */
+    public function get_dependency_collection_from_array()
+    {
+        $collection = Dependencies::fromArray(config('dependencies.dependencies'))->get();
+
+        $this->assertDependencyServiceCollection($collection, 5);
+    }
 }
