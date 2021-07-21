@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies;
-
 
 use Sfneal\Dependencies\Services\DependenciesRepository;
 
@@ -40,4 +38,3 @@ class Dependencies
         return (new DependenciesRepository())->fromArray($dependencies);
     }
 }
-
