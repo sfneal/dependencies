@@ -4,7 +4,7 @@ namespace Sfneal\Dependencies\Tests\Unit;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use Sfneal\Dependencies\DependenciesRepository;
+use Sfneal\Dependencies\Dependencies;
 use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
 
@@ -24,8 +24,7 @@ class DependenciesRepositoryComposerTest extends TestCase
     /** @test */
     public function get_dependency_collection()
     {
-        $repo = new DependenciesRepository(true);
-        $collection = $repo->get();
+        $collection = Dependencies::fromComposer()->get();
 
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame(2, $collection->count());

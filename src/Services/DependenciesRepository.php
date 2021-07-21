@@ -1,9 +1,8 @@
 <?php
 
-namespace Sfneal\Dependencies;
+namespace Sfneal\Dependencies\Services;
 
 use Illuminate\Support\Collection;
-use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Utils\ComposerDependencies;
 use Sfneal\Helpers\Strings\StringHelpers;
 
@@ -13,9 +12,14 @@ class DependenciesRepository
     // todo: add ability to pass an array of dependencies? (array, type) params
 
     /**
-     * @var bool Use composer dependencies instead of list of dependencies from the config
+     * @var array Array of composer or Docker dependencies
      */
-    private $allComposerDependencies;
+    private $dependencies;
+
+    /**
+     * @var bool Use composer.json dependencies as source
+     */
+    private $composerDependencies;
 
     /**
      * @var bool Include composer dev dependencies
@@ -23,15 +27,44 @@ class DependenciesRepository
     private $devComposerDependencies;
 
     /**
-     * DependenciesRepository constructor.
+     * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
      *
-     * @param bool $allComposerDependencies
      * @param bool $devComposerDependencies
+     * @return $this
      */
-    public function __construct(bool $allComposerDependencies = false, bool $devComposerDependencies = false)
+    public function fromComposer(bool $devComposerDependencies = false): self
     {
-        $this->allComposerDependencies = $allComposerDependencies;
+        $this->composerDependencies = true;
         $this->devComposerDependencies = $devComposerDependencies;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve dependencies from the config file.
+     *
+     * @return $this
+     */
+    public function fromConfig(): self
+    {
+        $this->composerDependencies = false;
+        $this->dependencies = config('dependencies.dependencies');
+
+        return $this;
+    }
+
+    /**
+     * Retrieve dependencies from an array.
+     *
+     * @param array $dependencies
+     * @return $this
+     */
+    public function fromArray(array $dependencies): self
+    {
+        $this->composerDependencies = false;
+        $this->dependencies = $dependencies;
+
+        return $this;
     }
 
     /**
@@ -53,11 +86,11 @@ class DependenciesRepository
      */
     private function getDependencies(): Collection
     {
-        if ($this->allComposerDependencies) {
-            return self::getComposerRequirements();
+        if ($this->composerDependencies) {
+            return $this->getComposerRequirements();
         }
 
-        return self::getConfigDependencies() ?? $this->getComposerRequirements();
+        return $this->getArrayDependencies() ?? $this->getComposerRequirements();
     }
 
     /**
@@ -65,11 +98,11 @@ class DependenciesRepository
      *
      * @return Collection
      */
-    private static function getConfigDependencies(): Collection
+    private function getArrayDependencies(): Collection
     {
         // Convert array of dependency type keys & array of dependency values
         // to a flat array of dependency keys and type values
-        return collect(config('dependencies.dependencies'))
+        return collect($this->dependencies)
             ->mapWithKeys(function ($packages, $type) {
                 return collect($packages)
                     ->mapWithKeys(function (string $package) use ($type) {
