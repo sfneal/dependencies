@@ -33,3 +33,9 @@ All notable changes to `dependencies` will be documented in this file
 ## 0.3.0 - 2021-07-13
 - make `ComposerDependencies` utility for retrieving package dependencies from composer.json files
 - add 'composer_json_path' key to config for specifying the composer.json path
+
+
+## 0.4.0 - 2021-07-21
+- refactor retrieving dependencies syntax from `(new DependenciesRepository())->get()` to `Dependencies::fromConfig()->get()`
+- make `Dependencies` with static methods for constructing dependency collections 
+- refactor use of `DependenciesRepository` to allow for passing arrays of dependencies
