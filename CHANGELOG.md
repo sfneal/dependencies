@@ -39,3 +39,8 @@ All notable changes to `dependencies` will be documented in this file
 - refactor retrieving dependencies syntax from `(new DependenciesRepository())->get()` to `Dependencies::fromConfig()->get()`
 - make `Dependencies` with static methods for constructing dependency collections 
 - refactor use of `DependenciesRepository` to allow for passing arrays of dependencies
+
+
+## 0.5.0 - 2021-07-21
+- add 'github_alias' config array for setting alias github account names
+- make `DependenciesRepositoryArrayTest` for testing setting dependencies from an array
