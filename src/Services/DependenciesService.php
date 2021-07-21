@@ -41,11 +41,11 @@ class DependenciesService
      */
     private function getGitHubPackageName(): string
     {
-        list($user, $package) = explode('/', $this->package);
+        [$user, $package] = explode('/', $this->package);
 
         // Replace GitHub username with alias if one is provided
         if (array_key_exists($user, config('dependencies.github_alias'))) {
-            return config("dependencies.github_alias")[$user]."/{$package}";
+            return config('dependencies.github_alias')[$user]."/{$package}";
         }
 
         return $this->package;

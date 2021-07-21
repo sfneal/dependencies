@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Dependencies\Tests\Traits;
-
 
 use Illuminate\Support\Collection;
 use Sfneal\Dependencies\Services\DependenciesService;
