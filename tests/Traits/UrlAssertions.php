@@ -4,6 +4,7 @@ namespace Sfneal\Dependencies\Tests\Traits;
 
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Helpers\Strings\StringHelpers;
 
 trait UrlAssertions
 {
@@ -47,8 +48,11 @@ trait UrlAssertions
         $response = Http::get($url);
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertStringContainsString($package, $url);
-        $this->assertStringContainsString('packagist.org/packages', $url);
         $this->assertTrue($response->ok());
+        $this->assertStringContainsString($package, $url);
+        $inString = new StringHelpers($url);
+        $this->assertTrue(
+            $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/')
+        );
     }
 }

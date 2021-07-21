@@ -21,11 +21,11 @@ trait DependencyServiceAssertions
         $this->assertSame($expected, $collection->count());
 
         $collection->each(function (DependenciesService $service) {
-            $this->assertTravisSvg($service->package, $service->travis());
+            $this->assertTravisSvg($service->packageGitubName, $service->travis());
             $this->assertVersionSvg($service->package, $service->version());
-            $this->assertLastCommitSvg($service->package, $service->lastCommit());
-            $this->assertGithubUrl($service->package, $service->gitHub());
-            $this->assertTravisUrl($service->package, $service->travis());
+            $this->assertLastCommitSvg($service->packageGitubName, $service->lastCommit());
+            $this->assertGithubUrl($service->packageGitubName, $service->gitHub());
+            $this->assertTravisUrl($service->packageGitubName, $service->travis());
             $this->assertVersionUrl($service->package, $service->version());
         });
     }

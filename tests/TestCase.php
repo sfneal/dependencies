@@ -43,4 +43,15 @@ abstract class TestCase extends OrchestraTestCase
             ['spatie/laravel-view-models'],
         ];
     }
+
+    /**
+     * Define environment setup.
+     *
+     * @param Application $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('dependencies.github_alias', ['stephenneal' => 'sfneal']);
+    }
 }

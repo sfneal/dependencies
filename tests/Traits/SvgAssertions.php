@@ -5,6 +5,7 @@ namespace Sfneal\Dependencies\Tests\Traits;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Helpers\Strings\StringHelpers;
 
 trait SvgAssertions
 {
@@ -38,9 +39,13 @@ trait SvgAssertions
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
-        $this->assertStringContainsString('img.shields.io/packagist/v', $url);
+        $this->assertStringContainsString('img.shields.io/', $url);
         $this->assertTrue($response->ok());
-        $this->assertStringContainsString('<title>packagist: v', $response->body());
+
+        $inString = (new StringHelpers($response->body()));
+        $this->assertTrue(
+            $inString->inString('<title>packagist: v') || $inString->inString('version')
+        );
     }
 
     /**
