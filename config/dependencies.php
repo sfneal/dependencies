@@ -39,4 +39,19 @@ return [
     |
     */
     'composer_json_path' => base_path('composer.json'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | GitHub account alias's
+    |--------------------------------------------------------------------------
+    |
+    | Specify an array of Docker Hub accounts that don't match GitHub account
+    | names.  Used to correct GitHub & Travis CI urls
+    |
+    | Supported: ['dockerUsername' => 'githubUsername]
+    |
+    */
+    'github_alias' => [
+        //
+    ],
 ];

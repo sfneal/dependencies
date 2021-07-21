@@ -18,6 +18,11 @@ class DependenciesService
     public $type;
 
     /**
+     * @var string Name of the GitHub package.
+     */
+    public $packageGitubName;
+
+    /**
      * DependenciesService constructor.
      * @param string $package
      * @param string $type
@@ -25,7 +30,25 @@ class DependenciesService
     public function __construct(string $package, string $type = 'composer')
     {
         $this->package = $package;
+        $this->packageGitubName = $this->getGitHubPackageName();
         $this->type = $type;
+    }
+
+    /**
+     * Retrieve the GitHub package name with alias replacement.
+     *
+     * @return string
+     */
+    private function getGitHubPackageName(): string
+    {
+        [$user, $package] = explode('/', $this->package);
+
+        // Replace GitHub username with alias if one is provided
+        if (array_key_exists($user, config('dependencies.github_alias'))) {
+            return config('dependencies.github_alias')[$user]."/{$package}";
+        }
+
+        return $this->package;
     }
 
     /**
@@ -35,7 +58,7 @@ class DependenciesService
      */
     public function gitHub(): DependencyUrl
     {
-        return new DependencyUrl("github.com/{$this->package}");
+        return new DependencyUrl("github.com/{$this->packageGitubName}");
     }
 
     /**
@@ -46,8 +69,8 @@ class DependenciesService
     public function travis(): DependencySvg
     {
         return new DependencySvg(
-            "travis-ci.com/{$this->package}",
-            "travis-ci.com/{$this->package}.svg?branch=master",
+            "travis-ci.com/{$this->packageGitubName}",
+            "travis-ci.com/{$this->packageGitubName}.svg?branch=master",
             ''
         );
     }
@@ -70,8 +93,8 @@ class DependenciesService
     public function lastCommit(): DependencySvg
     {
         return new DependencySvg(
-            "github.com/{$this->package}",
-            "github/last-commit/{$this->package}"
+            "github.com/{$this->packageGitubName}",
+            "github/last-commit/{$this->packageGitubName}"
         );
     }
 
