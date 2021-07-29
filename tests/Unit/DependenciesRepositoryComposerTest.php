@@ -24,6 +24,6 @@ class DependenciesRepositoryComposerTest extends TestCase
     {
         $collection = Dependencies::fromComposer()->get();
 
-        $this->assertDependencyServiceCollection($collection, 2);
+        $this->assertDependencyServiceCollection($collection, $this->expectedPackagesCount());
     }
 }
