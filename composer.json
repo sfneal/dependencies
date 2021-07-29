@@ -26,7 +26,8 @@
     "require-dev": {
         "phpunit/phpunit": ">=9.5.4",
         "orchestra/testbench": ">=6.7.1",
-        "scrutinizer/ocular": "^1.8"
+        "scrutinizer/ocular": "^1.8",
+        "sfneal/array-helpers": "^1.3"
     },
     "extra": {
         "laravel": {

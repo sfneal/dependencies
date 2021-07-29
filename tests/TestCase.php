@@ -9,10 +9,16 @@ use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Helpers\Arrays\ArrayHelpers;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    /**
+     * @var int Number of packages to be return from the packageProvider
+     */
+    protected $numberOfPackages = 3;
+
     /**
      * Register package service providers.
      *
@@ -33,11 +39,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     public function packageProvider(): array
     {
-        return [
+        return (new ArrayHelpers([
             ['sfneal/laravel-helpers'],
             ['symfony/console'],
             ['spatie/laravel-view-models'],
-        ];
+            ['webmozart/assert'],
+            ['psr/http-message'],
+            ['sebastian/global-state'],
+        ]))->random(3);
     }
 
     /**
