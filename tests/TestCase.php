@@ -10,7 +10,6 @@ use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
-use Sfneal\Helpers\Arrays\ArrayHelpers;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -40,7 +39,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     public function packageProvider(): array
     {
-        return (new ArrayHelpers([
+        $packages = [
             ['sfneal/actions'],
             ['sfneal/controllers'],
             ['sfneal/laravel-helpers'],
@@ -53,9 +52,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['symfony/console'],
             ['spatie/laravel-view-models'],
             ['webmozart/assert'],
-            ['psr/http-message'],
-            ['sebastian/global-state'],
-        ]))->random(3);
+            ['spatie/laravel-settings'],
+            ['illuminate/database'],
+            ['laravel/framework'],
+        ];
+        shuffle($packages);
+        return $packages;
     }
 
     /**
@@ -141,7 +143,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
             $inString = (new StringHelpers($response->body()));
             $this->assertTrue(
-                $inString->inString('<title>packagist: v') || $inString->inString('version')
+                $inString->inString('<title>packagist: v') || $inString->inString('version'),
+                "The response body provided by {$url} doesn't contain 'packagist' or 'version'"
             );
         }
     }
@@ -216,7 +219,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertTrue(
-            $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/')
+            $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/'),
+            "The response body provided by {$url} doesn't contain 'packagist.org' or 'hub.docker.com'"
         );
 
         if ($sendRequest) {
