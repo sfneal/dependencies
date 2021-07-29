@@ -55,5 +55,5 @@ All notable changes to `dependencies` will be documented in this file
 
 
 ## 0.6.1 - 2021-07-29
-- add sfneal/array-helpers to composer dev requirements
-- add use of `ArrayHelpers::random()` for retrieving a random array of packages to test
+- optimize repo & service tests by removing redundant http requests & assertions
+- cut packages with mismatching GitHub urls from `TestCase::packageProvider()`
