@@ -4,12 +4,15 @@ namespace Sfneal\Dependencies\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Sfneal\Caching\Traits\IsCacheable;
 use Sfneal\Dependencies\Utils\ComposerDependencies;
 use Sfneal\Helpers\Laravel\LaravelHelpers;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository
 {
+    use IsCacheable;
+
     /**
      * @var array Array of composer or Docker dependencies
      */
@@ -79,7 +82,7 @@ class DependenciesRepository
     public function get(): Collection
     {
         return Cache::remember(
-            config('dependencies.cache.prefix').LaravelHelpers::serializeHash($this->getDependencies()->toArray()),
+            config('dependencies.cache.prefix').$this->cacheKey(),
             config('dependencies.cache.ttl'),
             function () {
                 return $this->getDependencies()->map(function (string $type, string $dependency) {
@@ -147,5 +150,15 @@ class DependenciesRepository
             ->mapWithKeys(function (string $dep) {
                 return [$dep => 'composer'];
             });
+    }
+
+    /**
+     * Retrieve the cache key.
+     *
+     * @return string
+     */
+    public function cacheKey(): string
+    {
+        return LaravelHelpers::serializeHash($this->getDependencies()->toArray());
     }
 }
