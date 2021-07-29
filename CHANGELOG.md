@@ -44,3 +44,10 @@ All notable changes to `dependencies` will be documented in this file
 ## 0.5.0 - 2021-07-21
 - add 'github_alias' config array for setting alias github account names
 - make `DependenciesRepositoryArrayTest` for testing setting dependencies from an array
+
+
+## 0.6.0 - 2021-07-29
+- add support for caching `DependencyRepository` collections
+- add 'cache.ttl' & 'cache.prefix' config keys
+- add composer requiring of sfneal/laravel-helpers for concatenating cache keys & sfneal/caching for setting/retrieving
+- add use of sfneal/caching `IsCacheable` trait to `DependencyRepository` for setting the cache key
