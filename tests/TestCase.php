@@ -31,7 +31,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @return array
      */
-    protected function packageProvider(): array
+    public function packageProvider(): array
     {
         return [
             ['sfneal/laravel-helpers'],
@@ -45,7 +45,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @return int
      */
-    protected function expectedPackagesCount(): int
+    public function expectedPackagesCount(): int
     {
         return count($this->packageProvider());
     }
