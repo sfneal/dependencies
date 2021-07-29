@@ -5,6 +5,7 @@ namespace Sfneal\Dependencies\Tests\Unit;
 use Illuminate\Foundation\Application;
 use Sfneal\Dependencies\Dependencies;
 use Sfneal\Dependencies\Tests\TestCase;
+use Sfneal\Dependencies\Utils\ComposerDependencies;
 
 class DependenciesRepositoryComposerTest extends TestCase
 {
@@ -24,6 +25,6 @@ class DependenciesRepositoryComposerTest extends TestCase
     {
         $collection = Dependencies::fromComposer()->get();
 
-        $this->assertDependencyServiceCollection($collection, 2);
+        $this->assertDependencyServiceCollection($collection, (new ComposerDependencies())->get()->count());
     }
 }

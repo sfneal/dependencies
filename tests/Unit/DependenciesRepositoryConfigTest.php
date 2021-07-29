@@ -18,29 +18,27 @@ class DependenciesRepositoryConfigTest extends TestCase
     {
         $app['config']->set(
             'dependencies.dependencies.composer',
-            [
-                'sfneal/actions',
-                'sfneal/aws-s3-helpers',
-                'sfneal/laravel-helpers',
-                'laravel/framework',
-                'spatie/laravel-view-models',
-            ]
+            collect($this->packageProvider())->flatten()->toArray()
         );
     }
 
     /** @test */
     public function get_dependency_collection_from_config()
     {
-        $collection = Dependencies::fromConfig()->get();
+        $dependencies = Dependencies::fromConfig();
 
-        $this->assertDependencyServiceCollection($collection, 5);
+        $this->assertFalse($dependencies->isCached());
+        $this->assertDependencyServiceCollection($dependencies->get(), $this->expectedPackagesCount());
+        $this->assertTrue($dependencies->isCached());
     }
 
     /** @test */
     public function get_dependency_collection_from_array()
     {
-        $collection = Dependencies::fromArray(config('dependencies.dependencies'))->get();
+        $dependencies = Dependencies::fromArray(config('dependencies.dependencies'));
 
-        $this->assertDependencyServiceCollection($collection, 5);
+        $this->assertFalse($dependencies->isCached());
+        $this->assertDependencyServiceCollection($dependencies->get(), $this->expectedPackagesCount());
+        $this->assertTrue($dependencies->isCached());
     }
 }

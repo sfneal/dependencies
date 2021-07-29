@@ -2,8 +2,13 @@
 
 namespace Sfneal\Dependencies\Utils;
 
+use Illuminate\Support\Collection;
+use Sfneal\Helpers\Strings\StringHelpers;
+
 class ComposerDependencies
 {
+    // todo: add tests
+
     /**
      * @var bool
      */
@@ -22,12 +27,26 @@ class ComposerDependencies
     /**
      * Retrieve an array of composer package dependencies from the composer.json.
      *
-     * @return array
+     * @return Collection
      */
-    public function get(): array
+    public function get(): Collection
     {
         // If development packages are included, merge require & require-dev
-        return $this->dev ? array_merge(self::require(), self::requireDev()) : self::require();
+        $dependencies = $this->dev ? array_merge(self::require(), self::requireDev()) : self::require();
+
+        // Retrieve 'require' array from composer.json with only package names (the keys
+        // todo: remove keys?
+        return collect(array_keys($dependencies))
+
+            // Remove 'php' & php extensions from the packages array
+            ->filter(function (string $dep) {
+                return $dep != 'php' && ! (new StringHelpers($dep))->inString('ext');
+            })
+
+            // Map each dependencies to have a 'composer' value
+            ->mapWithKeys(function (string $dep) {
+                return [$dep => 'composer'];
+            });
     }
 
     /**

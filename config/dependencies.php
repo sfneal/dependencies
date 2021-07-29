@@ -54,4 +54,17 @@ return [
     'github_alias' => [
         //
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Caching
+    |--------------------------------------------------------------------------
+    |
+    | Specify key prefixes & TTLs for caching `DependencyRepository` collections.
+    |
+    */
+    'cache' => [
+        'prefix' => 'dependencies:repository',
+        'ttl' => 3600,
+    ],
 ];

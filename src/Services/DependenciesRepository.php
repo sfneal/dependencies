@@ -3,13 +3,14 @@
 namespace Sfneal\Dependencies\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Sfneal\Caching\Traits\IsCacheable;
 use Sfneal\Dependencies\Utils\ComposerDependencies;
-use Sfneal\Helpers\Strings\StringHelpers;
+use Sfneal\Helpers\Laravel\LaravelHelpers;
 
 class DependenciesRepository
 {
-    // todo: add caching support?
-    // todo: add ability to pass an array of dependencies? (array, type) params
+    use IsCacheable;
 
     /**
      * @var array Array of composer or Docker dependencies
@@ -25,6 +26,11 @@ class DependenciesRepository
      * @var bool Include composer dev dependencies
      */
     private $devComposerDependencies;
+
+    /**
+     * @var Collection Collection of dependencies retrieved by the `getDependencies()` method
+     */
+    private $dependenciesCollection;
 
     /**
      * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
@@ -74,9 +80,15 @@ class DependenciesRepository
      */
     public function get(): Collection
     {
-        return $this->getDependencies()->map(function (string $type, string $dependency) {
-            return new DependenciesService($dependency, $type);
-        });
+        return Cache::remember(
+            $this->cacheKey(),
+            config('dependencies.cache.ttl'),
+            function () {
+                return $this->getDependencies()->map(function (string $type, string $dependency) {
+                    return new DependenciesService($dependency, $type);
+                });
+            }
+        );
     }
 
     /**
@@ -86,11 +98,15 @@ class DependenciesRepository
      */
     private function getDependencies(): Collection
     {
-        if ($this->composerDependencies) {
-            return $this->getComposerRequirements();
+        if (is_null($this->dependenciesCollection)) {
+            if ($this->composerDependencies) {
+                $this->dependenciesCollection = $this->getComposerRequirements();
+            } else {
+                $this->dependenciesCollection = $this->getArrayDependencies() ?? $this->getComposerRequirements();
+            }
         }
 
-        return $this->getArrayDependencies() ?? $this->getComposerRequirements();
+        return $this->dependenciesCollection;
     }
 
     /**
@@ -118,18 +134,16 @@ class DependenciesRepository
      */
     private function getComposerRequirements(): Collection
     {
-        // Retrieve 'require' array from composer.json with only package names (the keys
-        // todo: remove keys?
-        return collect(array_keys((new ComposerDependencies($this->devComposerDependencies))->get()))
+        return (new ComposerDependencies($this->devComposerDependencies))->get();
+    }
 
-            // Remove 'php' & php extensions from the packages array
-            ->filter(function (string $dep) {
-                return $dep != 'php' && ! (new StringHelpers($dep))->inString('ext');
-            })
-
-            // Map each dependencies to have a 'composer' value
-            ->mapWithKeys(function (string $dep) {
-                return [$dep => 'composer'];
-            });
+    /**
+     * Retrieve the cache key.
+     *
+     * @return string
+     */
+    public function cacheKey(): string
+    {
+        return config('dependencies.cache.prefix').':'.LaravelHelpers::serializeHash($this->getDependencies()->toArray());
     }
 }
