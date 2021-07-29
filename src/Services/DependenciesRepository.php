@@ -26,6 +26,11 @@ class DependenciesRepository
     private $devComposerDependencies;
 
     /**
+     * @var Collection Collection of dependencies retrieved by the `getDependencies()` method
+     */
+    private $dependenciesCollection;
+
+    /**
      * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
      *
      * @param bool $devComposerDependencies
@@ -73,13 +78,11 @@ class DependenciesRepository
      */
     public function get(): Collection
     {
-        $dependencies = $this->getDependencies();
-
         return Cache::remember(
-            config('dependencies.cache.prefix').LaravelHelpers::serializeHash($dependencies->toArray()),
+            config('dependencies.cache.prefix').LaravelHelpers::serializeHash($this->getDependencies()->toArray()),
             config('dependencies.cache.ttl'),
-            function () use ($dependencies) {
-                return $dependencies->map(function (string $type, string $dependency) {
+            function () {
+                return $this->getDependencies()->map(function (string $type, string $dependency) {
                     return new DependenciesService($dependency, $type);
                 });
             }
@@ -93,11 +96,17 @@ class DependenciesRepository
      */
     private function getDependencies(): Collection
     {
-        if ($this->composerDependencies) {
-            return $this->getComposerRequirements();
+        if (is_null($this->dependenciesCollection)) {
+            if ($this->composerDependencies) {
+                $this->dependenciesCollection = $this->getComposerRequirements();
+            }
+
+            else {
+                $this->dependenciesCollection = $this->getArrayDependencies() ?? $this->getComposerRequirements();
+            }
         }
 
-        return $this->getArrayDependencies() ?? $this->getComposerRequirements();
+        return $this->dependenciesCollection;
     }
 
     /**
