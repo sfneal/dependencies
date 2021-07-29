@@ -18,7 +18,7 @@ class DependenciesRepositoryArrayTest extends TestCase
                 'sfneal/string-helpers',
                 'sfneal/time-helpers',
                 'sfneal/tracking',
-            ]
+            ],
         ])->get();
 
         $this->assertDependencyServiceCollection($collection, 6);
@@ -33,7 +33,7 @@ class DependenciesRepositoryArrayTest extends TestCase
                 'stephenneal/nginx-flask',
                 'stephenneal/nginx-laravel',
                 'stephenneal/nginx-proxy',
-            ]
+            ],
         ])->get();
 
         $this->assertDependencyServiceCollection($collection, 4);
@@ -55,7 +55,7 @@ class DependenciesRepositoryArrayTest extends TestCase
                 'stephenneal/php-laravel',
                 'stephenneal/python-aws',
                 'stephenneal/python-flask',
-            ]
+            ],
         ])->get();
 
         $this->assertDependencyServiceCollection($collection, 9);
