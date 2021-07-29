@@ -18,13 +18,7 @@ class DependenciesRepositoryConfigTest extends TestCase
     {
         $app['config']->set(
             'dependencies.dependencies.composer',
-            [
-                'sfneal/actions',
-                'sfneal/aws-s3-helpers',
-                'sfneal/laravel-helpers',
-                'laravel/framework',
-                'spatie/laravel-view-models',
-            ]
+            collect($this->packageProvider())->flatten()->toArray()
         );
     }
 
