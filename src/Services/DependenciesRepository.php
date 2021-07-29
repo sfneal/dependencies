@@ -3,13 +3,13 @@
 namespace Sfneal\Dependencies\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Sfneal\Dependencies\Utils\ComposerDependencies;
+use Sfneal\Helpers\Laravel\LaravelHelpers;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository
 {
-    // todo: add caching support?
-
     /**
      * @var array Array of composer or Docker dependencies
      */
@@ -73,9 +73,17 @@ class DependenciesRepository
      */
     public function get(): Collection
     {
-        return $this->getDependencies()->map(function (string $type, string $dependency) {
-            return new DependenciesService($dependency, $type);
-        });
+        $dependencies = $this->getDependencies();
+
+        return Cache::remember(
+            config('dependencies.cache.prefix').LaravelHelpers::serializeHash($dependencies->toArray()),
+            config('dependencies.cache.ttl'),
+            function () use ($dependencies) {
+                return $dependencies->map(function (string $type, string $dependency) {
+                    return new DependenciesService($dependency, $type);
+                });
+            }
+        );
     }
 
     /**

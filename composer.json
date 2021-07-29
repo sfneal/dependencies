@@ -19,6 +19,7 @@
         "php": ">=7.4",
         "ext-json": "*",
         "laravel/framework": ">=8.40",
+        "sfneal/laravel-helpers": "^2.4",
         "sfneal/string-helpers": "^1.0"
     },
     "require-dev": {
