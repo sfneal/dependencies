@@ -82,7 +82,7 @@ class DependenciesRepository
     public function get(): Collection
     {
         return Cache::remember(
-            config('dependencies.cache.prefix').$this->cacheKey(),
+            $this->cacheKey(),
             config('dependencies.cache.ttl'),
             function () {
                 return $this->getDependencies()->map(function (string $type, string $dependency) {
@@ -159,6 +159,6 @@ class DependenciesRepository
      */
     public function cacheKey(): string
     {
-        return LaravelHelpers::serializeHash($this->getDependencies()->toArray());
+        return config('dependencies.cache.prefix').':'.LaravelHelpers::serializeHash($this->getDependencies()->toArray());
     }
 }

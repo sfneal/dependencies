@@ -31,16 +31,20 @@ class DependenciesRepositoryConfigTest extends TestCase
     /** @test */
     public function get_dependency_collection_from_config()
     {
-        $collection = Dependencies::fromConfig()->get();
+        $dependencies = Dependencies::fromConfig();
 
-        $this->assertDependencyServiceCollection($collection, 5);
+        $this->assertFalse($dependencies->isCached());
+        $this->assertDependencyServiceCollection($dependencies->get(), 5);
+        $this->assertTrue($dependencies->isCached());
     }
 
     /** @test */
     public function get_dependency_collection_from_array()
     {
-        $collection = Dependencies::fromArray(config('dependencies.dependencies'))->get();
+        $dependencies = Dependencies::fromArray(config('dependencies.dependencies'));
 
-        $this->assertDependencyServiceCollection($collection, 5);
+        $this->assertFalse($dependencies->isCached());
+        $this->assertDependencyServiceCollection($dependencies->get(), 5);
+        $this->assertTrue($dependencies->isCached());
     }
 }
