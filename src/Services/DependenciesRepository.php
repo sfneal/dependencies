@@ -9,7 +9,6 @@ use Sfneal\Helpers\Strings\StringHelpers;
 class DependenciesRepository
 {
     // todo: add caching support?
-    // todo: add ability to pass an array of dependencies? (array, type) params
 
     /**
      * @var array Array of composer or Docker dependencies
