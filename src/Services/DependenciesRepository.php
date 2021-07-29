@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Cache;
 use Sfneal\Caching\Traits\IsCacheable;
 use Sfneal\Dependencies\Utils\ComposerDependencies;
 use Sfneal\Helpers\Laravel\LaravelHelpers;
-use Sfneal\Helpers\Strings\StringHelpers;
 
 class DependenciesRepository
 {
@@ -135,19 +134,7 @@ class DependenciesRepository
      */
     private function getComposerRequirements(): Collection
     {
-        // Retrieve 'require' array from composer.json with only package names (the keys
-        // todo: remove keys?
-        return collect(array_keys((new ComposerDependencies($this->devComposerDependencies))->get()))
-
-            // Remove 'php' & php extensions from the packages array
-            ->filter(function (string $dep) {
-                return $dep != 'php' && ! (new StringHelpers($dep))->inString('ext');
-            })
-
-            // Map each dependencies to have a 'composer' value
-            ->mapWithKeys(function (string $dep) {
-                return [$dep => 'composer'];
-            });
+        return (new ComposerDependencies($this->devComposerDependencies))->get();
     }
 
     /**
