@@ -40,13 +40,15 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     public function packageProvider(): array
     {
         return (new ArrayHelpers([
+            ['sfneal/actions'],
+            ['sfneal/controllers'],
             ['sfneal/laravel-helpers'],
             ['symfony/console'],
             ['spatie/laravel-view-models'],
             ['webmozart/assert'],
             ['psr/http-message'],
             ['sebastian/global-state'],
-        ]))->random(3);
+        ]))->random(6);
     }
 
     /**
