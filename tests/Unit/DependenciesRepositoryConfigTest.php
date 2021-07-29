@@ -28,7 +28,7 @@ class DependenciesRepositoryConfigTest extends TestCase
         $dependencies = Dependencies::fromConfig();
 
         $this->assertFalse($dependencies->isCached());
-        $this->assertDependencyServiceCollection($dependencies->get(), 5);
+        $this->assertDependencyServiceCollection($dependencies->get(), $this->expectedPackagesCount());
         $this->assertTrue($dependencies->isCached());
     }
 
@@ -38,7 +38,7 @@ class DependenciesRepositoryConfigTest extends TestCase
         $dependencies = Dependencies::fromArray(config('dependencies.dependencies'));
 
         $this->assertFalse($dependencies->isCached());
-        $this->assertDependencyServiceCollection($dependencies->get(), 5);
+        $this->assertDependencyServiceCollection($dependencies->get(), $this->expectedPackagesCount());
         $this->assertTrue($dependencies->isCached());
     }
 }

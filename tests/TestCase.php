@@ -31,15 +31,23 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @return array
      */
-    public function packageProvider(): array
+    protected function packageProvider(): array
     {
         return [
-            ['sfneal/actions'],
-            ['sfneal/aws-s3-helpers'],
             ['sfneal/laravel-helpers'],
-            ['laravel/framework'],
+            ['symfony/console'],
             ['spatie/laravel-view-models'],
         ];
+    }
+
+    /**
+     * Retrieve the number of packages to expect.
+     *
+     * @return int
+     */
+    protected function expectedPackagesCount(): int
+    {
+        return count($this->packageProvider());
     }
 
     /**
