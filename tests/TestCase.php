@@ -57,6 +57,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['laravel/framework'],
         ];
         shuffle($packages);
+
         return $packages;
     }
 
@@ -229,7 +230,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * Send an HTTP request, validate its response is "Ok" & return the response
+     * Send an HTTP request, validate its response is "Ok" & return the response.
      *
      * @param string $url
      * @return Response
@@ -239,6 +240,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $response = Http::get($url);
 
         $this->assertTrue($response->ok(), "Error: code {$response->status()} from {$url}");
+
         return $response;
     }
 }
