@@ -4,6 +4,8 @@ namespace Sfneal\Dependencies\Utils;
 
 class ComposerDependencies
 {
+    // todo: add tests
+
     /**
      * @var bool
      */
