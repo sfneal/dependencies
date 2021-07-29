@@ -51,3 +51,4 @@ All notable changes to `dependencies` will be documented in this file
 - add 'cache.ttl' & 'cache.prefix' config keys
 - add composer requiring of sfneal/laravel-helpers for concatenating cache keys & sfneal/caching for setting/retrieving
 - add use of sfneal/caching `IsCacheable` trait to `DependencyRepository` for setting the cache key
+- optimize `ComposerDependencies` utilities functionality
