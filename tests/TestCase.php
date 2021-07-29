@@ -3,6 +3,7 @@
 namespace Sfneal\Dependencies\Tests;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
@@ -115,9 +116,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('.svg?branch=master', $url);
 
         if ($sendRequest) {
-            $response = Http::get($url);
+            $response = $this->sendRequest($url);
 
-            $this->assertTrue($response->ok());
             $this->assertStringContainsString('build', $response->body());
         }
     }
@@ -137,9 +137,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('img.shields.io/', $url);
 
         if ($sendRequest) {
-            $response = Http::get($url);
-
-            $this->assertTrue($response->ok());
+            $response = $this->sendRequest($url);
 
             $inString = (new StringHelpers($response->body()));
             $this->assertTrue(
@@ -163,9 +161,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('img.shields.io/github/last-commit', $url);
 
         if ($sendRequest) {
-            $response = Http::get($url);
+            $response = $this->sendRequest($url);
 
-            $this->assertTrue($response->ok());
             $this->assertStringContainsString('last commit', $response->body());
         }
     }
@@ -184,9 +181,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('github.com', $url);
 
         if ($sendRequest) {
-            $response = Http::get($url);
-
-            $this->assertTrue($response->ok());
+            $response = $this->sendRequest($url);
         }
     }
 
@@ -204,9 +199,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('travis-ci.com', $url);
 
         if ($sendRequest) {
-            $response = Http::get($url);
-
-            $this->assertTrue($response->ok());
+            $response = $this->sendRequest($url);
         }
     }
 
@@ -218,18 +211,30 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     public function assertVersionUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->url();
+        $inString = new StringHelpers($url);
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
+        $this->assertTrue(
+            $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/')
+        );
 
         if ($sendRequest) {
-            $response = Http::get($url);
-
-            $this->assertTrue($response->ok());
-            $inString = new StringHelpers($url);
-            $this->assertTrue(
-                $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/')
-            );
+            $response = $this->sendRequest($url);
         }
+    }
+
+    /**
+     * Send an HTTP request, validate its response is "Ok" & return the response
+     *
+     * @param string $url
+     * @return Response
+     */
+    private function sendRequest(string $url): Response
+    {
+        $response = Http::get($url);
+
+        $this->assertTrue($response->ok(), "Error: code {$response->status()} from {$url}");
+        return $response;
     }
 }
