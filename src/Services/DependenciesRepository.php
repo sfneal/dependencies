@@ -102,9 +102,7 @@ class DependenciesRepository
         if (is_null($this->dependenciesCollection)) {
             if ($this->composerDependencies) {
                 $this->dependenciesCollection = $this->getComposerRequirements();
-            }
-
-            else {
+            } else {
                 $this->dependenciesCollection = $this->getArrayDependencies() ?? $this->getComposerRequirements();
             }
         }
