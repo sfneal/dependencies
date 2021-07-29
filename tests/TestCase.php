@@ -43,12 +43,18 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['sfneal/actions'],
             ['sfneal/controllers'],
             ['sfneal/laravel-helpers'],
+            ['sfneal/queueables'],
+            ['sfneal/redis-helpers'],
+            ['sfneal/scopes'],
+            ['sfneal/string-helpers'],
+            ['sfneal/time-helpers'],
+            ['sfneal/tracking'],
             ['symfony/console'],
             ['spatie/laravel-view-models'],
             ['webmozart/assert'],
             ['psr/http-message'],
             ['sebastian/global-state'],
-        ]))->random(6);
+        ]))->random(3);
     }
 
     /**
@@ -134,7 +140,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $response = Http::get($url);
 
             $this->assertTrue($response->ok());
-            $this->assertStringContainsString('build', $response->body());
 
             $inString = (new StringHelpers($response->body()));
             $this->assertTrue(
