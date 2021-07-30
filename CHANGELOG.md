@@ -52,3 +52,8 @@ All notable changes to `dependencies` will be documented in this file
 - add composer requiring of sfneal/laravel-helpers for concatenating cache keys & sfneal/caching for setting/retrieving
 - add use of sfneal/caching `IsCacheable` trait to `DependencyRepository` for setting the cache key
 - optimize `ComposerDependencies` utilities functionality
+
+
+## 0.6.1 - 2021-07-29
+- optimize repo & service tests by removing redundant http requests & assertions
+- cut packages with mismatching GitHub urls from `TestCase::packageProvider()`
