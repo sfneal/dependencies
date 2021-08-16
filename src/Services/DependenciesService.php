@@ -8,7 +8,15 @@ use Sfneal\Dependencies\Utils\DependencyUrl;
 class DependenciesService
 {
     /**
-     * @var string Name of the sfneal composer dependency
+     * @var string[] Array of supported dependency types
+     */
+    private const DEPENDENCY_TYPES = [
+        'composer',
+        'docker',
+    ];
+
+    /**
+     * @var string Name of the dependency
      */
     public $package;
 
@@ -31,7 +39,7 @@ class DependenciesService
     {
         $this->package = $package;
         $this->packageGitubName = $this->getGitHubPackageName();
-        $this->type = $type;
+        $this->setType($type);
     }
 
     /**
@@ -49,6 +57,20 @@ class DependenciesService
         }
 
         return $this->package;
+    }
+
+    /**
+     * Set the dependencies type.
+     *
+     * @param string $type
+     */
+    private function setType(string $type): void
+    {
+        assert(
+            in_array($type, self::DEPENDENCY_TYPES),
+            "'{$type} is not a supported dependency type (supported: " . join(', ', self::DEPENDENCY_TYPES)
+        );
+        $this->type = $type;
     }
 
     /**
