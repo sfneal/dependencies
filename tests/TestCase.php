@@ -40,21 +40,21 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     public function packageProvider(): array
     {
         $packages = [
-            ['sfneal/actions'],
-            ['sfneal/controllers'],
-            ['sfneal/laravel-helpers'],
-            ['sfneal/queueables'],
-            ['sfneal/redis-helpers'],
-            ['sfneal/scopes'],
-            ['sfneal/string-helpers'],
-            ['sfneal/time-helpers'],
-            ['sfneal/tracking'],
-            ['symfony/console'],
-            ['spatie/laravel-view-models'],
-            ['webmozart/assert'],
-            ['spatie/laravel-settings'],
-            ['illuminate/database'],
-            ['laravel/framework'],
+            ['sfneal/actions', 'composer'],
+            ['sfneal/controllers', 'composer'],
+            ['sfneal/laravel-helpers', 'composer'],
+            ['sfneal/queueables', 'composer'],
+            ['sfneal/redis-helpers', 'composer'],
+            ['sfneal/scopes', 'composer'],
+            ['sfneal/string-helpers', 'composer'],
+            ['sfneal/time-helpers', 'composer'],
+            ['sfneal/tracking', 'composer'],
+            ['symfony/console', 'composer'],
+            ['spatie/laravel-view-models', 'composer'],
+            ['webmozart/assert', 'composer'],
+            ['spatie/laravel-settings', 'composer'],
+            ['illuminate/database', 'composer'],
+            ['laravel/framework', 'composer'],
         ];
         shuffle($packages);
 
