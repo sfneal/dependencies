@@ -69,7 +69,7 @@ class DependenciesService
     {
         assert(
             in_array($type, self::DEPENDENCY_TYPES),
-            "'{$type} is not a supported dependency type (supported: " . join(', ', self::DEPENDENCY_TYPES)
+            "'{$type} is not a supported dependency type (supported: ".join(', ', self::DEPENDENCY_TYPES)
         );
         $this->type = $type;
     }
