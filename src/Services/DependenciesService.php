@@ -38,25 +38,26 @@ class DependenciesService
     public function __construct(string $package, string $type = 'composer')
     {
         $this->package = $package;
-        $this->packageGitubName = $this->getGitHubPackageName();
+        $this->setGitHubPackageName($package);
         $this->setType($type);
     }
 
     /**
      * Retrieve the GitHub package name with alias replacement.
      *
-     * @return string
+     * @param string $fullPackageName
+     * @return void
      */
-    private function getGitHubPackageName(): string
+    private function setGitHubPackageName(string $fullPackageName): void
     {
-        [$user, $package] = explode('/', $this->package);
+        [$user, $package] = explode('/', $fullPackageName);
 
         // Replace GitHub username with alias if one is provided
         if (array_key_exists($user, config('dependencies.github_alias'))) {
-            return config('dependencies.github_alias')[$user]."/{$package}";
+            $this->packageGitubName = config('dependencies.github_alias')[$user]."/{$package}";
         }
 
-        return $this->package;
+        $this->packageGitubName = $fullPackageName;
     }
 
     /**
