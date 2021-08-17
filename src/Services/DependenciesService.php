@@ -94,9 +94,7 @@ class DependenciesService
         if ($this->type == 'python') {
             [$user, $package] = explode('/', $fullPackageName);
             $this->project = $package;
-        }
-
-        else {
+        } else {
             $this->project = $fullPackageName;
         }
     }
@@ -194,6 +192,7 @@ class DependenciesService
     private function pypi(): DependencySvg
     {
         $project = explode('/', $this->package)[1];
+
         return new DependencySvg(
             "pypi.org/project/{$project}",
             "pypi/v/{$project}.svg"
