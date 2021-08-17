@@ -43,18 +43,14 @@ class DependencySvgTest extends TestCase
             );
 
             $this->assertVersionSvg($repo, $svg);
-        }
-
-        elseif ($type == 'docker') {
+        } elseif ($type == 'docker') {
             $svg = new DependencySvg(
                 "hub.docker.com/r/{$repo}",
                 "docker/v/{$repo}.svg?sort=semver"
             );
 
             $this->assertVersionSvg($repo, $svg);
-        }
-
-        elseif ($type == 'python') {
+        } elseif ($type == 'python') {
             $svg = new DependencySvg(
                 "pypi.org/project/{$project}",
                 "pypi/v/{$project}.svg"
