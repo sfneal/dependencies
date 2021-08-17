@@ -13,6 +13,7 @@ class DependenciesService
     private const DEPENDENCY_TYPES = [
         'composer',
         'docker',
+        'python',
     ];
 
     /**
@@ -31,6 +32,11 @@ class DependenciesService
     public $githubRepo;
 
     /**
+     * @var string Name of the project without the GitHub user prefix (used for Python projects).
+     */
+    public $project;
+
+    /**
      * DependenciesService constructor.
      * @param string $package
      * @param string $type
@@ -40,6 +46,7 @@ class DependenciesService
         $this->package = $package;
         $this->setGitHubRepo($package);
         $this->setType($type);
+        $this->setProject($package);
     }
 
     /**
@@ -78,6 +85,23 @@ class DependenciesService
     }
 
     /**
+     * Set the dependency project name.
+     *
+     * @param string $fullPackageName
+     */
+    private function setProject(string $fullPackageName): void
+    {
+        if ($this->type == 'python') {
+            [$user, $package] = explode('/', $fullPackageName);
+            $this->project = $package;
+        }
+
+        else {
+            $this->project = $fullPackageName;
+        }
+    }
+
+    /**
      * Retrieve a GitHub URL for a dependency.
      *
      * @return DependencyUrl
@@ -108,7 +132,19 @@ class DependenciesService
      */
     public function version(): DependencySvg
     {
-        return $this->type == 'composer' ? $this->packagist() : $this->docker();
+        switch ($this->type) {
+            // Docker
+            case 'docker':
+                return $this->docker();
+
+            // Python
+            case 'python':
+                return $this->pypi();
+
+            // PHP
+            default:
+                return $this->packagist();
+        }
     }
 
     /**
@@ -147,6 +183,20 @@ class DependenciesService
         return new DependencySvg(
             "hub.docker.com/r/{$this->package}",
             "docker/v/{$this->package}.svg?sort=semver"
+        );
+    }
+
+    /**
+     * Retrieve the latest PyPi version a dependency.
+     *
+     * @return DependencySvg
+     */
+    private function pypi(): DependencySvg
+    {
+        $project = explode('/', $this->package)[1];
+        return new DependencySvg(
+            "pypi.org/project/{$project}",
+            "pypi/v/{$project}.svg"
         );
     }
 }

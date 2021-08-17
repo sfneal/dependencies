@@ -28,7 +28,7 @@ class DependenciesServiceTest extends TestCase
     public function version_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertVersionSvg($service->package, $service->version());
+        $this->assertVersionSvg($service->project, $service->version());
     }
 
     /**
@@ -76,6 +76,6 @@ class DependenciesServiceTest extends TestCase
     public function version_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertVersionUrl($service->package, $service->version());
+        $this->assertVersionUrl($service->project, $service->version());
     }
 }

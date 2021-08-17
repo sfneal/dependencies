@@ -64,3 +64,7 @@ All notable changes to `dependencies` will be documented in this file
 - refactor `DependenciesService::getGitHubPackageName()` method to `DependenciesService::setGitHubRepo()` & return void
 - fix issue with `DependenciesService::setGitHubRepo()` not using else statement for setting default value
 - add Docker repos to test dependencies
+
+ 
+## 0.7.1 - 2021-08-17
+- add support for 'python' dependency types that use `PyPi` distribution
