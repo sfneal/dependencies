@@ -19,6 +19,7 @@ class DependenciesRepositoryConfigTest extends TestCase
         $packages = collect($this->packageProvider())
             ->mapToGroups(function (array $params, $key) {
                 [$package, $type] = $params;
+
                 return [$type => $package];
             })
             ->toArray();
