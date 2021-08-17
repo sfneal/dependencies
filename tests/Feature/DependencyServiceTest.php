@@ -15,7 +15,8 @@ class DependencyServiceTest extends TestCase
      */
     public function travis_svg(string $package, string $type)
     {
-        $this->assertTravisSvg($package, (new DependenciesService($package, $type))->travis());
+        $service = (new DependenciesService($package, $type));
+        $this->assertTravisSvg($service->githubRepo, $service->travis());
     }
 
     /**
@@ -26,7 +27,8 @@ class DependencyServiceTest extends TestCase
      */
     public function version_svg(string $package, string $type)
     {
-        $this->assertVersionSvg($package, (new DependenciesService($package, $type))->version());
+        $service = (new DependenciesService($package, $type));
+        $this->assertVersionSvg($service->package, $service->version());
     }
 
     /**
@@ -37,7 +39,8 @@ class DependencyServiceTest extends TestCase
      */
     public function last_commit_svg(string $package, string $type)
     {
-        $this->assertLastCommitSvg($package, (new DependenciesService($package, $type))->lastCommit());
+        $service = (new DependenciesService($package, $type));
+        $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit());
     }
 
     /**
@@ -48,7 +51,8 @@ class DependencyServiceTest extends TestCase
      */
     public function github_url(string $package, string $type)
     {
-        $this->assertGithubUrl($package, (new DependenciesService($package, $type))->gitHub());
+        $service = (new DependenciesService($package, $type));
+        $this->assertGithubUrl($service->githubRepo, $service->gitHub());
     }
 
     /**
@@ -59,7 +63,8 @@ class DependencyServiceTest extends TestCase
      */
     public function travis_url(string $package, string $type)
     {
-        $this->assertTravisUrl($package, (new DependenciesService($package, $type))->travis());
+        $service = (new DependenciesService($package, $type));
+        $this->assertTravisUrl($service->githubRepo, $service->travis());
     }
 
     /**
@@ -70,6 +75,7 @@ class DependencyServiceTest extends TestCase
      */
     public function version_url(string $package, string $type)
     {
-        $this->assertVersionUrl($package, (new DependenciesService($package, $type))->version());
+        $service = (new DependenciesService($package, $type));
+        $this->assertVersionUrl($service->package, $service->version());
     }
 }
