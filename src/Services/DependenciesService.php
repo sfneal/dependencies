@@ -28,7 +28,7 @@ class DependenciesService
     /**
      * @var string Name of the GitHub package.
      */
-    public $packageGitubName;
+    public $githubRepo;
 
     /**
      * DependenciesService constructor.
@@ -38,7 +38,7 @@ class DependenciesService
     public function __construct(string $package, string $type = 'composer')
     {
         $this->package = $package;
-        $this->setGitHubPackageName($package);
+        $this->setGitHubRepo($package);
         $this->setType($type);
     }
 
@@ -48,16 +48,19 @@ class DependenciesService
      * @param string $fullPackageName
      * @return void
      */
-    private function setGitHubPackageName(string $fullPackageName): void
+    private function setGitHubRepo(string $fullPackageName): void
     {
         [$user, $package] = explode('/', $fullPackageName);
 
         // Replace GitHub username with alias if one is provided
         if (array_key_exists($user, config('dependencies.github_alias'))) {
-            $this->packageGitubName = config('dependencies.github_alias')[$user]."/{$package}";
+            $this->githubRepo = config('dependencies.github_alias')[$user]."/{$package}";
         }
 
-        $this->packageGitubName = $fullPackageName;
+        // Use default package name
+        else {
+            $this->githubRepo = $fullPackageName;
+        }
     }
 
     /**
@@ -81,7 +84,7 @@ class DependenciesService
      */
     public function gitHub(): DependencyUrl
     {
-        return new DependencyUrl("github.com/{$this->packageGitubName}");
+        return new DependencyUrl("github.com/{$this->githubRepo}");
     }
 
     /**
@@ -92,8 +95,8 @@ class DependenciesService
     public function travis(): DependencySvg
     {
         return new DependencySvg(
-            "travis-ci.com/{$this->packageGitubName}",
-            "travis-ci.com/{$this->packageGitubName}.svg?branch=master",
+            "travis-ci.com/{$this->githubRepo}",
+            "travis-ci.com/{$this->githubRepo}.svg?branch=master",
             ''
         );
     }
@@ -116,8 +119,8 @@ class DependenciesService
     public function lastCommit(): DependencySvg
     {
         return new DependencySvg(
-            "github.com/{$this->packageGitubName}",
-            "github/last-commit/{$this->packageGitubName}"
+            "github.com/{$this->githubRepo}",
+            "github/last-commit/{$this->githubRepo}"
         );
     }
 
