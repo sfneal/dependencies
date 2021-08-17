@@ -39,9 +39,7 @@ class DependencySvgTest extends TestCase
                 "packagist.org/packages/{$repo}",
                 "packagist/v/{$repo}.svg",
             );
-        }
-
-        elseif ($type == 'docker') {
+        } elseif ($type == 'docker') {
             $svg = new DependencySvg(
                 "hub.docker.com/r/{$repo}",
                 "docker/v/{$repo}.svg?sort=semver"
