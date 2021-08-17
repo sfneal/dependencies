@@ -57,3 +57,10 @@ All notable changes to `dependencies` will be documented in this file
 ## 0.6.1 - 2021-07-29
 - optimize repo & service tests by removing redundant http requests & assertions
 - cut packages with mismatching GitHub urls from `TestCase::packageProvider()`
+ 
+ 
+## 0.7.0 - 2021-08-17
+- add $type property setter to `DependenciesService` that asserts the dependency type is supported
+- refactor `DependenciesService::getGitHubPackageName()` method to `DependenciesService::setGitHubRepo()` & return void
+- fix issue with `DependenciesService::setGitHubRepo()` not using else statement for setting default value
+- add Docker repos to test dependencies
