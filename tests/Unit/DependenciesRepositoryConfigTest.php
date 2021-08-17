@@ -16,11 +16,12 @@ class DependenciesRepositoryConfigTest extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $packages = [];
-        foreach ($this->packageProvider() as $params) {
-            [$package, $type] = $params;
-            $packages[$type][] = $package;
-        }
+        $packages = collect($this->packageProvider())
+            ->mapToGroups(function (array $params, $key) {
+                [$package, $type] = $params;
+                return [$type => $package];
+            })
+            ->toArray();
 
         $app['config']->set('dependencies.dependencies', $packages);
     }
