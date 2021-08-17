@@ -102,11 +102,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $collection->each(function (DependenciesService $service) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
-            $this->assertVersionSvg($service->package, $service->version(), false);
+            $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
             $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
-            $this->assertVersionUrl($service->package, $service->version(), false);
+            $this->assertVersionUrl($service->project, $service->version(), false);
         });
     }
 
