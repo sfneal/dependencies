@@ -68,3 +68,8 @@ All notable changes to `dependencies` will be documented in this file
  
 ## 0.7.1 - 2021-08-17
 - add support for 'python' dependency types that use `PyPi` distribution
+ 
+
+## 1.0.0 - 2021-08-17
+- initial production release
+- fix laravel/framework composer requirement by replacing with illuminate/support
