@@ -16,10 +16,15 @@ class DependenciesRepositoryConfigTest extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set(
-            'dependencies.dependencies.composer',
-            collect($this->packageProvider())->flatten()->toArray()
-        );
+        $packages = collect($this->packageProvider())
+            ->mapToGroups(function (array $params, $key) {
+                [$package, $type] = $params;
+
+                return [$type => $package];
+            })
+            ->toArray();
+
+        $app['config']->set('dependencies.dependencies', $packages);
     }
 
     /** @test */
