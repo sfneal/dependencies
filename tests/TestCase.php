@@ -55,6 +55,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['spatie/laravel-settings', 'composer'],
             ['illuminate/database', 'composer'],
             ['laravel/framework', 'composer'],
+            ['stephenneal/php-composer', 'docker'],
+            ['stephenneal/php-laravel', 'docker'],
+            ['stephenneal/nginx-laravel', 'docker'],
+            ['stephenneal/nginx-proxy', 'docker'],
+            ['stephenneal/node-yarn', 'docker'],
+            ['stephenneal/python-flask', 'docker'],
         ];
         shuffle($packages);
 
@@ -94,11 +100,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertSame($expected, $collection->count());
 
         $collection->each(function (DependenciesService $service) {
-            $this->assertTravisSvg($service->packageGitubName, $service->travis(), false);
+            $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->package, $service->version(), false);
-            $this->assertLastCommitSvg($service->packageGitubName, $service->lastCommit(), false);
-            $this->assertGithubUrl($service->packageGitubName, $service->gitHub(), false);
-            $this->assertTravisUrl($service->packageGitubName, $service->travis(), false);
+            $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
+            $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
+            $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
             $this->assertVersionUrl($service->package, $service->version(), false);
         });
     }
