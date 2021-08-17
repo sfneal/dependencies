@@ -32,21 +32,31 @@ class DependencySvgTest extends TestCase
      */
     public function version_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $service = (new DependenciesService($package, $type));
+        $repo = $service->githubRepo;
+        $project = $service->project;
 
         if ($type == 'composer') {
             $svg = new DependencySvg(
                 "packagist.org/packages/{$repo}",
                 "packagist/v/{$repo}.svg",
             );
+
+            $this->assertVersionSvg($repo, $svg);
         } elseif ($type == 'docker') {
             $svg = new DependencySvg(
                 "hub.docker.com/r/{$repo}",
                 "docker/v/{$repo}.svg?sort=semver"
             );
-        }
 
-        $this->assertVersionSvg($repo, $svg);
+            $this->assertVersionSvg($repo, $svg);
+        } elseif ($type == 'python') {
+            $svg = new DependencySvg(
+                "pypi.org/project/{$project}",
+                "pypi/v/{$project}.svg"
+            );
+            $this->assertVersionSvg($project, $svg);
+        }
     }
 
     /**

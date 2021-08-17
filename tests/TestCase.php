@@ -61,6 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['stephenneal/nginx-proxy', 'docker'],
             ['stephenneal/node-yarn', 'docker'],
             ['stephenneal/python-flask', 'docker'],
+            ['stephenneal/pdfconduit', 'python'],
         ];
         shuffle($packages);
 
@@ -101,11 +102,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $collection->each(function (DependenciesService $service) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
-            $this->assertVersionSvg($service->package, $service->version(), false);
+            $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
             $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
-            $this->assertVersionUrl($service->package, $service->version(), false);
+            $this->assertVersionUrl($service->project, $service->version(), false);
         });
     }
 
@@ -150,7 +151,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
             $inString = (new StringHelpers($response->body()));
             $this->assertTrue(
-                $inString->inString('<title>packagist: v') || $inString->inString('version'),
+                $inString->inString('<title>packagist: v')
+                || $inString->inString('version')
+                || $inString->inString('<title>pypi'),
                 "The response body provided by {$url} doesn't contain 'packagist' or 'version'"
             );
         }
@@ -226,7 +229,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertTrue(
-            $inString->inString('packagist.org/packages') || $inString->inString('hub.docker.com/r/'),
+            $inString->inString('packagist.org/packages')
+            || $inString->inString('hub.docker.com/r/')
+            || $inString->inString('pypi.org/project/'),
             "The response body provided by {$url} doesn't contain 'packagist.org' or 'hub.docker.com'"
         );
 
