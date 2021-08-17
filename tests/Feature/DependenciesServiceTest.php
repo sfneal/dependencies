@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Tests\Feature;
 use Sfneal\Dependencies\Services\DependenciesService;
 use Sfneal\Dependencies\Tests\TestCase;
 
-class DependencyServiceTest extends TestCase
+class DependenciesServiceTest extends TestCase
 {
     /**
      * @test
