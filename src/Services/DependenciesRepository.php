@@ -135,7 +135,11 @@ class DependenciesRepository
      */
     private function getComposerRequirements(): Collection
     {
-        return (new ComposerDependencies($this->devComposerDependencies))->get();
+        return (new ComposerDependencies($this->devComposerDependencies))
+            ->get()
+            ->mapWithKeys(function(string $composerDep) {
+                return [$composerDep => 'composer'];
+            });
     }
 
     /**
