@@ -128,7 +128,9 @@ class DependenciesRepository
      */
     private function getComposerRequirements(): Collection
     {
-        return (new ComposerDependencies($this->devComposerDependencies))->get();
+        return collect([
+            'composer' => (new ComposerDependencies($this->devComposerDependencies))->get()->toArray()
+        ]);
     }
 
     /**
