@@ -10,7 +10,6 @@ use Sfneal\Helpers\Laravel\LaravelHelpers;
 
 class DependenciesRepository
 {
-    // todo: refactor array & composer dependency format so it matches config
     use IsCacheable;
 
     /**
@@ -85,9 +84,15 @@ class DependenciesRepository
             $this->cacheKey(),
             config('dependencies.cache.ttl'),
             function () {
-                return $this->getDependencies()->map(function (string $type, string $dependency) {
-                    return new DependenciesService($dependency, $type);
-                });
+                $array = [];
+
+                foreach ($this->getDependencies()->toArray() as $type => $dependencies) {
+                    foreach ($dependencies as $dependency) {
+                        $array[] = new DependenciesService($dependency, $type);
+                    }
+                }
+
+                return collect($array);
             }
         );
     }
@@ -117,15 +122,7 @@ class DependenciesRepository
      */
     private function getArrayDependencies(): Collection
     {
-        // Convert array of dependency type keys & array of dependency values
-        // to a flat array of dependency keys and type values
-        return collect($this->dependencies)
-            ->mapWithKeys(function ($packages, $type) {
-                return collect($packages)
-                    ->mapWithKeys(function (string $package) use ($type) {
-                        return [$package => $type];
-                    });
-            });
+        return collect($this->dependencies);
     }
 
     /**
@@ -135,7 +132,9 @@ class DependenciesRepository
      */
     private function getComposerRequirements(): Collection
     {
-        return (new ComposerDependencies($this->devComposerDependencies))->get();
+        return collect([
+            'composer' => (new ComposerDependencies($this->devComposerDependencies))->get()->toArray(),
+        ]);
     }
 
     /**

@@ -7,7 +7,6 @@ use Sfneal\Helpers\Strings\StringHelpers;
 
 class ComposerDependencies
 {
-    // todo: add tests
     // todo: refactor to `ComposerRequirements`?
 
     /**
@@ -42,11 +41,6 @@ class ComposerDependencies
             // Remove 'php' & php extensions from the packages array
             ->filter(function (string $dep) {
                 return $dep != 'php' && ! (new StringHelpers($dep))->inString('ext');
-            })
-
-            // Map each dependencies to have a 'composer' value
-            ->mapWithKeys(function (string $dep) {
-                return [$dep => 'composer'];
             });
     }
 
