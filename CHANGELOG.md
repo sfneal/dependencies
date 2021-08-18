@@ -73,3 +73,7 @@ All notable changes to `dependencies` will be documented in this file
 ## 1.0.0 - 2021-08-17
 - initial production release
 - fix laravel/framework composer requirement by replacing with illuminate/support
+
+
+# 1.0.1 - 2021-08-18
+- make `ComposerDependencyTest` for testing `ComposerDependencies` utility class
