@@ -7,6 +7,8 @@ use Sfneal\Dependencies\Tests\TestCase;
 
 class DependenciesRepositoryArrayTest extends TestCase
 {
+    // todo: add python deps
+
     /** @test */
     public function get_dependency_collection_from_array_composer()
     {
@@ -40,7 +42,7 @@ class DependenciesRepositoryArrayTest extends TestCase
     }
 
     /** @test */
-    public function get_dependency_collection_from_array()
+    public function get_dependency_collection_from_array_all()
     {
         $collection = Dependencies::fromArray([
             'composer' => [
