@@ -248,7 +248,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     private function sendRequest(string $url): Response
     {
-        $response = Http::get($url);
+        $response = Http::retry(3, 500)->get($url);
 
         $this->assertTrue($response->ok(), "Error: code {$response->status()} from {$url}");
 
