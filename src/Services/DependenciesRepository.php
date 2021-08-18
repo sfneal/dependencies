@@ -84,7 +84,6 @@ class DependenciesRepository
             $this->cacheKey(),
             config('dependencies.cache.ttl'),
             function () {
-                // todo: optimize to use collections
                 $array = [];
 
                 foreach ($this->getDependencies()->toArray() as $type => $dependencies) {
