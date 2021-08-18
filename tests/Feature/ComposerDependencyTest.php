@@ -23,12 +23,11 @@ class ComposerDependencyTest extends TestCase
     /** @test */
     public function get_composer_dependencies()
     {
-        // todo: change to 1D array and add 'composer' values later
         $expected = [
-            'illuminate/support' => 'composer',
-            'sfneal/caching' => 'composer',
-            'sfneal/laravel-helpers' => 'composer',
-            'sfneal/string-helpers' => 'composer',
+            'illuminate/support',
+            'sfneal/caching',
+            'sfneal/laravel-helpers',
+            'sfneal/string-helpers',
         ];
         $deps = (new ComposerDependencies())->get();
 
@@ -38,16 +37,14 @@ class ComposerDependencyTest extends TestCase
     /** @test */
     public function get_composer_dependencies_dev()
     {
-        // todo: change to 1D array and add 'composer' values later
         $expected = [
-            'illuminate/support' => 'composer',
-            'sfneal/caching' => 'composer',
-            'sfneal/laravel-helpers' => 'composer',
-            'sfneal/string-helpers' => 'composer',
-            'phpunit/phpunit' => 'composer',
-            'orchestra/testbench' => 'composer',
-            'scrutinizer/ocular' => 'composer',
-
+            'illuminate/support',
+            'sfneal/caching',
+            'sfneal/laravel-helpers',
+            'sfneal/string-helpers',
+            'phpunit/phpunit',
+            'orchestra/testbench',
+            'scrutinizer/ocular',
         ];
         $deps = (new ComposerDependencies(true))->get();
 
@@ -64,6 +61,8 @@ class ComposerDependencyTest extends TestCase
     {
         $this->assertInstanceOf(Collection::class, $dependencies);
         $this->assertCount(count($expected), $dependencies);
-        $this->assertSame($expected, $dependencies->toArray());
+
+        // use `array_values()` to reindex array keys
+        $this->assertSame($expected, array_values($dependencies->toArray()));
     }
 }
