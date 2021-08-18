@@ -8,6 +8,7 @@ use Sfneal\Helpers\Strings\StringHelpers;
 class ComposerDependencies
 {
     // todo: add tests
+    // todo: refactor to `ComposerRequirements`?
 
     /**
      * @var bool
