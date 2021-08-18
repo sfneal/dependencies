@@ -55,7 +55,7 @@ class ComposerDependencyTest extends TestCase
     }
 
     /**
-     * Execute assertions on a `ComposerDependencies` collection
+     * Execute assertions on a `ComposerDependencies` collection.
      *
      * @param array $expected
      * @param Collection $dependencies
