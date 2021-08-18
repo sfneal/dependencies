@@ -10,6 +10,7 @@ use Sfneal\Helpers\Laravel\LaravelHelpers;
 
 class DependenciesRepository
 {
+    // todo: refactor array & composer dependency format so it matches config
     use IsCacheable;
 
     /**
