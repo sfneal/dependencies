@@ -84,11 +84,16 @@ class DependenciesRepository
             $this->cacheKey(),
             config('dependencies.cache.ttl'),
             function () {
-                return $this->getDependencies()->mapWithKeys(function (array $dependencies, string $type) {
-                    return collect($dependencies)->map(function (string $dependency) use ($type) {
-                        return new DependenciesService($dependency, $type);
-                    });
-                });
+                // todo: optimize to use collections
+                $array = [];
+
+                foreach ($this->getDependencies()->toArray() as $type => $dependencies) {
+                    foreach ($dependencies as $dependency) {
+                        $array[] = new DependenciesService($dependency, $type);
+                    }
+                }
+
+                return collect($array);
             }
         );
     }
