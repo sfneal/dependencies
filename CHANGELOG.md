@@ -82,3 +82,7 @@ All notable changes to `dependencies` will be documented in this file
 # 1.1.0 - 2021-08-18
 - optimize `DependencyRepository::get()` method and related calls by reducing collection mapping
 - refactor ComposerDependencies return a flat collection composer packages (removed 'composer' value)
+
+
+# 1.1.1 - 2021-09-01
+- add support for sfneal/caching v2.0
