@@ -18,8 +18,8 @@ class DependencySvgTest extends TestCase
     {
         $repo = (new DependenciesService($package, $type))->githubRepo;
         $this->assertTravisSvg($repo, new DependencySvg(
-            "travis-ci.com/{$repo}",
-            "travis-ci.com/{$repo}.svg?branch=master",
+            "app.travis-ci.com/{$repo}",
+            "app.travis-ci.com/{$repo}.svg?branch=master",
             ''
         ));
     }
