@@ -117,8 +117,8 @@ class DependenciesService
     public function travis(): DependencySvg
     {
         return new DependencySvg(
-            "travis-ci.com/{$this->githubRepo}",
-            "travis-ci.com/{$this->githubRepo}.svg?branch=master",
+            "app.travis-ci.com/{$this->githubRepo}",
+            "app.travis-ci.com/{$this->githubRepo}.svg?branch=master",
             ''
         );
     }

@@ -122,7 +122,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
-        $this->assertStringContainsString('travis-ci.com', $url);
+        $this->assertStringContainsString('app.travis-ci.com', $url);
         $this->assertStringContainsString('.svg?branch=master', $url);
 
         if ($sendRequest) {
@@ -209,7 +209,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
         $this->assertStringContainsString($package, $url);
-        $this->assertStringContainsString('travis-ci.com', $url);
+        $this->assertStringContainsString('app.travis-ci.com', $url);
 
         if ($sendRequest) {
             $response = $this->sendRequest($url);

@@ -29,7 +29,7 @@ class DependencyUrlTest extends TestCase
     public function travis_url(string $package, string $type)
     {
         $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertTravisUrl($repo, new DependencyUrl("travis-ci.com/{$repo}"));
+        $this->assertTravisUrl($repo, new DependencyUrl("app.travis-ci.com/{$repo}"));
     }
 
     /**
