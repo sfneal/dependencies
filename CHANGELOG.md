@@ -91,3 +91,7 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.2.0 - 2021-09-08
 - add ability to display 'open issues' & 'closed issues' badges for dependencies #43
+
+
+# 1.2.1 - 2021-09-08
+- add color override to 'closed issues' svg badge to force color to be red (makes it easier to read open vs. closed issues)
