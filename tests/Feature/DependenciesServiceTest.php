@@ -10,8 +10,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function travis_svg(string $package, string $type)
     {
@@ -22,8 +22,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function version_svg(string $package, string $type)
     {
@@ -34,8 +34,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function last_commit_svg(string $package, string $type)
     {
@@ -46,8 +46,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function open_issues_svg(string $package, string $type)
     {
@@ -58,8 +58,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function closed_issues_svg(string $package, string $type)
     {
@@ -70,8 +70,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function github_url(string $package, string $type)
     {
@@ -82,8 +82,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function travis_url(string $package, string $type)
     {
@@ -94,8 +94,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function version_url(string $package, string $type)
     {
@@ -106,8 +106,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function open_issues_url(string $package, string $type)
     {
@@ -118,8 +118,8 @@ class DependenciesServiceTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function closed_issues_url(string $package, string $type)
     {

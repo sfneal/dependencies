@@ -11,8 +11,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function travis_svg(string $package, string $type)
     {
@@ -27,8 +27,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function version_svg(string $package, string $type)
     {
@@ -62,8 +62,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function last_commit_svg(string $package, string $type)
     {
@@ -77,8 +77,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function open_issues_svg(string $package, string $type)
     {
@@ -92,8 +92,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function closed_issues_svg(string $package, string $type)
     {

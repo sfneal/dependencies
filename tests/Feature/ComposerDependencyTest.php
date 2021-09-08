@@ -12,7 +12,7 @@ class ComposerDependencyTest extends TestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -54,8 +54,8 @@ class ComposerDependencyTest extends TestCase
     /**
      * Execute assertions on a `ComposerDependencies` collection.
      *
-     * @param array $expected
-     * @param Collection $dependencies
+     * @param  array  $expected
+     * @param  Collection  $dependencies
      */
     public function assertComposerDependencies(array $expected, Collection $dependencies): void
     {

@@ -12,7 +12,7 @@ class DependencyUrl
     /**
      * DependencyUrl constructor.
      *
-     * @param string $uri
+     * @param  string  $uri
      */
     public function __construct(string $uri)
     {
@@ -32,7 +32,7 @@ class DependencyUrl
     /**
      * Generate a URL.
      *
-     * @param string $uri
+     * @param  string  $uri
      * @return string
      */
     protected static function generateUrl(string $uri): string
