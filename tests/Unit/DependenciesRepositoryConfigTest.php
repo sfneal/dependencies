@@ -11,7 +11,7 @@ class DependenciesRepositoryConfigTest extends TestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)

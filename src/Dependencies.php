@@ -9,7 +9,7 @@ class Dependencies
     /**
      * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
      *
-     * @param bool $devComposerDependencies
+     * @param  bool  $devComposerDependencies
      * @return DependenciesRepository
      */
     public static function fromComposer(bool $devComposerDependencies = false): DependenciesRepository
@@ -30,7 +30,7 @@ class Dependencies
     /**
      * Retrieve dependencies from an array.
      *
-     * @param array $dependencies
+     * @param  array  $dependencies
      * @return DependenciesRepository
      */
     public static function fromArray(array $dependencies): DependenciesRepository
