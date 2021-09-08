@@ -100,7 +100,7 @@ class DependencySvgTest extends TestCase
         $repo = (new DependenciesService($package, $type))->githubRepo;
         $this->assertClosedIssuesSvg($repo, new DependencySvg(
             "github.com/{$repo}/issues",
-            "github/issues-closed-raw/{$repo}"
+            "github/issues-closed-raw/{$repo}?color=red"
         ));
     }
 }

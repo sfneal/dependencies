@@ -180,7 +180,7 @@ class DependenciesService
     {
         return new DependencySvg(
             "github.com/{$this->githubRepo}/issues?q=is%3Aissue+is%3Aclosed",
-            "github/issues-closed-raw/{$this->githubRepo}"
+            "github/issues-closed-raw/{$this->githubRepo}?color=red"
         );
     }
 

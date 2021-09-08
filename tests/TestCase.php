@@ -274,6 +274,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github/issues-closed-raw', $url);
+        $this->assertStringContainsString('color=red', $url);
 
         if ($sendRequest) {
             $response = $this->sendRequest($url);
@@ -314,7 +315,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github.com', $url);
         $this->assertStringContainsString('/issues', $url);
-        $this->assertStringContainsString('?q=is%3Aissue+is%3Aclosed', $url);
+        $this->assertStringContainsString('q=is%3Aissue+is%3Aclosed', $url);
 
         if ($sendRequest) {
             $response = $this->sendRequest($url);
