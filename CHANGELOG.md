@@ -87,3 +87,7 @@ All notable changes to `dependencies` will be documented in this file
 # 1.1.1 - 2021-09-01
 - fix 'travis-ci.com' url to 'app.travis-ci.com' subdomain (was causing `DependenciesServiceTest::travis_url()` to fail)
 - add support for sfneal/caching v2.0
+
+
+# 1.2.0 - 2021-09-08
+- add ability to display 'open issues' & 'closed issues' badges for dependencies #43

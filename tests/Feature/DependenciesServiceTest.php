@@ -16,7 +16,7 @@ class DependenciesServiceTest extends TestCase
     public function travis_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertTravisSvg($service->githubRepo, $service->travis());
+        $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
     }
 
     /**
@@ -28,7 +28,7 @@ class DependenciesServiceTest extends TestCase
     public function version_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertVersionSvg($service->project, $service->version());
+        $this->assertVersionSvg($service->project, $service->version(), false);
     }
 
     /**
@@ -40,7 +40,7 @@ class DependenciesServiceTest extends TestCase
     public function last_commit_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit());
+        $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
     }
 
     /**
@@ -52,7 +52,7 @@ class DependenciesServiceTest extends TestCase
     public function open_issues_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues());
+        $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues(), false);
     }
 
     /**
@@ -64,7 +64,7 @@ class DependenciesServiceTest extends TestCase
     public function closed_issues_svg(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues());
+        $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues(), false);
     }
 
     /**
@@ -76,7 +76,7 @@ class DependenciesServiceTest extends TestCase
     public function github_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertGithubUrl($service->githubRepo, $service->gitHub());
+        $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
     }
 
     /**
@@ -88,7 +88,7 @@ class DependenciesServiceTest extends TestCase
     public function travis_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertTravisUrl($service->githubRepo, $service->travis());
+        $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
     }
 
     /**
@@ -100,7 +100,7 @@ class DependenciesServiceTest extends TestCase
     public function version_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertVersionUrl($service->project, $service->version());
+        $this->assertVersionUrl($service->project, $service->version(), false);
     }
 
     /**
@@ -112,7 +112,7 @@ class DependenciesServiceTest extends TestCase
     public function open_issues_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues());
+        $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues(), false);
     }
 
     /**
@@ -124,6 +124,6 @@ class DependenciesServiceTest extends TestCase
     public function closed_issues_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
-        $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues());
+        $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues(), false);
     }
 }
