@@ -7,7 +7,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
-use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 use Sfneal\Helpers\Strings\StringHelpers;
@@ -61,7 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['stephenneal/nginx-proxy', 'docker'],
             ['stephenneal/node-yarn', 'docker'],
             ['stephenneal/python-flask', 'docker'],
-            ['stephenneal/pdfconduit', 'python'],
+            ['sfneal/pdfconduit', 'python'],
         ];
         shuffle($packages);
 
@@ -100,13 +100,22 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame($expected, $collection->count());
 
-        $collection->each(function (DependenciesService $service) {
+        $collection->each(function (DependencyService $service) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
+            $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues(), false);
+            $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues(), false);
+            $this->assertOpenPullRequestsSvg($service->githubRepo, $service->openPullRequests(), false);
+            $this->assertClosedPullRequestsSvg($service->githubRepo, $service->closedPullRequests(), false);
+
             $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
             $this->assertVersionUrl($service->project, $service->version(), false);
+            $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues(), false);
+            $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues(), false);
+            $this->assertOpenPullRequestsUrl($service->githubRepo, $service->openPullRequests(), false);
+            $this->assertClosedPullRequestsUrl($service->githubRepo, $service->closedPullRequests(), false);
         });
     }
 
@@ -315,6 +324,88 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github.com', $url);
         $this->assertStringContainsString('/issues', $url);
+        $this->assertStringContainsString('q=is%3Aissue+is%3Aclosed', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+        }
+    }
+
+    /**
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
+     */
+    public function assertOpenPullRequestsSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    {
+        $url = $generator->svg();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github/issues-pr-raw', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+
+            $this->assertStringContainsString('open pull requests', $response->body());
+        }
+    }
+
+    /**
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
+     */
+    public function assertClosedPullRequestsSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    {
+        $url = $generator->svg();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github/issues-pr-closed-raw', $url);
+        $this->assertStringContainsString('color=red', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+
+            $this->assertStringContainsString('closed pull requests', $response->body());
+        }
+    }
+
+    /**
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
+     */
+    public function assertOpenPullRequestsUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    {
+        $url = $generator->url();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github.com', $url);
+        $this->assertStringContainsString('/pulls', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+        }
+    }
+
+    /**
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
+     */
+    public function assertClosedPullRequestsUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    {
+        $url = $generator->url();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github.com', $url);
+        $this->assertStringContainsString('/pulls', $url);
         $this->assertStringContainsString('q=is%3Aissue+is%3Aclosed', $url);
 
         if ($sendRequest) {

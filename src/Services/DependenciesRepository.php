@@ -88,7 +88,7 @@ class DependenciesRepository
 
                 foreach ($this->getDependencies()->toArray() as $type => $dependencies) {
                     foreach ($dependencies as $dependency) {
-                        $array[] = new DependenciesService($dependency, $type);
+                        $array[] = new DependencyService($dependency, $type);
                     }
                 }
 

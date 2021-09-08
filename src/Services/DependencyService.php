@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Services;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 
-class DependenciesService
+class DependencyService
 {
     /**
      * @var string[] Array of supported dependency types
@@ -22,7 +22,7 @@ class DependenciesService
     public $package;
 
     /**
-     * @var string Type of Dependency ('composer' or 'docker')
+     * @var string Type of Dependency ('composer', 'docker' or 'python')
      */
     public $type;
 
@@ -181,6 +181,32 @@ class DependenciesService
         return new DependencySvg(
             "github.com/{$this->githubRepo}/issues?q=is%3Aissue+is%3Aclosed",
             "github/issues-closed-raw/{$this->githubRepo}?color=red"
+        );
+    }
+
+    /**
+     * Retrieve number of open pull requests.
+     *
+     * @return DependencySvg
+     */
+    public function openPullRequests(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/pulls",
+            "github/issues-pr-raw/{$this->githubRepo}"
+        );
+    }
+
+    /**
+     * Retrieve number of closed pull requests.
+     *
+     * @return DependencySvg
+     */
+    public function closedPullRequests(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/pulls?q=is%3Aissue+is%3Aclosed",
+            "github/issues-pr-closed-raw/{$this->githubRepo}?color=red"
         );
     }
 
