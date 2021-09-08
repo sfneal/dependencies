@@ -43,7 +43,7 @@ class DependencyServiceTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function githubReo_property_is_correct(string $package, string $type)
+    public function githubRepo_property_is_correct(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
 
