@@ -64,6 +64,6 @@ class DependencyUrlTest extends TestCase
     public function closed_issues_url(string $package, string $type)
     {
         $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertClosedIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues"));
+        $this->assertClosedIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues?q=is%3Aissue+is%3Aclosed"));
     }
 }
