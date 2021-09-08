@@ -2,9 +2,8 @@
 
 namespace Sfneal\Dependencies\Tests\Feature;
 
-use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Utils\DependencySvg;
 
 class DependencySvgTest extends TestCase
 {
@@ -16,12 +15,8 @@ class DependencySvgTest extends TestCase
      */
     public function travis_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertTravisSvg($repo, new DependencySvg(
-            "app.travis-ci.com/{$repo}",
-            "app.travis-ci.com/{$repo}.svg?branch=master",
-            ''
-        ));
+        $service = new DependencyService($package, $type);
+        $this->assertTravisSvg($service->githubRepo, $service->travis());
     }
 
     /**
@@ -32,31 +27,8 @@ class DependencySvgTest extends TestCase
      */
     public function version_svg(string $package, string $type)
     {
-        $service = (new DependenciesService($package, $type));
-        $repo = $service->githubRepo;
-        $project = $service->project;
-
-        if ($type == 'composer') {
-            $svg = new DependencySvg(
-                "packagist.org/packages/{$repo}",
-                "packagist/v/{$repo}.svg",
-            );
-
-            $this->assertVersionSvg($repo, $svg);
-        } elseif ($type == 'docker') {
-            $svg = new DependencySvg(
-                "hub.docker.com/r/{$repo}",
-                "docker/v/{$repo}.svg?sort=semver"
-            );
-
-            $this->assertVersionSvg($repo, $svg);
-        } elseif ($type == 'python') {
-            $svg = new DependencySvg(
-                "pypi.org/project/{$project}",
-                "pypi/v/{$project}.svg"
-            );
-            $this->assertVersionSvg($project, $svg);
-        }
+        $service = new DependencyService($package, $type);
+        $this->assertVersionSvg($service->project, $service->version());
     }
 
     /**
@@ -67,11 +39,8 @@ class DependencySvgTest extends TestCase
      */
     public function last_commit_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertLastCommitSvg($repo, new DependencySvg(
-            "github.com/{$repo}",
-            "github/last-commit/{$repo}"
-        ));
+        $service = new DependencyService($package, $type);
+        $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit());
     }
 
     /**
@@ -82,11 +51,8 @@ class DependencySvgTest extends TestCase
      */
     public function open_issues_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertOpenIssuesSvg($repo, new DependencySvg(
-            "github.com/{$repo}/issues",
-            "github/issues-raw/{$repo}"
-        ));
+        $service = new DependencyService($package, $type);
+        $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues());
     }
 
     /**
@@ -97,10 +63,7 @@ class DependencySvgTest extends TestCase
      */
     public function closed_issues_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertClosedIssuesSvg($repo, new DependencySvg(
-            "github.com/{$repo}/issues",
-            "github/issues-closed-raw/{$repo}?color=red"
-        ));
+        $service = new DependencyService($package, $type);
+        $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues());
     }
 }

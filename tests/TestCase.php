@@ -7,7 +7,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
-use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 use Sfneal\Helpers\Strings\StringHelpers;
@@ -61,7 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['stephenneal/nginx-proxy', 'docker'],
             ['stephenneal/node-yarn', 'docker'],
             ['stephenneal/python-flask', 'docker'],
-            ['stephenneal/pdfconduit', 'python'],
+            ['sfneal/pdfconduit', 'python'],
         ];
         shuffle($packages);
 
@@ -100,7 +100,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame($expected, $collection->count());
 
-        $collection->each(function (DependenciesService $service) {
+        $collection->each(function (DependencyService $service) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);

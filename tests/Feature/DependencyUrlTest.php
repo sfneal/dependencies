@@ -2,9 +2,8 @@
 
 namespace Sfneal\Dependencies\Tests\Feature;
 
-use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Utils\DependencyUrl;
 
 class DependencyUrlTest extends TestCase
 {
@@ -16,8 +15,8 @@ class DependencyUrlTest extends TestCase
      */
     public function github_url(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertGithubUrl($repo, new DependencyUrl("github.com/{$repo}"));
+        $service = new DependencyService($package, $type);
+        $this->assertGithubUrl($service->githubRepo, $service->gitHub());
     }
 
     /**
@@ -28,8 +27,8 @@ class DependencyUrlTest extends TestCase
      */
     public function travis_url(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertTravisUrl($repo, new DependencyUrl("app.travis-ci.com/{$repo}"));
+        $service = new DependencyService($package, $type);
+        $this->assertTravisUrl($service->githubRepo, $service->travis());
     }
 
     /**
@@ -40,7 +39,8 @@ class DependencyUrlTest extends TestCase
      */
     public function version_url(string $package, string $type)
     {
-        $this->assertVersionUrl($package, new DependencyUrl("packagist.org/packages/{$package}"));
+        $service = new DependencyService($package, $type);
+        $this->assertVersionUrl($service->project, $service->version());
     }
 
     /**
@@ -51,8 +51,8 @@ class DependencyUrlTest extends TestCase
      */
     public function open_issues_url(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertOpenIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues"));
+        $service = new DependencyService($package, $type);
+        $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues());
     }
 
     /**
@@ -63,7 +63,7 @@ class DependencyUrlTest extends TestCase
      */
     public function closed_issues_url(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
-        $this->assertClosedIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues?q=is%3Aissue+is%3Aclosed"));
+        $service = new DependencyService($package, $type);
+        $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues());
     }
 }

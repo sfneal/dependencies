@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Services;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 
-class DependenciesService
+class DependencyService
 {
     /**
      * @var string[] Array of supported dependency types
@@ -22,7 +22,7 @@ class DependenciesService
     public $package;
 
     /**
-     * @var string Type of Dependency ('composer' or 'docker')
+     * @var string Type of Dependency ('composer', 'docker' or 'python')
      */
     public $type;
 
