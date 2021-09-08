@@ -185,6 +185,32 @@ class DependencyService
     }
 
     /**
+     * Retrieve number of open pull requests.
+     *
+     * @return DependencySvg
+     */
+    public function openPullRequests(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/pulls",
+            "github/issues-pr-raw/{$this->githubRepo}"
+        );
+    }
+
+    /**
+     * Retrieve number of closed pull requests.
+     *
+     * @return DependencySvg
+     */
+    public function closedPullRequests(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/pulls?q=is%3Aissue+is%3Aclosed",
+            "github/issues-pr-closed-raw/{$this->githubRepo}?color=red"
+        );
+    }
+
+    /**
      * Retrieve a Packagist versions SVG URL for a dependency.
      *
      * @return DependencySvg
