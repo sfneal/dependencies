@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Services;
 use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 
-class DependenciesService
+class DependencyService
 {
     /**
      * @var string[] Array of supported dependency types

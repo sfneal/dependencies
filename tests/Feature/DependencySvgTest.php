@@ -2,7 +2,7 @@
 
 namespace Sfneal\Dependencies\Tests\Feature;
 
-use Sfneal\Dependencies\Services\DependenciesService;
+use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Tests\TestCase;
 use Sfneal\Dependencies\Utils\DependencySvg;
 
@@ -16,7 +16,7 @@ class DependencySvgTest extends TestCase
      */
     public function travis_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $repo = (new DependencyService($package, $type))->githubRepo;
         $this->assertTravisSvg($repo, new DependencySvg(
             "app.travis-ci.com/{$repo}",
             "app.travis-ci.com/{$repo}.svg?branch=master",
@@ -32,7 +32,7 @@ class DependencySvgTest extends TestCase
      */
     public function version_svg(string $package, string $type)
     {
-        $service = (new DependenciesService($package, $type));
+        $service = (new DependencyService($package, $type));
         $repo = $service->githubRepo;
         $project = $service->project;
 
@@ -67,7 +67,7 @@ class DependencySvgTest extends TestCase
      */
     public function last_commit_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $repo = (new DependencyService($package, $type))->githubRepo;
         $this->assertLastCommitSvg($repo, new DependencySvg(
             "github.com/{$repo}",
             "github/last-commit/{$repo}"
@@ -82,7 +82,7 @@ class DependencySvgTest extends TestCase
      */
     public function open_issues_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $repo = (new DependencyService($package, $type))->githubRepo;
         $this->assertOpenIssuesSvg($repo, new DependencySvg(
             "github.com/{$repo}/issues",
             "github/issues-raw/{$repo}"
@@ -97,7 +97,7 @@ class DependencySvgTest extends TestCase
      */
     public function closed_issues_svg(string $package, string $type)
     {
-        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $repo = (new DependencyService($package, $type))->githubRepo;
         $this->assertClosedIssuesSvg($repo, new DependencySvg(
             "github.com/{$repo}/issues",
             "github/issues-closed-raw/{$repo}?color=red"
