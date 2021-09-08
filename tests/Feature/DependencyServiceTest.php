@@ -56,8 +56,7 @@ class DependencyServiceTest extends TestCase
                 str_replace('stephenneal', config('dependencies.github_alias')['stephenneal'], $service->package),
                 $service->githubRepo
             );
-        }
-        else {
+        } else {
             $this->assertStringNotContainsString('stephenneal', $service->githubRepo);
 
             $this->assertEquals($package, $service->githubRepo);
@@ -82,9 +81,7 @@ class DependencyServiceTest extends TestCase
                 explode('/', $service->package)[1],
                 $service->project
             );
-        }
-
-        else {
+        } else {
             $this->assertEquals($package, $service->project);
             $this->assertEquals($service->package, $service->project);
         }
