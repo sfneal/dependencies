@@ -66,4 +66,28 @@ class DependencyUrlTest extends TestCase
         $service = new DependencyService($package, $type);
         $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues());
     }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function open_pull_requests_url(string $package, string $type)
+    {
+        $service = new DependencyService($package, $type);
+        $this->assertOpenPullRequestsUrl($service->githubRepo, $service->openPullRequests());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function closed_pull_requests_url(string $package, string $type)
+    {
+        $service = new DependencyService($package, $type);
+        $this->assertClosedPullRequestsUrl($service->githubRepo, $service->closedPullRequests());
+    }
 }

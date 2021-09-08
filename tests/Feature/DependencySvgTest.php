@@ -66,4 +66,28 @@ class DependencySvgTest extends TestCase
         $service = new DependencyService($package, $type);
         $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues());
     }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function open_pull_requests_svg(string $package, string $type)
+    {
+        $service = new DependencyService($package, $type);
+        $this->assertOpenPullRequestsSvg($service->githubRepo, $service->openPullRequests());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function closed_pull_requests_svg(string $package, string $type)
+    {
+        $service = new DependencyService($package, $type);
+        $this->assertClosedPullRequestsSvg($service->githubRepo, $service->closedPullRequests());
+    }
 }
