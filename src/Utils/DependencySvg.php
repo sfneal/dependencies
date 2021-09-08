@@ -16,9 +16,9 @@ class DependencySvg extends DependencyUrl
 
     /**
      * DependencySvg constructor.
-     * @param string $uri
-     * @param string $svg
-     * @param string $baseUrl
+     * @param  string  $uri
+     * @param  string  $svg
+     * @param  string  $baseUrl
      */
     public function __construct(string $uri, string $svg, string $baseUrl = 'img.shields.io/')
     {

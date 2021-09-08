@@ -22,7 +22,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Register package service providers.
      *
-     * @param Application $app
+     * @param  Application  $app
      * @return array|string
      */
     protected function getPackageProviders($app)
@@ -81,7 +81,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -92,8 +92,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Execute `DependencyService` assertions.
      *
-     * @param Collection $collection
-     * @param int $expected
+     * @param  Collection  $collection
+     * @param  int  $expected
      */
     public function assertDependencyServiceCollection(Collection $collection, int $expected): void
     {
@@ -111,9 +111,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertTravisSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
     {
@@ -133,9 +133,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertVersionSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
     {
@@ -160,9 +160,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertLastCommitSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
     {
@@ -181,9 +181,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencyUrl $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencyUrl  $generator
+     * @param  bool  $sendRequest
      */
     public function assertGithubUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
@@ -199,9 +199,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencyUrl $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencyUrl  $generator
+     * @param  bool  $sendRequest
      */
     public function assertTravisUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
@@ -217,9 +217,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencyUrl $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencyUrl  $generator
+     * @param  bool  $sendRequest
      */
     public function assertVersionUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
@@ -241,9 +241,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertOpenIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
     {
@@ -262,9 +262,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertClosedIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
     {
@@ -283,9 +283,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertOpenIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
@@ -302,9 +302,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * @param string $package
-     * @param DependencySvg $generator
-     * @param bool $sendRequest
+     * @param  string  $package
+     * @param  DependencySvg  $generator
+     * @param  bool  $sendRequest
      */
     public function assertClosedIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
@@ -324,7 +324,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Send an HTTP request, validate its response is "Ok" & return the response.
      *
-     * @param string $url
+     * @param  string  $url
      * @return Response
      */
     private function sendRequest(string $url): Response
