@@ -17,7 +17,7 @@ class ComposerDependencies
     /**
      * ComposerDependencies constructor.
      *
-     * @param bool $dev
+     * @param  bool  $dev
      */
     public function __construct(bool $dev = false)
     {

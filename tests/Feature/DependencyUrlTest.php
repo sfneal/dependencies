@@ -11,8 +11,8 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function github_url(string $package, string $type)
     {
@@ -23,8 +23,8 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function travis_url(string $package, string $type)
     {
@@ -35,11 +35,35 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function version_url(string $package, string $type)
     {
         $this->assertVersionUrl($package, new DependencyUrl("packagist.org/packages/{$package}"));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function open_issues_url(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertOpenIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues"));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function closed_issues_url(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertClosedIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues?q=is%3Aissue+is%3Aclosed"));
     }
 }

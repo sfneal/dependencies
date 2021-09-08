@@ -38,8 +38,8 @@ class DependenciesService
 
     /**
      * DependenciesService constructor.
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function __construct(string $package, string $type = 'composer')
     {
@@ -52,7 +52,7 @@ class DependenciesService
     /**
      * Retrieve the GitHub package name with alias replacement.
      *
-     * @param string $fullPackageName
+     * @param  string  $fullPackageName
      * @return void
      */
     private function setGitHubRepo(string $fullPackageName): void
@@ -73,7 +73,7 @@ class DependenciesService
     /**
      * Set the dependencies type.
      *
-     * @param string $type
+     * @param  string  $type
      */
     private function setType(string $type): void
     {
@@ -87,7 +87,7 @@ class DependenciesService
     /**
      * Set the dependency project name.
      *
-     * @param string $fullPackageName
+     * @param  string  $fullPackageName
      */
     private function setProject(string $fullPackageName): void
     {
@@ -155,6 +155,32 @@ class DependenciesService
         return new DependencySvg(
             "github.com/{$this->githubRepo}",
             "github/last-commit/{$this->githubRepo}"
+        );
+    }
+
+    /**
+     * Retrieve number of open issues.
+     *
+     * @return DependencySvg
+     */
+    public function openIssues(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/issues",
+            "github/issues-raw/{$this->githubRepo}"
+        );
+    }
+
+    /**
+     * Retrieve number of closed issues.
+     *
+     * @return DependencySvg
+     */
+    public function closedIssues(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/issues?q=is%3Aissue+is%3Aclosed",
+            "github/issues-closed-raw/{$this->githubRepo}"
         );
     }
 

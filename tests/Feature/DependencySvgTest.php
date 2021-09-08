@@ -11,8 +11,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function travis_svg(string $package, string $type)
     {
@@ -27,8 +27,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function version_svg(string $package, string $type)
     {
@@ -62,8 +62,8 @@ class DependencySvgTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function last_commit_svg(string $package, string $type)
     {
@@ -71,6 +71,36 @@ class DependencySvgTest extends TestCase
         $this->assertLastCommitSvg($repo, new DependencySvg(
             "github.com/{$repo}",
             "github/last-commit/{$repo}"
+        ));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function open_issues_svg(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertOpenIssuesSvg($repo, new DependencySvg(
+            "github.com/{$repo}/issues",
+            "github/issues-raw/{$repo}"
+        ));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function closed_issues_svg(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertClosedIssuesSvg($repo, new DependencySvg(
+            "github.com/{$repo}/issues",
+            "github/issues-closed-raw/{$repo}"
         ));
     }
 }
