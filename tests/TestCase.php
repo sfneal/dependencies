@@ -61,7 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['stephenneal/nginx-proxy', 'docker'],
             ['stephenneal/node-yarn', 'docker'],
             ['stephenneal/python-flask', 'docker'],
-            ['stephenneal/pdfconduit', 'python'],
+            ['sfneal/pdfconduit', 'python'],
         ];
         shuffle($packages);
 
