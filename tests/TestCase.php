@@ -104,9 +104,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
+            $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues(), false);
+            $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues(), false);
+
             $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
             $this->assertVersionUrl($service->project, $service->version(), false);
+            $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues(), false);
+            $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues(), false);
         });
     }
 
