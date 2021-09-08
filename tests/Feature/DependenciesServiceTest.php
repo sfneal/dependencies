@@ -49,6 +49,30 @@ class DependenciesServiceTest extends TestCase
      * @param string $package
      * @param string $type
      */
+    public function open_issues_svg(string $package, string $type)
+    {
+        $service = (new DependenciesService($package, $type));
+        $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function closed_issues_svg(string $package, string $type)
+    {
+        $service = (new DependenciesService($package, $type));
+        $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
     public function github_url(string $package, string $type)
     {
         $service = (new DependenciesService($package, $type));
@@ -77,5 +101,29 @@ class DependenciesServiceTest extends TestCase
     {
         $service = (new DependenciesService($package, $type));
         $this->assertVersionUrl($service->project, $service->version());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function open_issues_url(string $package, string $type)
+    {
+        $service = (new DependenciesService($package, $type));
+        $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function closed_issues_url(string $package, string $type)
+    {
+        $service = (new DependenciesService($package, $type));
+        $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues());
     }
 }

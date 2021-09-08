@@ -241,6 +241,87 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
+     * @param string $package
+     * @param DependencySvg $generator
+     * @param bool $sendRequest
+     */
+    public function assertOpenIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    {
+        $url = $generator->svg();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github/issues-raw', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+
+            $this->assertStringContainsString('open issues', $response->body());
+        }
+    }
+
+    /**
+     * @param string $package
+     * @param DependencySvg $generator
+     * @param bool $sendRequest
+     */
+    public function assertClosedIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    {
+        $url = $generator->svg();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertInstanceOf(DependencySvg::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github/issues-closed-raw', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+
+            $this->assertStringContainsString('closed issues', $response->body());
+        }
+    }
+
+    /**
+     * @param string $package
+     * @param DependencySvg $generator
+     * @param bool $sendRequest
+     */
+    public function assertOpenIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    {
+        $url = $generator->url();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github.com', $url);
+        $this->assertStringContainsString('/issues', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+        }
+    }
+
+    /**
+     * @param string $package
+     * @param DependencySvg $generator
+     * @param bool $sendRequest
+     */
+    public function assertClosedIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    {
+        $url = $generator->url();
+
+        $this->assertInstanceOf(DependencyUrl::class, $generator);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('github.com', $url);
+        $this->assertStringContainsString('/issues', $url);
+        $this->assertStringContainsString('?q=is%3Aissue+is%3Aclosed', $url);
+
+        if ($sendRequest) {
+            $response = $this->sendRequest($url);
+        }
+    }
+
+    /**
      * Send an HTTP request, validate its response is "Ok" & return the response.
      *
      * @param string $url

@@ -73,4 +73,34 @@ class DependencySvgTest extends TestCase
             "github/last-commit/{$repo}"
         ));
     }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function open_issues_svg(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertOpenIssuesSvg($repo, new DependencySvg(
+            "github.com/{$repo}/issues",
+            "github/issues-raw/{$repo}"
+        ));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function closed_issues_svg(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertClosedIssuesSvg($repo, new DependencySvg(
+            "github.com/{$repo}/issues",
+            "github/issues-closed-raw/{$repo}"
+        ));
+    }
 }

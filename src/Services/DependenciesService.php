@@ -159,6 +159,32 @@ class DependenciesService
     }
 
     /**
+     * Retrieve number of open issues.
+     *
+     * @return DependencySvg
+     */
+    public function openIssues(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/issues",
+            "github/issues-raw/{$this->githubRepo}"
+        );
+    }
+
+    /**
+     * Retrieve number of closed issues.
+     *
+     * @return DependencySvg
+     */
+    public function closedIssues(): DependencySvg
+    {
+        return new DependencySvg(
+            "github.com/{$this->githubRepo}/issues?q=is%3Aissue+is%3Aclosed",
+            "github/issues-closed-raw/{$this->githubRepo}"
+        );
+    }
+
+    /**
      * Retrieve a Packagist versions SVG URL for a dependency.
      *
      * @return DependencySvg

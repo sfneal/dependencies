@@ -42,4 +42,28 @@ class DependencyUrlTest extends TestCase
     {
         $this->assertVersionUrl($package, new DependencyUrl("packagist.org/packages/{$package}"));
     }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function open_issues_url(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertOpenIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues"));
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param string $package
+     * @param string $type
+     */
+    public function closed_issues_url(string $package, string $type)
+    {
+        $repo = (new DependenciesService($package, $type))->githubRepo;
+        $this->assertClosedIssuesUrl($repo, new DependencyUrl("github.com/{$repo}/issues"));
+    }
 }
