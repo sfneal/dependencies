@@ -95,3 +95,10 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.2.1 - 2021-09-08
 - add color override to 'closed issues' svg badge to force color to be red (makes it easier to read open vs. closed issues)
+
+
+# 1.3.0 - 2021-09-08
+- optimize test suite so that SVG & URL assertions are in a single test method #52
+- add 'pull requests' methods to `DependenciesService` that allow access to 'open' & 'closed' pull request counts
+- add custom assertion methods for testing open & closed pull requests urls & svg badges
+- add 'composer test-feature' & 'composer test-unit' scripts for running 'Feature' & 'Unit' tests separately
