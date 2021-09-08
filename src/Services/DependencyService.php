@@ -22,7 +22,7 @@ class DependencyService
     public $package;
 
     /**
-     * @var string Type of Dependency ('composer' or 'docker')
+     * @var string Type of Dependency ('composer', 'docker' or 'python')
      */
     public $type;
 
