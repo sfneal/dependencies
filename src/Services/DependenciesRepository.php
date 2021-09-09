@@ -40,7 +40,7 @@ class DependenciesRepository
     /**
      * Include Img Shields global params in SVG requests.
      *
-     * @param array|null $imgShieldGlobalParams
+     * @param  array|null  $imgShieldGlobalParams
      * @return $this
      */
     public function withImgShieldGlobalParams(array $imgShieldGlobalParams = null): self
