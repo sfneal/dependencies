@@ -2,8 +2,9 @@
 
 namespace Sfneal\Dependencies\Services;
 
-use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\ImgShieldsUrl;
+use Sfneal\Dependencies\Utils\Url;
 
 class DependencyService
 {
@@ -37,16 +38,24 @@ class DependencyService
     public $project;
 
     /**
+     * @var array|null Array of global Img Shields params to be passed to SVG requests
+     */
+    private $imgShieldGlobals;
+
+    /**
      * DependenciesService constructor.
+     *
      * @param  string  $package
      * @param  string  $type
+     * @param  array|null  $imgShieldGlobals
      */
-    public function __construct(string $package, string $type = 'composer')
+    public function __construct(string $package, string $type = 'composer', array $imgShieldGlobals = null)
     {
         $this->package = $package;
         $this->setGitHubRepo($package);
         $this->setType($type);
         $this->setProject($package);
+        $this->imgShieldGlobals = $imgShieldGlobals;
     }
 
     /**
@@ -106,29 +115,30 @@ class DependencyService
      */
     public function gitHub(): DependencyUrl
     {
-        return new DependencyUrl("github.com/{$this->githubRepo}");
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}")
+        );
     }
 
     /**
      * Retrieve a Travis CI build status SVG URL for a dependency.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function travis(): DependencySvg
+    public function travis(): DependencyUrl
     {
-        return new DependencySvg(
-            "app.travis-ci.com/{$this->githubRepo}",
-            "app.travis-ci.com/{$this->githubRepo}.svg?branch=master",
-            ''
+        return new DependencyUrl(
+            new Url("app.travis-ci.com/{$this->githubRepo}"),
+            new Url("app.travis-ci.com/{$this->githubRepo}.svg", ['branch' => 'master']),
         );
     }
 
     /**
      * Retrieve the Dependencies latest version.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function version(): DependencySvg
+    public function version(): DependencyUrl
     {
         switch ($this->type) {
             // Docker
@@ -148,106 +158,106 @@ class DependencyService
     /**
      * Retrieve date of the last GitHub commit.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function lastCommit(): DependencySvg
+    public function lastCommit(): DependencyUrl
     {
-        return new DependencySvg(
-            "github.com/{$this->githubRepo}",
-            "github/last-commit/{$this->githubRepo}"
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}"),
+            (new ImgShieldsUrl("github/last-commit/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve number of open issues.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function openIssues(): DependencySvg
+    public function openIssues(): DependencyUrl
     {
-        return new DependencySvg(
-            "github.com/{$this->githubRepo}/issues",
-            "github/issues-raw/{$this->githubRepo}"
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}/issues"),
+            (new ImgShieldsUrl("github/issues-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve number of closed issues.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function closedIssues(): DependencySvg
+    public function closedIssues(): DependencyUrl
     {
-        return new DependencySvg(
-            "github.com/{$this->githubRepo}/issues?q=is%3Aissue+is%3Aclosed",
-            "github/issues-closed-raw/{$this->githubRepo}?color=red"
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}/issues", ['q' => 'is%3Aissue+is%3Aclosed']),
+            (new ImgShieldsUrl("github/issues-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals),
         );
     }
 
     /**
      * Retrieve number of open pull requests.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function openPullRequests(): DependencySvg
+    public function openPullRequests(): DependencyUrl
     {
-        return new DependencySvg(
-            "github.com/{$this->githubRepo}/pulls",
-            "github/issues-pr-raw/{$this->githubRepo}"
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}/pulls"),
+            (new ImgShieldsUrl("github/issues-pr-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve number of closed pull requests.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    public function closedPullRequests(): DependencySvg
+    public function closedPullRequests(): DependencyUrl
     {
-        return new DependencySvg(
-            "github.com/{$this->githubRepo}/pulls?q=is%3Aissue+is%3Aclosed",
-            "github/issues-pr-closed-raw/{$this->githubRepo}?color=red"
+        return new DependencyUrl(
+            new Url("github.com/{$this->githubRepo}/pulls", ['q' => 'is%3Aissue+is%3Aclosed']),
+            (new ImgShieldsUrl("github/issues-pr-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve a Packagist versions SVG URL for a dependency.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    private function packagist(): DependencySvg
+    private function packagist(): DependencyUrl
     {
-        return new DependencySvg(
-            "packagist.org/packages/{$this->package}",
-            "packagist/v/{$this->package}.svg"
+        return new DependencyUrl(
+            new Url("packagist.org/packages/{$this->package}"),
+            (new ImgShieldsUrl("packagist/v/{$this->package}.svg"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve the latest Docker image tag for a dependency.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    private function docker(): DependencySvg
+    private function docker(): DependencyUrl
     {
-        return new DependencySvg(
-            "hub.docker.com/r/{$this->package}",
-            "docker/v/{$this->package}.svg?sort=semver"
+        return new DependencyUrl(
+            new Url("hub.docker.com/r/{$this->package}"),
+            (new ImgShieldsUrl("docker/v/{$this->package}.svg", ['sort' => 'semver']))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
     /**
      * Retrieve the latest PyPi version a dependency.
      *
-     * @return DependencySvg
+     * @return DependencyUrl
      */
-    private function pypi(): DependencySvg
+    private function pypi(): DependencyUrl
     {
         $project = explode('/', $this->package)[1];
 
-        return new DependencySvg(
-            "pypi.org/project/{$project}",
-            "pypi/v/{$project}.svg"
+        return new DependencyUrl(
+            new Url("pypi.org/project/{$project}"),
+            (new ImgShieldsUrl("pypi/v/{$project}.svg"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 }
