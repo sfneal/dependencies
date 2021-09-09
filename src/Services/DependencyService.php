@@ -44,9 +44,10 @@ class DependencyService
 
     /**
      * DependenciesService constructor.
-     * @param string $package
-     * @param string $type
-     * @param array|null $imgShieldGlobals
+     *
+     * @param  string  $package
+     * @param  string  $type
+     * @param  array|null  $imgShieldGlobals
      */
     public function __construct(string $package, string $type = 'composer', array $imgShieldGlobals = null)
     {
