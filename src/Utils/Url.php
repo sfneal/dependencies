@@ -42,7 +42,7 @@ class Url
      * @param  string  $uri
      * @return string
      */
-    protected static function generateUrl(string $uri): string
+    public static function generateUrl(string $uri): string
     {
         return 'https://'.$uri;
     }
@@ -53,7 +53,7 @@ class Url
      * @param  array|null  $params
      * @return string
      */
-    protected static function generateQueryString(array $params = null): string
+    public static function generateQueryString(array $params = null): string
     {
         if (! is_null($params)) {
             $query = '?';

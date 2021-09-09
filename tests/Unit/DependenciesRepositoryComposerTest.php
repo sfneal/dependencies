@@ -27,4 +27,17 @@ class DependenciesRepositoryComposerTest extends TestCase
 
         $this->assertDependencyServiceCollection($collection, (new ComposerDependencies())->get()->count());
     }
+
+    /** @test */
+    public function get_dependency_collection_with_globals()
+    {
+        $globalImgShieldParams = [
+            'style' => 'flat-square',
+        ];
+        $collection = Dependencies::fromComposer()
+            ->withImgShieldGlobalParams($globalImgShieldParams)
+            ->get();
+
+        $this->assertDependencyServiceCollection($collection, (new ComposerDependencies())->get()->count(), $globalImgShieldParams);
+    }
 }

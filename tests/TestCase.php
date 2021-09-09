@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\Url;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -91,15 +92,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Execute `DependencyService` assertions.
      *
-     * @param  Collection  $collection
-     * @param  int  $expected
+     * @param Collection $collection
+     * @param int $expected
+     * @param array|null $globalParams
      */
-    public function assertDependencyServiceCollection(Collection $collection, int $expected): void
+    public function assertDependencyServiceCollection(Collection $collection, int $expected, array $globalParams = null): void
     {
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame($expected, $collection->count());
 
-        $collection->each(function (DependencyService $service) {
+        $collection->each(function (DependencyService $service) use ($globalParams) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
@@ -115,6 +117,21 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues(), false);
             $this->assertOpenPullRequestsUrl($service->githubRepo, $service->openPullRequests(), false);
             $this->assertClosedPullRequestsUrl($service->githubRepo, $service->closedPullRequests(), false);
+
+            if (isset($globalParams)) {
+                $svgs = [
+                    $service->version(),
+                    $service->lastCommit(),
+                    $service->openIssues(),
+                    $service->closedIssues(),
+                    $service->openPullRequests(),
+                    $service->closedPullRequests(),
+                ];
+
+                foreach ($svgs as $svg) {
+                    $this->assertStringContainsString(ltrim(Url::generateQueryString($globalParams), '?'), $svg->svg());
+                }
+            }
         });
     }
 

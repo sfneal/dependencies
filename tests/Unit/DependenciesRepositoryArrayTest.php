@@ -62,4 +62,31 @@ class DependenciesRepositoryArrayTest extends TestCase
 
         $this->assertDependencyServiceCollection($collection, 9);
     }
+
+    /** @test */
+    public function get_dependency_collection_from_array_all_with_globals()
+    {
+        $globalImgShieldParams = [
+            'style' => 'flat-square',
+        ];
+        $collection = Dependencies::fromArray([
+                'composer' => [
+                    'sfneal/casts',
+                    'sfneal/currency',
+                    'sfneal/datum',
+                    'sfneal/healthy',
+                    'sfneal/users',
+                ],
+                'docker' => [
+                    'stephenneal/php-composer',
+                    'stephenneal/php-laravel',
+                    'stephenneal/python-aws',
+                    'stephenneal/python-flask',
+                ],
+            ])
+            ->withImgShieldGlobalParams($globalImgShieldParams)
+            ->get();
+
+        $this->assertDependencyServiceCollection($collection, 9, $globalImgShieldParams);
+    }
 }
