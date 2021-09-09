@@ -92,9 +92,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Execute `DependencyService` assertions.
      *
-     * @param Collection $collection
-     * @param int $expected
-     * @param array|null $globalParams
+     * @param  Collection  $collection
+     * @param  int  $expected
+     * @param  array|null  $globalParams
      */
     public function assertDependencyServiceCollection(Collection $collection, int $expected, array $globalParams = null): void
     {
