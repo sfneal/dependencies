@@ -5,18 +5,35 @@ namespace Sfneal\Dependencies\Utils;
 class DependencyUrl
 {
     /**
-     * @var string
+     * @var Url
      */
-    private $uri;
+    private $url;
 
     /**
-     * DependencyUrl constructor.
-     *
-     * @param  string  $uri
+     * @var Url|null
      */
-    public function __construct(string $uri)
+    private $svg;
+
+    /**
+     * DependencySvg constructor.
+     *
+     * @param  Url  $url
+     * @param  Url|null  $svg
+     */
+    public function __construct(Url $url, Url $svg = null)
     {
-        $this->uri = $uri;
+        $this->url = $url;
+        $this->svg = $svg;
+    }
+
+    /**
+     * Retrieve a dependency SVG image.
+     *
+     * @return string
+     */
+    public function svg(): string
+    {
+        return $this->svg->get();
     }
 
     /**
@@ -26,17 +43,6 @@ class DependencyUrl
      */
     public function url(): string
     {
-        return self::generateUrl($this->uri);
-    }
-
-    /**
-     * Generate a URL.
-     *
-     * @param  string  $uri
-     * @return string
-     */
-    protected static function generateUrl(string $uri): string
-    {
-        return 'https://'.$uri;
+        return $this->url->get();
     }
 }
