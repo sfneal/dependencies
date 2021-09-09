@@ -7,12 +7,12 @@ class Url
     /**
      * @var string
      */
-    private $uri;
+    protected $uri;
 
     /**
      * @var array
      */
-    private $params;
+    protected $params;
 
     /**
      * Url constructor.
@@ -59,7 +59,7 @@ class Url
             $query = '?';
 
             $paramStrings = [];
-            foreach ($params as $key => $value) {
+            foreach (array_unique($params) as $key => $value) {
                 $paramStrings[] = "{$key}={$value}";
             }
 

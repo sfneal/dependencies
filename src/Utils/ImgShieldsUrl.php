@@ -14,4 +14,19 @@ class ImgShieldsUrl extends Url
     {
         parent::__construct('img.shields.io/'.$uri, $params);
     }
+
+    /**
+     * Merge global Img Shields params with the original params.
+     *
+     * @param array|null $globalParams
+     * @return $this
+     */
+    public function withGlobalParams(array $globalParams = null): self
+    {
+        if (! is_null($globalParams)) {
+            $this->params = array_merge($this->params, $globalParams);
+        }
+
+        return $this;
+    }
 }

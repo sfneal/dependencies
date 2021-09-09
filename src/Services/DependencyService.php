@@ -38,16 +38,23 @@ class DependencyService
     public $project;
 
     /**
-     * DependenciesService constructor.
-     * @param  string  $package
-     * @param  string  $type
+     * @var array|null Array of global Img Shields params to be passed to SVG requests
      */
-    public function __construct(string $package, string $type = 'composer')
+    private $imgShieldGlobals;
+
+    /**
+     * DependenciesService constructor.
+     * @param string $package
+     * @param string $type
+     * @param array|null $imgShieldGlobals
+     */
+    public function __construct(string $package, string $type = 'composer', array $imgShieldGlobals = null)
     {
         $this->package = $package;
         $this->setGitHubRepo($package);
         $this->setType($type);
         $this->setProject($package);
+        $this->imgShieldGlobals = $imgShieldGlobals;
     }
 
     /**
@@ -156,7 +163,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("github.com/{$this->githubRepo}"),
-            new ImgShieldsUrl("github/last-commit/{$this->githubRepo}")
+            (new ImgShieldsUrl("github/last-commit/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -169,7 +176,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("github.com/{$this->githubRepo}/issues"),
-            new ImgShieldsUrl("github/issues-raw/{$this->githubRepo}")
+            (new ImgShieldsUrl("github/issues-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -182,7 +189,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("github.com/{$this->githubRepo}/issues", ['q' => 'is%3Aissue+is%3Aclosed']),
-            new ImgShieldsUrl("github/issues-closed-raw/{$this->githubRepo}", ['color' => 'red']),
+            (new ImgShieldsUrl("github/issues-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals),
         );
     }
 
@@ -195,7 +202,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("github.com/{$this->githubRepo}/pulls"),
-            new ImgShieldsUrl("github/issues-pr-raw/{$this->githubRepo}")
+            (new ImgShieldsUrl("github/issues-pr-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -208,7 +215,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("github.com/{$this->githubRepo}/pulls", ['q' => 'is%3Aissue+is%3Aclosed']),
-            new ImgShieldsUrl("github/issues-pr-closed-raw/{$this->githubRepo}", ['color' => 'red'])
+            (new ImgShieldsUrl("github/issues-pr-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -221,7 +228,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("packagist.org/packages/{$this->package}"),
-            new ImgShieldsUrl("packagist/v/{$this->package}.svg")
+            (new ImgShieldsUrl("packagist/v/{$this->package}.svg"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -234,7 +241,7 @@ class DependencyService
     {
         return new DependencyUrl(
             new Url("hub.docker.com/r/{$this->package}"),
-            new ImgShieldsUrl("docker/v/{$this->package}.svg", ['sort' => 'semver'])
+            (new ImgShieldsUrl("docker/v/{$this->package}.svg", ['sort' => 'semver']))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -249,7 +256,7 @@ class DependencyService
 
         return new DependencyUrl(
             new Url("pypi.org/project/{$project}"),
-            new ImgShieldsUrl("pypi/v/{$project}.svg")
+            (new ImgShieldsUrl("pypi/v/{$project}.svg"))->withGlobalParams($this->imgShieldGlobals)
         );
     }
 }
