@@ -13,7 +13,7 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function github_url(string $package, string $type)
+    public function github(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertGithubUrl($service->githubRepo, $service->gitHub());
@@ -25,10 +25,11 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function travis_url(string $package, string $type)
+    public function travis(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertTravisUrl($service->githubRepo, $service->travis());
+        $this->assertTravisSvg($service->githubRepo, $service->travis());
     }
 
     /**
@@ -37,10 +38,11 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function version_url(string $package, string $type)
+    public function version(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertVersionUrl($service->project, $service->version());
+        $this->assertVersionSvg($service->project, $service->version());
     }
 
     /**
@@ -49,10 +51,23 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function open_issues_url(string $package, string $type)
+    public function last_commit(string $package, string $type)
+    {
+        $service = new DependencyService($package, $type);
+        $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit());
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProvider
+     * @param  string  $package
+     * @param  string  $type
+     */
+    public function open_issues(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues());
+        $this->assertOpenIssuesSvg($service->githubRepo, $service->openIssues());
     }
 
     /**
@@ -61,10 +76,11 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function closed_issues_url(string $package, string $type)
+    public function closed_issues(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues());
+        $this->assertClosedIssuesSvg($service->githubRepo, $service->closedIssues());
     }
 
     /**
@@ -73,10 +89,11 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function open_pull_requests_url(string $package, string $type)
+    public function open_pull_requests(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertOpenPullRequestsUrl($service->githubRepo, $service->openPullRequests());
+        $this->assertOpenPullRequestsSvg($service->githubRepo, $service->openPullRequests());
     }
 
     /**
@@ -85,9 +102,10 @@ class DependencyUrlTest extends TestCase
      * @param  string  $package
      * @param  string  $type
      */
-    public function closed_pull_requests_url(string $package, string $type)
+    public function closed_pull_requests(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
         $this->assertClosedPullRequestsUrl($service->githubRepo, $service->closedPullRequests());
+        $this->assertClosedPullRequestsSvg($service->githubRepo, $service->closedPullRequests());
     }
 }
