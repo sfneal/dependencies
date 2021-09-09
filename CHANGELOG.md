@@ -102,3 +102,9 @@ All notable changes to `dependencies` will be documented in this file
 - add 'pull requests' methods to `DependenciesService` that allow access to 'open' & 'closed' pull request counts
 - add custom assertion methods for testing open & closed pull requests urls & svg badges
 - add 'composer test-feature' & 'composer test-unit' scripts for running 'Feature' & 'Unit' tests separately
+
+
+# 1.4.0 - 2021-09-09
+- make `Url` & `ImgShieldsUrl` utility classes for generating URLs & SVGs
+- add ability to pass global img shields params to `Dependency`, `DependencyRepository` & `DependencyService`
+- add testing of adding global params to img shield URLs
