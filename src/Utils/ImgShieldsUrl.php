@@ -18,7 +18,7 @@ class ImgShieldsUrl extends Url
     /**
      * Merge global Img Shields params with the original params.
      *
-     * @param array|null $globalParams
+     * @param  array|null  $globalParams
      * @return $this
      */
     public function withGlobalParams(array $globalParams = null): self

@@ -40,7 +40,7 @@ class DependenciesRepository
     /**
      * DependenciesRepository constructor.
      *
-     * @param array|null $imgShieldGlobalParams
+     * @param  array|null  $imgShieldGlobalParams
      */
     public function __construct(array $imgShieldGlobalParams = null)
     {
