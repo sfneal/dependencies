@@ -16,8 +16,9 @@ class DependencyUrl
 
     /**
      * DependencySvg constructor.
-     * @param Url $url
-     * @param Url|null $svg
+     *
+     * @param  Url  $url
+     * @param  Url|null  $svg
      */
     public function __construct(Url $url, Url $svg = null)
     {
