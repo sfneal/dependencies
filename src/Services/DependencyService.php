@@ -39,6 +39,7 @@ class DependencyService
 
     /**
      * DependenciesService constructor.
+     *
      * @param  string  $package
      * @param  string  $type
      */

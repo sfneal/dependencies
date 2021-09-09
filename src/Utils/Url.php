@@ -17,8 +17,8 @@ class Url
     /**
      * Url constructor.
      *
-     * @param string $uri
-     * @param array|null $params
+     * @param  string  $uri
+     * @param  array|null  $params
      */
     public function __construct(string $uri, array $params = null)
     {
@@ -33,7 +33,7 @@ class Url
      */
     public function get(): string
     {
-        return self::generateUrl($this->uri) . self::generateQueryString($this->params);
+        return self::generateUrl($this->uri).self::generateQueryString($this->params);
     }
 
     /**
@@ -50,7 +50,7 @@ class Url
     /**
      * Generate a query string.
      *
-     * @param array|null $params
+     * @param  array|null  $params
      * @return string
      */
     protected static function generateQueryString(array $params = null): string
@@ -63,7 +63,7 @@ class Url
                 $paramStrings[] = "{$key}={$value}";
             }
 
-            return $query . implode('&', $paramStrings);
+            return $query.implode('&', $paramStrings);
         }
 
         return '';

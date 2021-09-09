@@ -10,6 +10,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -22,6 +23,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -35,6 +37,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -48,6 +51,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -60,6 +64,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -73,6 +78,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -86,6 +92,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
@@ -99,6 +106,7 @@ class DependencyUrlTest extends TestCase
     /**
      * @test
      * @dataProvider packageProvider
+     *
      * @param  string  $package
      * @param  string  $type
      */
