@@ -7,8 +7,8 @@ class ImgShieldsUrl extends Url
     /**
      * Url constructor.
      *
-     * @param string $uri
-     * @param array|null $params
+     * @param  string  $uri
+     * @param  array|null  $params
      */
     public function __construct(string $uri, array $params = null)
     {
