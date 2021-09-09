@@ -33,6 +33,24 @@ class DependenciesRepository
     private $dependenciesCollection;
 
     /**
+     * @var array|null Array of global Img Shields params to be passed to SVG requests
+     */
+    private $imgShieldGlobalParams;
+
+    /**
+     * Include Img Shields global params in SVG requests.
+     *
+     * @param  array|null  $imgShieldGlobalParams
+     * @return $this
+     */
+    public function withImgShieldGlobalParams(array $imgShieldGlobalParams = null): self
+    {
+        $this->imgShieldGlobalParams = $imgShieldGlobalParams;
+
+        return $this;
+    }
+
+    /**
      * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
      *
      * @param  bool  $devComposerDependencies
@@ -88,7 +106,7 @@ class DependenciesRepository
 
                 foreach ($this->getDependencies()->toArray() as $type => $dependencies) {
                     foreach ($dependencies as $dependency) {
-                        $array[] = new DependencyService($dependency, $type);
+                        $array[] = new DependencyService($dependency, $type, $this->imgShieldGlobalParams);
                     }
                 }
 

@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
-use Sfneal\Dependencies\Utils\DependencySvg;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\Url;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -94,13 +94,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @param  Collection  $collection
      * @param  int  $expected
+     * @param  array|null  $globalParams
      */
-    public function assertDependencyServiceCollection(Collection $collection, int $expected): void
+    public function assertDependencyServiceCollection(Collection $collection, int $expected, array $globalParams = null): void
     {
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame($expected, $collection->count());
 
-        $collection->each(function (DependencyService $service) {
+        $collection->each(function (DependencyService $service) use ($globalParams) {
             $this->assertTravisSvg($service->githubRepo, $service->travis(), false);
             $this->assertVersionSvg($service->project, $service->version(), false);
             $this->assertLastCommitSvg($service->githubRepo, $service->lastCommit(), false);
@@ -116,20 +117,34 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertClosedIssuesUrl($service->githubRepo, $service->closedIssues(), false);
             $this->assertOpenPullRequestsUrl($service->githubRepo, $service->openPullRequests(), false);
             $this->assertClosedPullRequestsUrl($service->githubRepo, $service->closedPullRequests(), false);
+
+            if (isset($globalParams)) {
+                $svgs = [
+                    $service->version(),
+                    $service->lastCommit(),
+                    $service->openIssues(),
+                    $service->closedIssues(),
+                    $service->openPullRequests(),
+                    $service->closedPullRequests(),
+                ];
+
+                foreach ($svgs as $svg) {
+                    $this->assertStringContainsString(ltrim(Url::generateQueryString($globalParams), '?'), $svg->svg());
+                }
+            }
         });
     }
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertTravisSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertTravisSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('app.travis-ci.com', $url);
         $this->assertStringContainsString('.svg?branch=master', $url);
@@ -143,15 +158,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertVersionSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertVersionSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('img.shields.io/', $url);
 
@@ -170,15 +184,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertLastCommitSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertLastCommitSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('img.shields.io/github/last-commit', $url);
 
@@ -251,15 +264,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertOpenIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertOpenIssuesSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github/issues-raw', $url);
 
@@ -272,15 +284,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertClosedIssuesSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertClosedIssuesSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github/issues-closed-raw', $url);
         $this->assertStringContainsString('color=red', $url);
@@ -294,7 +305,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
     public function assertOpenIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
@@ -313,7 +324,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
     public function assertClosedIssuesUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
@@ -333,15 +344,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertOpenPullRequestsSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertOpenPullRequestsSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github/issues-pr-raw', $url);
 
@@ -354,15 +364,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertClosedPullRequestsSvg(string $package, DependencySvg $generator, bool $sendRequest = true)
+    public function assertClosedPullRequestsSvg(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertInstanceOf(DependencySvg::class, $generator);
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github/issues-pr-closed-raw', $url);
         $this->assertStringContainsString('color=red', $url);
@@ -376,7 +385,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
     public function assertOpenPullRequestsUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
@@ -395,7 +404,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencySvg  $generator
+     * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
     public function assertClosedPullRequestsUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)

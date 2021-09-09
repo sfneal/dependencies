@@ -14,4 +14,17 @@ class DependenciesRepositoryConfigEmptyTest extends TestCase
 
         $this->assertDependencyServiceCollection($collection, 0);
     }
+
+    /** @test */
+    public function get_dependency_empty_collection_with_globals()
+    {
+        $globalImgShieldParams = [
+            'style' => 'flat-square',
+        ];
+        $collection = Dependencies::fromConfig()
+            ->withImgShieldGlobalParams($globalImgShieldParams)
+            ->get();
+
+        $this->assertDependencyServiceCollection($collection, 0, $globalImgShieldParams);
+    }
 }
