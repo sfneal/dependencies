@@ -51,7 +51,6 @@
         "test": "vendor/bin/phpunit",
         "test-feature": "vendor/bin/phpunit --testsuite='Feature Tests'",
         "test-unit": "vendor/bin/phpunit --testsuite='Unit Tests'",
-        "test-filter": "vendor/bin/phpunit --filter=DependenciesRepositoryArrayTest::get_dependency_collection_from_array_all_with_globals",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "docker-test": "bash scripts/boot.sh ''",
         "docker-test-lowest": "bash scripts/boot.sh --prefer-lowest",
