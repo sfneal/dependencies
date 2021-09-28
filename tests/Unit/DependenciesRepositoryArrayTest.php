@@ -70,20 +70,20 @@ class DependenciesRepositoryArrayTest extends TestCase
             'style' => 'flat-square',
         ];
         $collection = Dependencies::fromArray([
-            'composer' => [
-                'sfneal/casts',
-                'sfneal/currency',
-                'sfneal/datum',
-                'sfneal/healthy',
-                'sfneal/users',
-            ],
-            'docker' => [
-                'stephenneal/php-composer',
-                'stephenneal/php-laravel',
-                'stephenneal/python-aws',
-                'stephenneal/python-flask',
-            ],
-        ])
+                'composer' => [
+                    'sfneal/casts',
+                    'sfneal/currency',
+                    'sfneal/datum',
+                    'sfneal/healthy',
+                    'sfneal/users',
+                ],
+                'docker' => [
+                    'stephenneal/php-composer',
+                    'stephenneal/php-laravel',
+                    'stephenneal/python-aws',
+                    'stephenneal/python-flask',
+                ],
+            ])
             ->withImgShieldGlobalParams($globalImgShieldParams)
             ->get();
 
