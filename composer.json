@@ -24,8 +24,10 @@
         "sfneal/string-helpers": "^1.0"
     },
     "require-dev": {
+        "josiasmontag/laravel-redis-mock": ">=1.2.6",
         "phpunit/phpunit": ">=9.5.4",
         "orchestra/testbench": ">=6.7.1",
+        "predis/predis": "^1.1",
         "scrutinizer/ocular": "^1.8"
     },
     "extra": {
@@ -50,6 +52,10 @@
         "test-feature": "vendor/bin/phpunit --testsuite='Feature Tests'",
         "test-unit": "vendor/bin/phpunit --testsuite='Unit Tests'",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "docker-test": "bash scripts/boot.sh ''",
+        "docker-test-lowest": "bash scripts/boot.sh --prefer-lowest",
+        "docker-test-all": "bash scripts/boot-all.sh && bash scripts/boot-all.sh --prefer-lowest",
+        "docker-down": "docker-compose down -v --remove-orphans",
         "upload-coverage": "php vendor/bin/ocular code-coverage:upload --format=php-clover phpunit.xml.dist",
         "update-test": "composer --prefer-stable update && composer test && composer update --prefer-lowest && composer test && composer update"
     },
