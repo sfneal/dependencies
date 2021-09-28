@@ -29,4 +29,5 @@ COPY tests  /var/www/tests/
 # Install composer dependencies
 RUN composer dump-autoload
 
-ENTRYPOINT ["vendor/bin/phpunit"]
+ENTRYPOINT ["composer"]
+CMD ["test"]
