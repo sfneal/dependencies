@@ -24,8 +24,10 @@
         "sfneal/string-helpers": "^1.0"
     },
     "require-dev": {
+        "josiasmontag/laravel-redis-mock": ">=1.2.6",
         "phpunit/phpunit": ">=9.5.4",
         "orchestra/testbench": ">=6.7.1",
+        "predis/predis": "^1.1",
         "scrutinizer/ocular": "^1.8"
     },
     "extra": {
@@ -49,6 +51,7 @@
         "test": "vendor/bin/phpunit",
         "test-feature": "vendor/bin/phpunit --testsuite='Feature Tests'",
         "test-unit": "vendor/bin/phpunit --testsuite='Unit Tests'",
+        "test-filter": "vendor/bin/phpunit --filter=DependenciesRepositoryArrayTest::get_dependency_collection_from_array_all_with_globals",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "docker-test": "bash scripts/boot.sh ''",
         "docker-test-lowest": "bash scripts/boot.sh --prefer-lowest",
