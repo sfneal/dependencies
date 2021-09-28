@@ -42,10 +42,10 @@ class ComposerDependencyTest extends TestCase
             'sfneal/caching',
             'sfneal/laravel-helpers',
             'sfneal/string-helpers',
-            "josiasmontag/laravel-redis-mock",
+            'josiasmontag/laravel-redis-mock',
             'phpunit/phpunit',
             'orchestra/testbench',
-            "predis/predis",
+            'predis/predis',
             'scrutinizer/ocular',
         ];
         $deps = (new ComposerDependencies(true))->get();
