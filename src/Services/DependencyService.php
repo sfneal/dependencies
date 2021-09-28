@@ -59,56 +59,6 @@ class DependencyService
     }
 
     /**
-     * Retrieve the GitHub package name with alias replacement.
-     *
-     * @param  string  $fullPackageName
-     * @return void
-     */
-    private function setGitHubRepo(string $fullPackageName): void
-    {
-        [$user, $package] = explode('/', $fullPackageName);
-
-        // Replace GitHub username with alias if one is provided
-        if (array_key_exists($user, config('dependencies.github_alias'))) {
-            $this->githubRepo = config('dependencies.github_alias')[$user]."/{$package}";
-        }
-
-        // Use default package name
-        else {
-            $this->githubRepo = $fullPackageName;
-        }
-    }
-
-    /**
-     * Set the dependencies type.
-     *
-     * @param  string  $type
-     */
-    private function setType(string $type): void
-    {
-        assert(
-            in_array($type, self::DEPENDENCY_TYPES),
-            "'{$type} is not a supported dependency type (supported: ".join(', ', self::DEPENDENCY_TYPES)
-        );
-        $this->type = $type;
-    }
-
-    /**
-     * Set the dependency project name.
-     *
-     * @param  string  $fullPackageName
-     */
-    private function setProject(string $fullPackageName): void
-    {
-        if ($this->type == 'python') {
-            [$user, $package] = explode('/', $fullPackageName);
-            $this->project = $package;
-        } else {
-            $this->project = $fullPackageName;
-        }
-    }
-
-    /**
      * Retrieve a GitHub URL for a dependency.
      *
      * @return DependencyUrl
@@ -259,5 +209,55 @@ class DependencyService
             new Url("pypi.org/project/{$project}"),
             (new ImgShieldsUrl("pypi/v/{$project}.svg"))->withGlobalParams($this->imgShieldGlobals)
         );
+    }
+
+    /**
+     * Retrieve the GitHub package name with alias replacement.
+     *
+     * @param  string  $fullPackageName
+     * @return void
+     */
+    private function setGitHubRepo(string $fullPackageName): void
+    {
+        [$user, $package] = explode('/', $fullPackageName);
+
+        // Replace GitHub username with alias if one is provided
+        if (array_key_exists($user, config('dependencies.github_alias'))) {
+            $this->githubRepo = config('dependencies.github_alias')[$user]."/{$package}";
+        }
+
+        // Use default package name
+        else {
+            $this->githubRepo = $fullPackageName;
+        }
+    }
+
+    /**
+     * Set the dependencies type.
+     *
+     * @param  string  $type
+     */
+    private function setType(string $type): void
+    {
+        assert(
+            in_array($type, self::DEPENDENCY_TYPES),
+            "'{$type} is not a supported dependency type (supported: ".join(', ', self::DEPENDENCY_TYPES)
+        );
+        $this->type = $type;
+    }
+
+    /**
+     * Set the dependency project name.
+     *
+     * @param  string  $fullPackageName
+     */
+    private function setProject(string $fullPackageName): void
+    {
+        if ($this->type == 'python') {
+            [$user, $package] = explode('/', $fullPackageName);
+            $this->project = $package;
+        } else {
+            $this->project = $fullPackageName;
+        }
     }
 }
