@@ -7,7 +7,7 @@ trait StaticConstructor
     /**
      * Static URL constructor.
      *
-     * @param string $uri
+     * @param  string  $uri
      * @return self
      */
     public static function from(string $uri): self

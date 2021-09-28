@@ -21,7 +21,7 @@ class Url
     /**
      * Add query parameters to a URL.
      *
-     * @param array|null $params
+     * @param  array|null  $params
      * @return $this
      */
     public function withParams(array $params = null): self

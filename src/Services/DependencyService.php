@@ -81,7 +81,7 @@ class DependencyService
             Url::from("app.travis-ci.com/{$this->githubRepo}"),
             Url::from("app.travis-ci.com/{$this->githubRepo}.svg")
                 ->withParams([
-                    'branch' => 'master'
+                    'branch' => 'master',
                 ]),
         );
     }
@@ -146,11 +146,11 @@ class DependencyService
         return new DependencyUrl(
             Url::from("github.com/{$this->githubRepo}/issues")
                 ->withParams([
-                    'q' => 'is%3Aissue+is%3Aclosed'
+                    'q' => 'is%3Aissue+is%3Aclosed',
                 ]),
             ImgShieldsUrl::from("github/issues-closed-raw/{$this->githubRepo}")
                 ->withParams([
-                    'color' => 'red'
+                    'color' => 'red',
                 ])
                 ->withGlobalParams($this->imgShieldGlobals),
         );
@@ -180,11 +180,11 @@ class DependencyService
         return new DependencyUrl(
             Url::from("github.com/{$this->githubRepo}/pulls")
                 ->withParams([
-                    'q' => 'is%3Aissue+is%3Aclosed'
+                    'q' => 'is%3Aissue+is%3Aclosed',
                 ]),
             ImgShieldsUrl::from("github/issues-pr-closed-raw/{$this->githubRepo}")
                 ->withParams([
-                    'color' => 'red'
+                    'color' => 'red',
                 ])
                 ->withGlobalParams($this->imgShieldGlobals)
         );
@@ -215,7 +215,7 @@ class DependencyService
             Url::from("hub.docker.com/r/{$this->package}"),
             ImgShieldsUrl::from("docker/v/{$this->package}.svg")
                 ->withParams([
-                    'sort' => 'semver'
+                    'sort' => 'semver',
                 ])
                 ->withGlobalParams($this->imgShieldGlobals)
         );
