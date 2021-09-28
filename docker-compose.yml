@@ -19,9 +19,9 @@ services:
     dependencies-cache:
         container_name: dependencies-cache
         image: redis:6-alpine
-        command: ["redis-server", "--appendonly yes", "--port 9736"]
+        command: ["redis-server", "--appendonly yes", "--port 3712"]
         ports:
-            - "9736:9736"
+            - "3712:3712"
         volumes:
             - dependencies-cache:/data
         networks:
