@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Utils;
 use Illuminate\Support\Collection;
 use Sfneal\Helpers\Strings\StringHelpers;
 
-class ComposerDependencies
+class ComposerRequirements
 {
     // todo: refactor to `ComposerRequirements`?
 

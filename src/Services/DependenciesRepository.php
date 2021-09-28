@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Sfneal\Caching\Traits\IsCacheable;
-use Sfneal\Dependencies\Utils\ComposerDependencies;
+use Sfneal\Dependencies\Utils\ComposerRequirements;
 use Sfneal\Helpers\Laravel\LaravelHelpers;
 
 class DependenciesRepository
@@ -151,7 +151,7 @@ class DependenciesRepository
     private function getComposerRequirements(): Collection
     {
         return collect([
-            'composer' => (new ComposerDependencies($this->devComposerDependencies))->get()->toArray(),
+            'composer' => (new ComposerRequirements($this->devComposerDependencies))->get()->toArray(),
         ]);
     }
 
