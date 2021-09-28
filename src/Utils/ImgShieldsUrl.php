@@ -2,8 +2,12 @@
 
 namespace Sfneal\Dependencies\Utils;
 
+use Sfneal\Dependencies\Utils\Traits\StaticConstructor;
+
 class ImgShieldsUrl extends Url
 {
+    use StaticConstructor;
+
     /**
      * Url constructor.
      *

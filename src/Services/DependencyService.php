@@ -66,7 +66,7 @@ class DependencyService
     public function gitHub(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}")
+            Url::from("github.com/{$this->githubRepo}")
         );
     }
 
@@ -78,8 +78,11 @@ class DependencyService
     public function travis(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("app.travis-ci.com/{$this->githubRepo}"),
-            new Url("app.travis-ci.com/{$this->githubRepo}.svg", ['branch' => 'master']),
+            Url::from("app.travis-ci.com/{$this->githubRepo}"),
+            Url::from("app.travis-ci.com/{$this->githubRepo}.svg")
+                ->withParams([
+                    'branch' => 'master'
+                ]),
         );
     }
 
@@ -113,8 +116,9 @@ class DependencyService
     public function lastCommit(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}"),
-            (new ImgShieldsUrl("github/last-commit/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("github.com/{$this->githubRepo}"),
+            ImgShieldsUrl::from("github/last-commit/{$this->githubRepo}")
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -126,8 +130,9 @@ class DependencyService
     public function openIssues(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}/issues"),
-            (new ImgShieldsUrl("github/issues-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("github.com/{$this->githubRepo}/issues"),
+            ImgShieldsUrl::from("github/issues-raw/{$this->githubRepo}")
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -139,8 +144,15 @@ class DependencyService
     public function closedIssues(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}/issues", ['q' => 'is%3Aissue+is%3Aclosed']),
-            (new ImgShieldsUrl("github/issues-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals),
+            Url::from("github.com/{$this->githubRepo}/issues")
+                ->withParams([
+                    'q' => 'is%3Aissue+is%3Aclosed'
+                ]),
+            ImgShieldsUrl::from("github/issues-closed-raw/{$this->githubRepo}")
+                ->withParams([
+                    'color' => 'red'
+                ])
+                ->withGlobalParams($this->imgShieldGlobals),
         );
     }
 
@@ -152,8 +164,9 @@ class DependencyService
     public function openPullRequests(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}/pulls"),
-            (new ImgShieldsUrl("github/issues-pr-raw/{$this->githubRepo}"))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("github.com/{$this->githubRepo}/pulls"),
+            ImgShieldsUrl::from("github/issues-pr-raw/{$this->githubRepo}")
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -165,8 +178,15 @@ class DependencyService
     public function closedPullRequests(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("github.com/{$this->githubRepo}/pulls", ['q' => 'is%3Aissue+is%3Aclosed']),
-            (new ImgShieldsUrl("github/issues-pr-closed-raw/{$this->githubRepo}", ['color' => 'red']))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("github.com/{$this->githubRepo}/pulls")
+                ->withParams([
+                    'q' => 'is%3Aissue+is%3Aclosed'
+                ]),
+            ImgShieldsUrl::from("github/issues-pr-closed-raw/{$this->githubRepo}")
+                ->withParams([
+                    'color' => 'red'
+                ])
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -178,8 +198,9 @@ class DependencyService
     private function packagist(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("packagist.org/packages/{$this->package}"),
-            (new ImgShieldsUrl("packagist/v/{$this->package}.svg"))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("packagist.org/packages/{$this->package}"),
+            ImgShieldsUrl::from("packagist/v/{$this->package}.svg")
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -191,8 +212,12 @@ class DependencyService
     private function docker(): DependencyUrl
     {
         return new DependencyUrl(
-            new Url("hub.docker.com/r/{$this->package}"),
-            (new ImgShieldsUrl("docker/v/{$this->package}.svg", ['sort' => 'semver']))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("hub.docker.com/r/{$this->package}"),
+            ImgShieldsUrl::from("docker/v/{$this->package}.svg")
+                ->withParams([
+                    'sort' => 'semver'
+                ])
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
@@ -206,8 +231,9 @@ class DependencyService
         $project = explode('/', $this->package)[1];
 
         return new DependencyUrl(
-            new Url("pypi.org/project/{$project}"),
-            (new ImgShieldsUrl("pypi/v/{$project}.svg"))->withGlobalParams($this->imgShieldGlobals)
+            Url::from("pypi.org/project/{$project}"),
+            ImgShieldsUrl::from("pypi/v/{$project}.svg")
+                ->withGlobalParams($this->imgShieldGlobals)
         );
     }
 
