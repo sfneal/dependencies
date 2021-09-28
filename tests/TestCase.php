@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
-use Sfneal\Dependencies\Utils\Url;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
