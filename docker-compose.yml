@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    dependencies:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: "sfneal/dependencies:${TAG}"
+        env_file: .env.docker
+        container_name: dependencies
+        tty: true
+        volumes:
+            - dependencies:/var/www
+        depends_on:
+            - dependencies-cache
+        networks:
+            - dependencies-network
+
+    dependencies-cache:
+        container_name: dependencies-cache
+        image: redis:6-alpine
+        command: ["redis-server", "--appendonly yes", "--port 3712"]
+        ports:
+            - "3712:3712"
+        volumes:
+            - dependencies-cache:/data
+        networks:
+            - dependencies-network
+
+
+# Networks
+networks:
+    dependencies-network:
+        driver: bridge
+
+# Volumes
+volumes:
+    dependencies:
+    dependencies-cache:
