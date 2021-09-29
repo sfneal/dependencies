@@ -108,3 +108,8 @@ All notable changes to `dependencies` will be documented in this file
 - make `Url` & `ImgShieldsUrl` utility classes for generating URLs & SVGs
 - add ability to pass global img shields params to `Dependency`, `DependencyRepository` & `DependencyService`
 - add testing of adding global params to img shield URLs
+
+
+# 1.4.1 - 2021-09-29
+- add static `from()` methods to `Url` & `ImgShieldsUrl` classes to allow for cleaner static construction of objects
+- refactor `ComposerDependencies` utility to `ComposerRequirements` to better reflect use

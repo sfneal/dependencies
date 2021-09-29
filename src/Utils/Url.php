@@ -15,6 +15,30 @@ class Url
     protected $params;
 
     /**
+     * Static URL constructor.
+     *
+     * @param  string  $uri
+     * @return self
+     */
+    public static function from(string $uri): self
+    {
+        return new self($uri);
+    }
+
+    /**
+     * Add query parameters to a URL.
+     *
+     * @param  array|null  $params
+     * @return $this
+     */
+    public function withParams(array $params = null): self
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
      * Url constructor.
      *
      * @param  string  $uri
@@ -23,7 +47,7 @@ class Url
     public function __construct(string $uri, array $params = null)
     {
         $this->uri = $uri;
-        $this->params = $params;
+        $this->withParams($params);
     }
 
     /**
@@ -42,7 +66,7 @@ class Url
      * @param  string  $uri
      * @return string
      */
-    public static function generateUrl(string $uri): string
+    protected static function generateUrl(string $uri): string
     {
         return 'https://'.$uri;
     }
@@ -53,7 +77,7 @@ class Url
      * @param  array|null  $params
      * @return string
      */
-    public static function generateQueryString(array $params = null): string
+    protected static function generateQueryString(array $params = null): string
     {
         if (! is_null($params)) {
             $query = '?';

@@ -5,9 +5,9 @@ namespace Sfneal\Dependencies\Tests\Feature;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Utils\ComposerDependencies;
+use Sfneal\Dependencies\Utils\ComposerRequirements;
 
-class ComposerDependencyTest extends TestCase
+class ComposerRequirementsTest extends TestCase
 {
     /**
      * Define environment setup.
@@ -29,7 +29,7 @@ class ComposerDependencyTest extends TestCase
             'sfneal/laravel-helpers',
             'sfneal/string-helpers',
         ];
-        $deps = (new ComposerDependencies())->get();
+        $deps = (new ComposerRequirements())->get();
 
         $this->assertComposerDependencies($expected, $deps);
     }
@@ -48,7 +48,7 @@ class ComposerDependencyTest extends TestCase
             'predis/predis',
             'scrutinizer/ocular',
         ];
-        $deps = (new ComposerDependencies(true))->get();
+        $deps = (new ComposerRequirements(true))->get();
 
         $this->assertComposerDependencies($expected, $deps);
     }

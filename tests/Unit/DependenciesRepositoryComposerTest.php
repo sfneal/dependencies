@@ -5,7 +5,7 @@ namespace Sfneal\Dependencies\Tests\Unit;
 use Illuminate\Foundation\Application;
 use Sfneal\Dependencies\Dependencies;
 use Sfneal\Dependencies\Tests\TestCase;
-use Sfneal\Dependencies\Utils\ComposerDependencies;
+use Sfneal\Dependencies\Utils\ComposerRequirements;
 
 class DependenciesRepositoryComposerTest extends TestCase
 {
@@ -25,7 +25,7 @@ class DependenciesRepositoryComposerTest extends TestCase
     {
         $collection = Dependencies::fromComposer()->get();
 
-        $this->assertDependencyServiceCollection($collection, (new ComposerDependencies())->get()->count());
+        $this->assertDependencyServiceCollection($collection, (new ComposerRequirements())->get()->count());
     }
 
     /** @test */
@@ -38,6 +38,6 @@ class DependenciesRepositoryComposerTest extends TestCase
             ->withImgShieldGlobalParams($globalImgShieldParams)
             ->get();
 
-        $this->assertDependencyServiceCollection($collection, (new ComposerDependencies())->get()->count(), $globalImgShieldParams);
+        $this->assertDependencyServiceCollection($collection, (new ComposerRequirements())->get()->count(), $globalImgShieldParams);
     }
 }
