@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Http;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
-use Sfneal\Dependencies\Utils\Url;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -158,7 +157,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
                 ];
 
                 foreach ($svgs as $svg) {
-                    $this->assertStringContainsString(ltrim(Url::generateQueryString($globalParams), '?'), $svg->svg());
+                    $this->assertStringContainsString(ltrim(self::generateQueryString($globalParams), '?'), $svg->svg());
                 }
             }
         });
@@ -464,5 +463,27 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertTrue($response->ok(), "Error: code {$response->status()} from {$url}");
 
         return $response;
+    }
+
+    /**
+     * Generate a query string.
+     *
+     * @param  array|null  $params
+     * @return string
+     */
+    protected static function generateQueryString(array $params = null): string
+    {
+        if (! is_null($params)) {
+            $query = '?';
+
+            $paramStrings = [];
+            foreach (array_unique($params) as $key => $value) {
+                $paramStrings[] = "{$key}={$value}";
+            }
+
+            return $query.implode('&', $paramStrings);
+        }
+
+        return '';
     }
 }
