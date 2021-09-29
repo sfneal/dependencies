@@ -113,3 +113,7 @@ All notable changes to `dependencies` will be documented in this file
 # 1.4.1 - 2021-09-29
 - add static `from()` methods to `Url` & `ImgShieldsUrl` classes to allow for cleaner static construction of objects
 - refactor `ComposerDependencies` utility to `ComposerRequirements` to better reflect use
+
+
+# 1.4.2 - 2021-09-29
+- add persistent 'http' cache store for storing HTTP responses (reduces runtime of test suite, once response is received it shouldn't be expected to change)
