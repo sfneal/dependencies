@@ -8,6 +8,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Psr\SimpleCache\InvalidArgumentException;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
@@ -55,6 +56,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('database.redis.default.port', env('REDIS_PORT', 6379));
         $app['config']->set('database.redis.default.options.prefix', null);
         $app['config']->set('cache.stores.redis.connection', 'default');
+
+        $app['config']->set('cache.stores.http.driver', env('CACHE_DEFAULT', config('cache.default')));
+        $app['config']->set('cache.stores.http.connection', 'cache');
 
         $app['config']->set('dependencies.github_alias', ['stephenneal' => 'sfneal']);
     }
@@ -455,11 +459,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @param  string  $url
      * @return Response
+     *
+     * @throws InvalidArgumentException
      */
     private function sendRequest(string $url): Response
     {
-        $response = Http::retry(3, 500)->get($url);
+        $response = Cache::store('http')->rememberForever($url, function () use ($url) {
+            return Http::retry(3, 500)->get($url);
+        });
 
+        // Assert caching
+        $this->assertTrue(Cache::store('http')->has($url));
+
+        // Assert response
         $this->assertTrue($response->ok(), "Error: code {$response->status()} from {$url}");
 
         return $response;
