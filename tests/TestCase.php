@@ -457,8 +457,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Send an HTTP request, validate its response is "Ok" & return the response.
      *
-     * @param string $url
+     * @param  string  $url
      * @return Response
+     *
      * @throws InvalidArgumentException
      */
     private function sendRequest(string $url): Response
