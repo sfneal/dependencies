@@ -58,7 +58,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('database.redis.default.options.prefix', null);
         $app['config']->set('cache.stores.redis.connection', 'default');
 
-        $app['config']->set('cache.stores.http.driver', 'redis');
+        $app['config']->set('cache.stores.http.driver', env('CACHE_DEFAULT', config('cache.default')));
         $app['config']->set('cache.stores.http.connection', 'cache');
 
         $app['config']->set('dependencies.github_alias', ['stephenneal' => 'sfneal']);
