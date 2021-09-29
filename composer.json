@@ -52,6 +52,7 @@
         "test-feature": "vendor/bin/phpunit --testsuite='Feature Tests'",
         "test-unit": "vendor/bin/phpunit --testsuite='Unit Tests'",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "test-deploy": "composer update-test && composer docker-test-all",
         "docker-test": "bash scripts/boot.sh ''",
         "docker-test-lowest": "bash scripts/boot.sh --prefer-lowest",
         "docker-test-all": "bash scripts/boot-all.sh && bash scripts/boot-all.sh --prefer-lowest",
