@@ -2,11 +2,18 @@
 
 namespace Sfneal\Dependencies\Utils;
 
-use Sfneal\Dependencies\Utils\Traits\StaticConstructor;
-
 class ImgShieldsUrl extends Url
 {
-    use StaticConstructor;
+    /**
+     * Static URL constructor.
+     *
+     * @param  string  $uri
+     * @return self
+     */
+    public static function from(string $uri): self
+    {
+        return new self($uri);
+    }
 
     /**
      * Url constructor.

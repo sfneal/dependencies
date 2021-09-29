@@ -2,12 +2,8 @@
 
 namespace Sfneal\Dependencies\Utils;
 
-use Sfneal\Dependencies\Utils\Traits\StaticConstructor;
-
 class Url
 {
-    use StaticConstructor;
-
     /**
      * @var string
      */
@@ -17,6 +13,17 @@ class Url
      * @var array
      */
     protected $params;
+
+    /**
+     * Static URL constructor.
+     *
+     * @param  string  $uri
+     * @return self
+     */
+    public static function from(string $uri): self
+    {
+        return new self($uri);
+    }
 
     /**
      * Add query parameters to a URL.
