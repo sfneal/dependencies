@@ -65,6 +65,7 @@ class ComposerRequirementsTest extends TestCase
         $this->assertCount(count($expected), $dependencies);
 
         // use `array_values()` to reindex array keys
-        $this->assertSame($expected, array_values($dependencies->toArray()));
+        $values = array_values($dependencies->toArray());
+        $this->assertSame(sort($expected), sort($values));
     }
 }
