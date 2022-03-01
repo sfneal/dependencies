@@ -8,5 +8,6 @@ set -e
 
 COMPOSER_FLAGS=${1:-""}
 
+bash "$DIR"/boot.sh "$COMPOSER_FLAGS" 8.1
 bash "$DIR"/boot.sh "$COMPOSER_FLAGS" 8.0
 bash "$DIR"/boot.sh "$COMPOSER_FLAGS" 7.4
