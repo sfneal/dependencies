@@ -97,7 +97,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['webmozart/assert', 'composer'],
             ['spatie/laravel-settings', 'composer'],
             ['illuminate/database', 'composer'],
-            ['laravel/framework', 'composer'],
             ['stephenneal/php-composer', 'docker'],
             ['stephenneal/php-laravel', 'docker'],
             ['stephenneal/nginx-laravel', 'docker'],
