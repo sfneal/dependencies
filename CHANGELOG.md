@@ -117,3 +117,8 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.4.2 - 2021-09-29
 - add persistent 'http' cache store for storing HTTP responses (reduces runtime of test suite, once response is received it shouldn't be expected to change)
+
+
+# 1.4.3 - 2022-03-01
+- bump composer dependency constraints to allow package upgrades
+- add use of GitHub actions
