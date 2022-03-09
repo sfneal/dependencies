@@ -80,5 +80,5 @@ return [
     | GitHub personal access token for accessing the GitHub API without limits.
     |
     */
-    'github_pat' => null,
+    'github_pat' => env('GITHUB_PAT', null),
 ];
