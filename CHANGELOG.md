@@ -125,4 +125,6 @@ All notable changes to `dependencies` will be documented in this file
 
 
 # 1.5.0 - 2022-03-09
-- add `description()` method to `DependencyService::github()` for accessing a repo's description
+- add `description()` method to `DependencyService` for accessing a repo's description
+- add `defaultBranch()` method to `DependencyService` for accessing a repo's default branch
+- add `download()` method to `DependencyService` for downloading a zip of the repo's default branch
