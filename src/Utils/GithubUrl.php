@@ -35,8 +35,6 @@ class GithubUrl extends DependencyUrl
         ])
         ->get($this->api->get());
 
-        print_r($response->json());
-
         if ($response->clientError() && str_contains($response->json('message'), 'API rate limit exceeded')) {
             return null;
         }
