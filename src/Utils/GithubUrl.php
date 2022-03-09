@@ -2,6 +2,7 @@
 
 namespace Sfneal\Dependencies\Utils;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -31,10 +32,20 @@ class GithubUrl extends DependencyUrl
      */
     public function description(): ?string
     {
+        return $this->getApiResponse()->json('description');
+    }
+
+    /**
+     * Retrieve a cached HTTP response from the GitHub api.
+     *
+     * @return ?Response
+     */
+    private function getApiResponse(): ?Response
+    {
         $response = Http::withHeaders([
-            'Authorization' => 'token '.config('dependencies.github_pat'),
-        ])
-        ->get($this->api->get());
+                'Authorization' => 'token '.config('dependencies.github_pat'),
+            ])
+            ->get($this->api->get());
 
         // Client error
         if ($response->clientError() && str_contains($response->json('message'), 'API rate limit exceeded')) {
@@ -45,8 +56,8 @@ class GithubUrl extends DependencyUrl
         return Cache::remember(
             config('dependencies.cache.prefix').':api-responses:'.$this->api->get(),
             config('dependencies.cache.ttl'),
-            function () use ($response) {
-                return $response->json('description');
+            function () use ($response): Response {
+                return $response;
             }
         );
     }
