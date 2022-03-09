@@ -15,13 +15,13 @@ class GithubUrl extends DependencyUrl
     /**
      * GithubUrl Constructor.
      *
-     * @param  Url  $url
-     * @param  Url  $api
+     * @param string $githubRepo GitHub repo name
      */
-    public function __construct(Url $url, Url $api)
+    public function __construct(string $githubRepo)
     {
-        parent::__construct($url, null);
-        $this->api = $api;
+        $this->api = Url::from("api.github.com/repos/{$githubRepo}");
+
+        parent::__construct(Url::from("github.com/{$githubRepo}"), null);
     }
 
     /**
