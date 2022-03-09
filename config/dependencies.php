@@ -71,4 +71,14 @@ return [
         'prefix' => 'dependencies:repository',
         'ttl' => 3600,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | GitHub PAT token
+    |--------------------------------------------------------------------------
+    |
+    | GitHub personal access token for accessing the GitHub API without limits.
+    |
+    */
+    'github_pat' => env('GITHUB_PAT', null),
 ];

@@ -12,6 +12,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\GithubUrl;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -141,7 +142,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertOpenPullRequestsSvg($service->githubRepo, $service->openPullRequests(), false);
             $this->assertClosedPullRequestsSvg($service->githubRepo, $service->closedPullRequests(), false);
 
-            $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
+            $this->assertGithub($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
             $this->assertVersionUrl($service->project, $service->version(), false);
             $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues(), false);
@@ -235,19 +236,28 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencyUrl  $generator
+     * @param  GithubUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertGithubUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    public function assertGithub(string $package, GithubUrl $generator, bool $sendRequest = true)
     {
-        $url = $generator->url();
-
+        $this->assertInstanceOf(GithubUrl::class, $generator);
         $this->assertInstanceOf(DependencyUrl::class, $generator);
+
+        // URL
+        $url = $generator->url();
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github.com', $url);
 
         if ($sendRequest) {
             $response = $this->sendRequest($url);
+        }
+
+        // Description
+        if (! is_null(config('dependencies.github_pat'))) {
+            $description = $generator->description();
+            $this->assertIsString($description);
+            $this->assertNotNull($description);
         }
     }
 

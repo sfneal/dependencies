@@ -3,6 +3,7 @@
 namespace Sfneal\Dependencies\Services;
 
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\GithubUrl;
 use Sfneal\Dependencies\Utils\ImgShieldsUrl;
 use Sfneal\Dependencies\Utils\Url;
 
@@ -61,12 +62,13 @@ class DependencyService
     /**
      * Retrieve a GitHub URL for a dependency.
      *
-     * @return DependencyUrl
+     * @return DependencyUrl|GithubUrl
      */
-    public function gitHub(): DependencyUrl
+    public function gitHub(): GithubUrl
     {
-        return new DependencyUrl(
-            Url::from("github.com/{$this->githubRepo}")
+        return new GithubUrl(
+            Url::from("github.com/{$this->githubRepo}"),
+            Url::from("api.github.com/repos/{$this->githubRepo}"),
         );
     }
 

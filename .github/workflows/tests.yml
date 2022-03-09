@@ -13,7 +13,7 @@ jobs:
                 dependency-version: [prefer-lowest, prefer-stable]
                 composer-script: [test-feature, test-unit]
 
-        name: PHP${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.composer-script }}
 
         steps:
             -   name: Checkout code
