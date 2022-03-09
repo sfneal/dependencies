@@ -250,7 +250,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('github.com', $url);
 
         if ($sendRequest) {
-            $response = $this->sendRequest($url);
+            $this->sendRequest($url);
         }
 
         // GitHub API
@@ -265,6 +265,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $defaultBranch = $generator->defaultBranch();
             $this->assertNotNull($defaultBranch);
             $this->assertIsString($defaultBranch);
+
+            // Download
+            $download = $generator->download();
+            $this->assertNotNull($download);
+            $this->assertIsString($download);
+            if ($sendRequest) {
+                $this->sendRequest($download);
+            }
         }
     }
 

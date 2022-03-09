@@ -14,15 +14,21 @@ class GithubUrl extends DependencyUrl
     private $api;
 
     /**
+     * @var string
+     */
+    private $githubRepo;
+
+    /**
      * GithubUrl Constructor.
      *
      * @param  string  $githubRepo  GitHub repo name
      */
     public function __construct(string $githubRepo)
     {
-        $this->api = Url::from("api.github.com/repos/{$githubRepo}");
+        $this->githubRepo = $githubRepo;
+        $this->api = Url::from("api.github.com/repos/{$this->githubRepo}");
 
-        parent::__construct(Url::from("github.com/{$githubRepo}"), null);
+        parent::__construct(Url::from("github.com/{$this->githubRepo}"), null);
     }
 
     /**
@@ -40,9 +46,19 @@ class GithubUrl extends DependencyUrl
      *
      * @return string
      */
-    public function defaultBranch(): ?string
+    public function defaultBranch(): string
     {
-        return $this->getApiResponse()->json('default_branch');
+        return $this->getApiResponse()->json('default_branch') ?? 'master';
+    }
+
+    /**
+     * Retrieve a link to download the GitHub repo zip.
+     *
+     * @return string
+     */
+    public function download(): string
+    {
+        return Url::from("github.com/{$this->githubRepo}/archive/refs/heads/{$this->defaultBranch()}.zip")->get();
     }
 
     /**
