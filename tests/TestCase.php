@@ -250,14 +250,29 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assertStringContainsString('github.com', $url);
 
         if ($sendRequest) {
-            $response = $this->sendRequest($url);
+            $this->sendRequest($url);
         }
 
-        // Description
+        // GitHub API
         if (! is_null(config('dependencies.github_pat'))) {
+
+            // Description
             $description = $generator->description();
-            $this->assertIsString($description);
             $this->assertNotNull($description);
+            $this->assertIsString($description);
+
+            // Default Branch
+            $defaultBranch = $generator->defaultBranch();
+            $this->assertNotNull($defaultBranch);
+            $this->assertIsString($defaultBranch);
+
+            // Download
+            $download = $generator->download();
+            $this->assertNotNull($download);
+            $this->assertIsString($download);
+            if ($sendRequest) {
+                $this->sendRequest($download);
+            }
         }
     }
 

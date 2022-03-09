@@ -66,10 +66,7 @@ class DependencyService
      */
     public function gitHub(): GithubUrl
     {
-        return new GithubUrl(
-            Url::from("github.com/{$this->githubRepo}"),
-            Url::from("api.github.com/repos/{$this->githubRepo}"),
-        );
+        return new GithubUrl($this->githubRepo);
     }
 
     /**
