@@ -36,6 +36,16 @@ class GithubUrl extends DependencyUrl
     }
 
     /**
+     * Retrieve the GitHub repo's description.
+     *
+     * @return string
+     */
+    public function defaultBranch(): ?string
+    {
+        return $this->getApiResponse()->json('default_branch');
+    }
+
+    /**
      * Retrieve a cached HTTP response from the GitHub api.
      *
      * @return ?Response
@@ -54,7 +64,7 @@ class GithubUrl extends DependencyUrl
 
         // Cache response
         return Cache::remember(
-            config('dependencies.cache.prefix').':api-responses:'.$this->api->get(),
+            config('dependencies.cache.prefix').':api-responses:'.crc32($this->api->get()),
             config('dependencies.cache.ttl'),
             function () use ($response): Response {
                 return $response;
