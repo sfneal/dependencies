@@ -14,8 +14,8 @@ class GithubUrl extends DependencyUrl
     /**
      * GithubUrl Constructor.
      *
-     * @param Url $url
-     * @param Url $api
+     * @param  Url  $url
+     * @param  Url  $api
      */
     public function __construct(Url $url, Url $api)
     {
@@ -31,7 +31,7 @@ class GithubUrl extends DependencyUrl
     public function description(): ?string
     {
         $response = Http::withHeaders([
-            'Authorization' => 'token '.config('dependencies.github_pat')
+            'Authorization' => 'token '.config('dependencies.github_pat'),
         ])
         ->get($this->api->get());
 
