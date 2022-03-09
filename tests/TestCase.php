@@ -255,8 +255,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         // Description
         $description = $generator->description();
-        $this->assertNotNull($description);
-        $this->assertIsString($description);
+        if (! is_null(config('dependencies.github_pat'))) {
+            $this->assertIsString($description);
+            $this->assertNotNull($description);
+        }
     }
 
     /**
