@@ -128,3 +128,7 @@ All notable changes to `dependencies` will be documented in this file
 - add `description()` method to `DependencyService` for accessing a repo's description
 - add `defaultBranch()` method to `DependencyService` for accessing a repo's default branch
 - add `download()` method to `DependencyService` for downloading a zip of the repo's default branch
+
+
+# 1.5.1 - 2022-03-09
+- fix issues with `GithubUrl` API response caching
