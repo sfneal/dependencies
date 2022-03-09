@@ -17,7 +17,7 @@ class DependencyUrlTest extends TestCase
     public function github(string $package, string $type)
     {
         $service = new DependencyService($package, $type);
-        $this->assertGithubUrl($service->githubRepo, $service->gitHub());
+        $this->assertGithub($service->githubRepo, $service->gitHub());
     }
 
     /**

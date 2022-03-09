@@ -141,7 +141,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertOpenPullRequestsSvg($service->githubRepo, $service->openPullRequests(), false);
             $this->assertClosedPullRequestsSvg($service->githubRepo, $service->closedPullRequests(), false);
 
-            $this->assertGithubUrl($service->githubRepo, $service->gitHub(), false);
+            $this->assertGithub($service->githubRepo, $service->gitHub(), false);
             $this->assertTravisUrl($service->githubRepo, $service->travis(), false);
             $this->assertVersionUrl($service->project, $service->version(), false);
             $this->assertOpenIssuesUrl($service->githubRepo, $service->openIssues(), false);
@@ -238,7 +238,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param  DependencyUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertGithubUrl(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    public function assertGithub(string $package, DependencyUrl $generator, bool $sendRequest = true)
     {
         $url = $generator->url();
 
