@@ -256,7 +256,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         // Description
         if (! is_null(config('dependencies.github_pat'))) {
             $description = $generator->description();
-            $this->assertIsString($description, "Failed asserting that {$package}'s description is not null.  Request URL: " . $generator->api());
+            $this->assertIsString($description, "Failed asserting that {$package}'s description is not null.  Request URL: ".$generator->api());
         }
     }
 
