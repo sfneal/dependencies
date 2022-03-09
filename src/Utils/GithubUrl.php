@@ -28,8 +28,17 @@ class GithubUrl extends DependencyUrl
      *
      * @return string
      */
-    public function description(): string
+    public function description(): ?string
     {
-        return Http::get($this->api->get())->json('description');
+        $response = Http::withHeaders([
+            'Authorization' => 'token '.config('dependencies.github_pat')
+        ])
+        ->get($this->api->get());
+
+        if ($response->clientError() && str_contains($response->json('message'), 'API rate limit exceeded')) {
+            return null;
+        }
+
+        return $response->json('description');
     }
 }
