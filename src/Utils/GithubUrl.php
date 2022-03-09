@@ -15,7 +15,7 @@ class GithubUrl extends DependencyUrl
     /**
      * GithubUrl Constructor.
      *
-     * @param string $githubRepo GitHub repo name
+     * @param  string  $githubRepo  GitHub repo name
      */
     public function __construct(string $githubRepo)
     {
