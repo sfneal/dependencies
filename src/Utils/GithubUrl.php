@@ -2,7 +2,6 @@
 
 namespace Sfneal\Dependencies\Utils;
 
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -38,7 +37,7 @@ class GithubUrl extends DependencyUrl
      */
     public function description(): ?string
     {
-        return $this->getApiResponse()->json('description');
+        return $this->getApiResponse()['description'];
     }
 
     /**
@@ -48,7 +47,7 @@ class GithubUrl extends DependencyUrl
      */
     public function defaultBranch(): string
     {
-        return $this->getApiResponse()->json('default_branch') ?? 'master';
+        return $this->getApiResponse()['default_branch'] ?? 'master';
     }
 
     /**
@@ -64,9 +63,9 @@ class GithubUrl extends DependencyUrl
     /**
      * Retrieve a cached HTTP response from the GitHub api.
      *
-     * @return ?Response
+     * @return ?array
      */
-    private function getApiResponse(): ?Response
+    private function getApiResponse(): ?array
     {
         $response = Http::withHeaders([
             'Authorization' => 'token '.config('dependencies.github_pat'),
@@ -82,8 +81,8 @@ class GithubUrl extends DependencyUrl
         return Cache::remember(
             config('dependencies.cache.prefix').':api-responses:'.crc32($this->api->get()),
             config('dependencies.cache.ttl'),
-            function () use ($response): Response {
-                return $response;
+            function () use ($response): array {
+                return $response->json();
             }
         );
     }
