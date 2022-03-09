@@ -62,9 +62,9 @@ class DependencyService
     /**
      * Retrieve a GitHub URL for a dependency.
      *
-     * @return DependencyUrl
+     * @return DependencyUrl|GithubUrl
      */
-    public function gitHub(): DependencyUrl
+    public function gitHub(): GithubUrl
     {
         return new GithubUrl(
             Url::from("github.com/{$this->githubRepo}"),
