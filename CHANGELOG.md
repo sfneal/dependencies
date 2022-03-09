@@ -122,3 +122,7 @@ All notable changes to `dependencies` will be documented in this file
 # 1.4.3 - 2022-03-01
 - bump composer dependency constraints to allow package upgrades
 - add use of GitHub actions
+
+
+# 1.5.0 - 2022-03-09
+- add `description()` method to `DependencyService::github()` for accessing a repo's description
