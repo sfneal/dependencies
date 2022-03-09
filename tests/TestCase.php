@@ -12,6 +12,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 use Sfneal\Dependencies\Providers\DependenciesServiceProvider;
 use Sfneal\Dependencies\Services\DependencyService;
 use Sfneal\Dependencies\Utils\DependencyUrl;
+use Sfneal\Dependencies\Utils\GithubUrl;
 use Sfneal\Helpers\Strings\StringHelpers;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -235,20 +236,27 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param  string  $package
-     * @param  DependencyUrl  $generator
+     * @param  GithubUrl  $generator
      * @param  bool  $sendRequest
      */
-    public function assertGithub(string $package, DependencyUrl $generator, bool $sendRequest = true)
+    public function assertGithub(string $package, GithubUrl $generator, bool $sendRequest = true)
     {
-        $url = $generator->url();
-
+        $this->assertInstanceOf(GithubUrl::class, $generator);
         $this->assertInstanceOf(DependencyUrl::class, $generator);
+
+        // URL
+        $url = $generator->url();
         $this->assertStringContainsString($package, $url);
         $this->assertStringContainsString('github.com', $url);
 
         if ($sendRequest) {
             $response = $this->sendRequest($url);
         }
+
+        // Description
+        $description = $generator->description();
+        $this->assertNotNull($description);
+        $this->assertIsString($description);
     }
 
     /**
