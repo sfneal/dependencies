@@ -24,6 +24,16 @@ class GithubUrl extends DependencyUrl
     }
 
     /**
+     * Retrieve the GitHub api endpoint.
+     *
+     * @return string
+     */
+    public function api(): string
+    {
+        return $this->api->get();
+    }
+
+    /**
      * Retrieve the GitHub repo's description.
      *
      * @return string
@@ -33,7 +43,7 @@ class GithubUrl extends DependencyUrl
         $response = Http::withHeaders([
             'Authorization' => 'token '.config('dependencies.github_pat'),
         ])
-        ->get($this->api->get());
+        ->get($this->api());
 
         if ($response->clientError() && str_contains($response->json('message'), 'API rate limit exceeded')) {
             return null;
