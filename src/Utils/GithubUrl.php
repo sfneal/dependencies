@@ -69,8 +69,8 @@ class GithubUrl extends DependencyUrl
     private function getApiResponse(): ?Response
     {
         $response = Http::withHeaders([
-                'Authorization' => 'token '.config('dependencies.github_pat'),
-            ])
+            'Authorization' => 'token '.config('dependencies.github_pat'),
+        ])
             ->get($this->api->get());
 
         // Client error
