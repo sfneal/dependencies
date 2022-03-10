@@ -248,9 +248,11 @@ class DependencyService
      */
     private function node(): DependencyUrl
     {
+        $project = explode('/', $this->package)[1];
+
         return new DependencyUrl(
-            Url::from("npmjs.com/package/{$this->package}"),
-            ImgShieldsUrl::from("npm/v/{$this->package}.svg")
+            Url::from("npmjs.com/package/{$project}"),
+            ImgShieldsUrl::from("npm/v/{$project}.svg")
                 ->withGlobalParams($this->imgShieldGlobals)
         );
     }
