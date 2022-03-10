@@ -201,7 +201,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertStringContainsString(explode('/', $package)[1], $url);
+        $this->assertStringContainsString(explode('/', $package)[1] ?? $package, $url);
         $this->assertStringContainsString('img.shields.io/', $url);
 
         if ($sendRequest) {
@@ -309,7 +309,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $inString = new StringHelpers($url);
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertStringContainsString(explode('/', $package)[1], $url);
+        $this->assertStringContainsString(explode('/', $package)[1] ?? $package, $url);
         $this->assertTrue(
             $inString->inString('packagist.org/packages')
             || $inString->inString('hub.docker.com/r/')
