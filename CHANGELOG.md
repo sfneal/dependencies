@@ -136,3 +136,7 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.6.0 - 2022-03-10
 - add ability to retrieve image shields badges for GitHub repo workflows (`DependencyService->github()->workflow()`)
+
+
+# 1.7.0 - 2022-03-10
+- add support for 'node' package dependencies
