@@ -3,6 +3,7 @@
 namespace Sfneal\Dependencies\Tests\Feature;
 
 use Sfneal\Dependencies\Tests\TestCase;
+use Sfneal\Dependencies\Utils\DependencyUrl;
 use Sfneal\Dependencies\Utils\GithubUrl;
 
 class GithubUrlTest extends TestCase
@@ -44,5 +45,31 @@ class GithubUrlTest extends TestCase
         $github = new GithubUrl($package);
 
         $this->assertGithub($package, $github, true);
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProviderWithWorkflows
+     *
+     * @param string $package
+     * @param string $type
+     * @param array $workflows
+     */
+    public function github_url_workflow_badges(string $package, string $type, array $workflows)
+    {
+        $github = new GithubUrl($package);
+
+        foreach ($workflows as $workflow) {
+            $generator = $github->workflow($workflow);
+            $url = $generator->url();
+
+            $this->assertInstanceOf(DependencyUrl::class, $generator);
+            $this->assertStringContainsString($package, $url);
+            $this->assertStringContainsString('img.shields.io/github/workflow/status', $url);
+
+            $response = $this->sendRequest($url);
+
+            $this->assertStringContainsString(strtoupper($workflow), $response->body());
+        }
     }
 }
