@@ -16,6 +16,7 @@ class DependencyService
         'composer',
         'docker',
         'python',
+        'node',
     ];
 
     /**
@@ -24,7 +25,7 @@ class DependencyService
     public $package;
 
     /**
-     * @var string Type of Dependency ('composer', 'docker' or 'python')
+     * @var string Type of Dependency ('composer', 'docker', 'python' or 'node')
      */
     public $type;
 
@@ -100,6 +101,10 @@ class DependencyService
             // Python
             case 'python':
                 return $this->pypi();
+
+            // Python
+            case 'node':
+                return $this->node();
 
             // PHP
             default:
@@ -232,6 +237,20 @@ class DependencyService
         return new DependencyUrl(
             Url::from("pypi.org/project/{$project}"),
             ImgShieldsUrl::from("pypi/v/{$project}.svg")
+                ->withGlobalParams($this->imgShieldGlobals)
+        );
+    }
+
+    /**
+     * Retrieve a Node versions SVG URL for a dependency.
+     *
+     * @return DependencyUrl
+     */
+    private function node(): DependencyUrl
+    {
+        return new DependencyUrl(
+            Url::from("npmjs.com/package/{$this->package}"),
+            ImgShieldsUrl::from("npm/v/{$this->package}.svg")
                 ->withGlobalParams($this->imgShieldGlobals)
         );
     }
