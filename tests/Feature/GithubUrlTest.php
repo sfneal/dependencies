@@ -5,6 +5,7 @@ namespace Sfneal\Dependencies\Tests\Feature;
 use Sfneal\Dependencies\Tests\TestCase;
 use Sfneal\Dependencies\Utils\DependencyUrl;
 use Sfneal\Dependencies\Utils\GithubUrl;
+use Sfneal\Helpers\Strings\StringHelpers;
 
 class GithubUrlTest extends TestCase
 {
@@ -71,6 +72,15 @@ class GithubUrlTest extends TestCase
             $response = $this->sendRequest($url);
 
             $this->assertStringContainsString($workflow, $response->body());
+
+            $stringHelper = new StringHelpers($response->body());
+
+            $this->assertTrue(
+                $stringHelper->inString('passing')
+                || $stringHelper->inString('failing')
+                || $stringHelper->inString('not found'),
+                '"passing", "failing" or "not found" were not found in the badge (url: '.$url.')'
+            );
         }
     }
 }
