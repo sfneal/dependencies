@@ -70,7 +70,7 @@ class GithubUrlTest extends TestCase
 
             $response = $this->sendRequest($url);
 
-            $this->assertStringContainsString(strtoupper($workflow), $response->body());
+            $this->assertStringContainsString($workflow, $response->body());
         }
     }
 }
