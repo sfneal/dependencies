@@ -70,7 +70,7 @@ class GithubUrl extends DependencyUrl
     /**
      * Display pass/fail status for a GitHub repo's workflow.
      *
-     * @param string $name
+     * @param  string  $name
      * @return DependencyUrl
      */
     public function workflow(string $name): DependencyUrl
@@ -80,7 +80,7 @@ class GithubUrl extends DependencyUrl
                 ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
                     'logo' => 'github',
-                    'label' => $name
+                    'label' => $name,
                 ])
         );
     }
