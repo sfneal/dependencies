@@ -24,8 +24,9 @@ class GithubUrlTest extends TestCase
             ['sfneal/datum', 'composer'],
             ['sfneal/tracking', 'composer'],
         ])
-        ->map(function(array $dependency) {
+        ->map(function (array $dependency) {
             $dependency[] = ['Docker Builds', 'Test Suite'];
+
             return $dependency;
         })
         ->shuffle()
@@ -36,9 +37,9 @@ class GithubUrlTest extends TestCase
      * @test
      * @dataProvider packageProviderWithWorkflows
      *
-     * @param string $package
-     * @param string $type
-     * @param array $workflows
+     * @param  string  $package
+     * @param  string  $type
+     * @param  array  $workflows
      */
     public function github_url_public_methods(string $package, string $type, array $workflows)
     {
@@ -51,9 +52,9 @@ class GithubUrlTest extends TestCase
      * @test
      * @dataProvider packageProviderWithWorkflows
      *
-     * @param string $package
-     * @param string $type
-     * @param array $workflows
+     * @param  string  $package
+     * @param  string  $type
+     * @param  array  $workflows
      */
     public function github_url_workflow_badges(string $package, string $type, array $workflows)
     {
