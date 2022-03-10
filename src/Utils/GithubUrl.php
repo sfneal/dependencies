@@ -18,13 +18,20 @@ class GithubUrl extends DependencyUrl
     private $githubRepo;
 
     /**
+     * @var array|null Array of global Img Shields params to be passed to SVG requests
+     */
+    private $imgShieldGlobals;
+
+    /**
      * GithubUrl Constructor.
      *
      * @param  string  $githubRepo  GitHub repo name
      */
-    public function __construct(string $githubRepo)
+    public function __construct(string $githubRepo, array $imgShieldGlobals = null)
     {
         $this->githubRepo = $githubRepo;
+        $this->imgShieldGlobals = $imgShieldGlobals;
+
         $this->api = Url::from("api.github.com/repos/{$this->githubRepo}");
 
         parent::__construct(Url::from("github.com/{$this->githubRepo}"), null);
@@ -70,9 +77,9 @@ class GithubUrl extends DependencyUrl
     {
         return new DependencyUrl(
             ImgShieldsUrl::from("github/workflow/status/{$this->githubRepo}/{$name}")
+                ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
                     'logo' => 'github',
-                    'style' => 'for-the-badge',
                     'label' => $name
                 ])
         );

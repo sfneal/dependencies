@@ -66,7 +66,7 @@ class DependencyService
      */
     public function gitHub(): GithubUrl
     {
-        return new GithubUrl($this->githubRepo);
+        return new GithubUrl($this->githubRepo, $this->imgShieldGlobals);
     }
 
     /**
