@@ -37,8 +37,8 @@ export TAG
 docker-compose down -v --remove-orphans
 
 # Build the image
-echo "Building image: stephenneal/dependencies:${TAG}"
-docker build -t stephenneal/dependencies:"${TAG}" \
+echo "Building image: sfneal/dependencies:${TAG}"
+docker build -t sfneal/dependencies:"${TAG}" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
@@ -58,11 +58,11 @@ done
 
 # Confirm it exited with code 0
 if [[ $(docker inspect -f '{{.State.ExitCode}}' dependencies) == 0 ]]; then
-    echo "Success: Tests Passed! - stephenneal/dependencies:${TAG}"
+    echo "Success: Tests Passed! - sfneal/dependencies:${TAG}"
 else
-    echo "Error: Tests Failed! - stephenneal/dependencies:${TAG}"
+    echo "Error: Tests Failed! - sfneal/dependencies:${TAG}"
     exit 1
 fi
 
 # Confirm the image exists
-docker image inspect stephenneal/dependencies:"${TAG}" > /dev/null 2>&1
+docker image inspect sfneal/dependencies:"${TAG}" > /dev/null 2>&1

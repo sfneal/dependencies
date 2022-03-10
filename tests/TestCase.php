@@ -105,6 +105,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ['stephenneal/node-yarn', 'docker'],
             ['stephenneal/python-flask', 'docker'],
             ['sfneal/pdfconduit', 'python'],
+            ['sfneal/theme-amalgamate', 'node'],
+            ['sfneal/html-rivulet', 'node'],
+            ['sfneal/paraflux', 'node'],
         ];
         shuffle($packages);
 
@@ -198,7 +201,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $url = $generator->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString(explode('/', $package)[1] ?? $package, $url);
         $this->assertStringContainsString('img.shields.io/', $url);
 
         if ($sendRequest) {
@@ -208,6 +211,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $this->assertTrue(
                 $inString->inString('<title>packagist: v')
                 || $inString->inString('version')
+                || $inString->inString('npm')
                 || $inString->inString('<title>pypi'),
                 "The response body provided by {$url} doesn't contain 'packagist' or 'version'"
             );
@@ -305,10 +309,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $inString = new StringHelpers($url);
 
         $this->assertInstanceOf(DependencyUrl::class, $generator);
-        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString(explode('/', $package)[1] ?? $package, $url);
         $this->assertTrue(
             $inString->inString('packagist.org/packages')
             || $inString->inString('hub.docker.com/r/')
+            || $inString->inString('npmjs.com/package')
             || $inString->inString('pypi.org/project/'),
             "The response body provided by {$url} doesn't contain 'packagist.org' or 'hub.docker.com'"
         );
