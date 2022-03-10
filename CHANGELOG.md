@@ -132,3 +132,7 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.5.1 - 2022-03-09
 - fix issues with `GithubUrl` API response caching
+
+
+# 1.6.0 - 2022-03-10
+- add ability to retrieve image shields badges for GitHub repo workflows (`DependencyService->github()->workflow()`)

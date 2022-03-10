@@ -486,7 +486,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @throws InvalidArgumentException
      */
-    private function sendRequest(string $url): Response
+    protected function sendRequest(string $url): Response
     {
         $response = Cache::store('http')->rememberForever($url, function () use ($url) {
             return Http::retry(3, 500)->get($url);
