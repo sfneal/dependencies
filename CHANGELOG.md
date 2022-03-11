@@ -148,3 +148,7 @@ All notable changes to `dependencies` will be documented in this file
  
 # 1.8.0 - 2022-03-11
 - add `GithubUrl::release()` method for accessing the most recent version release
+
+
+# 1.8.1 - 2022-03-11
+- add sorting by semver & including pre-releases to `GithubUrl::release()` method
