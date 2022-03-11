@@ -74,7 +74,7 @@ class GithubUrl extends DependencyUrl
      */
     public function actions(): string
     {
-        return Url::from("github.com/{$this->githubRepo}/actions");
+        return Url::from("github.com/{$this->githubRepo}/actions")->get();
     }
 
     /**
@@ -86,7 +86,7 @@ class GithubUrl extends DependencyUrl
     public function workflow(string $name): DependencyUrl
     {
         return new DependencyUrl(
-            $this->actions(),
+            Url::from("github.com/{$this->githubRepo}/actions"),
             ImgShieldsUrl::from("github/workflow/status/{$this->githubRepo}/{$name}")
                 ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
