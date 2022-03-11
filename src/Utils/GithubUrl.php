@@ -95,6 +95,11 @@ class GithubUrl extends DependencyUrl
         return new DependencyUrl(
             ImgShieldsUrl::from("github/v/release/{$this->githubRepo}")
                 ->withGlobalParams($this->imgShieldGlobals)
+                ->withParams([
+                    'display_name' => 'tag',
+                    'sort' => 'semver',
+                    'include_prereleases',
+                ])
         );
     }
 
