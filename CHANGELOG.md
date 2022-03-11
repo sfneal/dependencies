@@ -144,3 +144,7 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.7.1 - 2022-03-11
 - fix issue with `DependencyService::setProject()` including vendor name in 'node' projects
+
+ 
+# 1.8.0 - 2022-03-11
+- add `GithubUrl::release()` method for accessing the most recent version release
