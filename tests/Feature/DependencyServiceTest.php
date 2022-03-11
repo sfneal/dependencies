@@ -80,7 +80,7 @@ class DependencyServiceTest extends TestCase
         $this->assertNotNull($service->project);
         $this->assertIsString($service->project);
 
-        if ($service->type == 'python') {
+        if ($service->type == 'python' || $service->type == 'node') {
             $this->assertEquals(
                 explode('/', $service->package)[1],
                 $service->project
