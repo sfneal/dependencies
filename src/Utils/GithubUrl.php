@@ -68,6 +68,16 @@ class GithubUrl extends DependencyUrl
     }
 
     /**
+     * Retrieve a link to the GitHub repo's workflow status page.
+     *
+     * @return string
+     */
+    public function actions(): string
+    {
+        return Url::from("github.com/{$this->githubRepo}/actions");
+    }
+
+    /**
      * Display pass/fail status for a GitHub repo's workflow.
      *
      * @param  string  $name
@@ -76,6 +86,7 @@ class GithubUrl extends DependencyUrl
     public function workflow(string $name): DependencyUrl
     {
         return new DependencyUrl(
+            $this->actions(),
             ImgShieldsUrl::from("github/workflow/status/{$this->githubRepo}/{$name}")
                 ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
@@ -93,6 +104,7 @@ class GithubUrl extends DependencyUrl
     public function release(): DependencyUrl
     {
         return new DependencyUrl(
+            Url::from("github.com/{$this->githubRepo}/releases"),
             ImgShieldsUrl::from("github/v/release/{$this->githubRepo}")
                 ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
