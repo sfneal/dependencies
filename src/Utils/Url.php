@@ -84,11 +84,7 @@ class Url
 
             $paramStrings = [];
             foreach (array_unique($params) as $key => $value) {
-                if ($key != 0) {
-                    $paramStrings[] = "{$key}={$value}";
-                } else {
-                    $paramStrings[] = "{$value}";
-                }
+                $paramStrings[] = "{$key}={$value}";
             }
 
             return $query.implode('&', $paramStrings);
