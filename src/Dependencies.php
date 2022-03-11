@@ -10,8 +10,8 @@ class Dependencies
     /**
      * Retrieve a DependencyService for a single package.
      *
-     * @param string $type
-     * @param string $package
+     * @param  string  $type
+     * @param  string  $package
      * @return DependencyService
      */
     public static function from(string $type, string $package): DependencyService
