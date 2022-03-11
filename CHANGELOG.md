@@ -152,3 +152,7 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.8.1 - 2022-03-11
 - add sorting by semver & including pre-releases to `GithubUrl::release()` method
+
+
+# 1.9.0 - 2022-03-11
+- fix issues with `workflow()` & `release()` methods not properly returning urls & svgs
