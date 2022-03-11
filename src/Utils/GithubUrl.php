@@ -86,6 +86,19 @@ class GithubUrl extends DependencyUrl
     }
 
     /**
+     * Display the latest GitHub release (by date) for a GitHub repo.
+     *
+     * @return DependencyUrl
+     */
+    public function release(): DependencyUrl
+    {
+        return new DependencyUrl(
+            ImgShieldsUrl::from("github/v/release/{$this->githubRepo}")
+                ->withGlobalParams($this->imgShieldGlobals)
+        );
+    }
+
+    /**
      * Retrieve a cached HTTP response from the GitHub api.
      *
      * @return ?array

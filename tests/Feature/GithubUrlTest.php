@@ -40,9 +40,8 @@ class GithubUrlTest extends TestCase
      *
      * @param  string  $package
      * @param  string  $type
-     * @param  array  $workflows
      */
-    public function github_url_public_methods(string $package, string $type, array $workflows)
+    public function github_url_public_methods(string $package, string $type)
     {
         $github = new GithubUrl($package);
 
@@ -82,5 +81,23 @@ class GithubUrlTest extends TestCase
                 '"passing", "failing" or "not found" were not found in the badge (url: '.$url.')'
             );
         }
+    }
+
+    /**
+     * @test
+     * @dataProvider packageProviderWithWorkflows
+     */
+    public function github_release(string $package, string $type)
+    {
+        $github = new GithubUrl($package);
+        $url = $github->release()->url();
+
+        $this->assertInstanceOf(DependencyUrl::class, $github);
+        $this->assertStringContainsString($package, $url);
+        $this->assertStringContainsString('img.shields.io/github/v/release', $url);
+
+        $response = $this->sendRequest($url);
+
+        $this->assertStringContainsString('release', $response->body());
     }
 }
