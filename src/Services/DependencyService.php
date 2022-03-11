@@ -112,6 +112,7 @@ class DependencyService
         }
     }
 
+    // todo: refactor github related methods to GitHubUrl
     /**
      * Retrieve date of the last GitHub commit.
      *
