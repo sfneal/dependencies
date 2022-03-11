@@ -3,9 +3,22 @@
 namespace Sfneal\Dependencies;
 
 use Sfneal\Dependencies\Services\DependenciesRepository;
+use Sfneal\Dependencies\Services\DependencyService;
 
 class Dependencies
 {
+    /**
+     * Retrieve a DependencyService for a single package.
+     *
+     * @param  string  $type
+     * @param  string  $package
+     * @return DependencyService
+     */
+    public static function from(string $type, string $package): DependencyService
+    {
+        return new DependencyService($package, $type);
+    }
+
     /**
      * Retrieve dependencies from the composer.json file & optionally include 'dev' dependencies.
      *

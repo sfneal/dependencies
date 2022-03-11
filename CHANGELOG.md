@@ -156,3 +156,4 @@ All notable changes to `dependencies` will be documented in this file
 
 # 1.9.0 - 2022-03-11
 - fix issues with `workflow()` & `release()` methods not properly returning urls & svgs
+- add `Dependency::from()` method for retrieving an object for a single dependency
