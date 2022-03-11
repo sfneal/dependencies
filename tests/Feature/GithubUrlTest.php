@@ -62,13 +62,14 @@ class GithubUrlTest extends TestCase
 
         foreach ($workflows as $workflow) {
             $generator = $github->workflow($workflow);
-            $url = $generator->url();
+            $svg = $generator->svg();
 
             $this->assertInstanceOf(DependencyUrl::class, $generator);
-            $this->assertStringContainsString($package, $url);
-            $this->assertStringContainsString('img.shields.io/github/workflow/status', $url);
+            $this->assertStringContainsString($package, $svg);
+            $this->assertStringContainsString("github.com/{$package}/actions", $generator->url());
+            $this->assertStringContainsString('img.shields.io/github/workflow/status', $svg);
 
-            $response = $this->sendRequest($url);
+            $response = $this->sendRequest($svg);
 
             $this->assertStringContainsString($workflow, $response->body());
 
@@ -78,7 +79,7 @@ class GithubUrlTest extends TestCase
                 $stringHelper->inString('passing')
                 || $stringHelper->inString('failing')
                 || $stringHelper->inString('not found'),
-                '"passing", "failing" or "not found" were not found in the badge (url: '.$url.')'
+                '"passing", "failing" or "not found" were not found in the badge (url: '.$svg.')'
             );
         }
     }
@@ -90,13 +91,14 @@ class GithubUrlTest extends TestCase
     public function github_release(string $package, string $type)
     {
         $github = new GithubUrl($package);
-        $url = $github->release()->url();
+        $svg = $github->release()->svg();
 
         $this->assertInstanceOf(DependencyUrl::class, $github);
-        $this->assertStringContainsString($package, $url);
-        $this->assertStringContainsString('img.shields.io/github/v/release', $url);
+        $this->assertStringContainsString($package, $svg);
+        $this->assertStringContainsString("github.com/{$package}/releases", $github->release()->url());
+        $this->assertStringContainsString('img.shields.io/github/v/release', $svg);
 
-        $response = $this->sendRequest($url);
+        $response = $this->sendRequest($svg);
 
         $this->assertStringContainsString('release', $response->body());
     }
