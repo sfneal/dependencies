@@ -299,7 +299,7 @@ class DependencyService
      */
     private function setProject(string $fullPackageName): void
     {
-        if ($this->type == 'python') {
+        if ($this->type == 'python' || $this->type == 'node') {
             [$user, $package] = explode('/', $fullPackageName);
             $this->project = $package;
         } else {
