@@ -86,8 +86,7 @@ class Url
             foreach (array_unique($params) as $key => $value) {
                 if ($key != 0) {
                     $paramStrings[] = "{$key}={$value}";
-                }
-                else {
+                } else {
                     $paramStrings[] = "{$value}";
                 }
             }
