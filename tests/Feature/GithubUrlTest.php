@@ -38,8 +38,8 @@ class GithubUrlTest extends TestCase
      * @test
      * @dataProvider packageProviderWithWorkflows
      *
-     * @param string $package
-     * @param string $type
+     * @param  string  $package
+     * @param  string  $type
      */
     public function github_url_public_methods(string $package, string $type)
     {
