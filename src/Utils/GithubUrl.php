@@ -81,13 +81,14 @@ class GithubUrl extends DependencyUrl
      * Display pass/fail status for a GitHub repo's workflow.
      *
      * @param  string  $name
+     * @param  string  $branch
      * @return DependencyUrl
      */
-    public function workflow(string $name): DependencyUrl
+    public function workflow(string $name, string $branch = 'master'): DependencyUrl
     {
         return new DependencyUrl(
             Url::from("github.com/{$this->githubRepo}/actions"),
-            ImgShieldsUrl::from("github/workflow/status/{$this->githubRepo}/{$name}")
+            ImgShieldsUrl::from("github/actions/workflow/status/{$this->githubRepo}/{$name}?branch={$branch}")
                 ->withGlobalParams($this->imgShieldGlobals)
                 ->withParams([
                     'logo' => 'github',
