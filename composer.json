@@ -27,7 +27,7 @@
         "josiasmontag/laravel-redis-mock": ">=1.2.6",
         "orchestra/testbench": "^6.24.1|^7.0",
         "phpunit/phpunit": "^9.3",
-        "predis/predis": "^1.1",
+        "predis/predis": "^1.1 || ^2.0",
         "scrutinizer/ocular": "^1.8"
     },
     "extra": {
