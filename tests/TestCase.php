@@ -81,7 +81,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      *
      * @return array
      */
-    public function packageProvider(): array
+    public static function packageProvider(): array
     {
         $packages = [
             ['sfneal/controllers', 'composer'],
