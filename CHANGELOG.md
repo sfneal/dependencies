@@ -162,3 +162,9 @@ All notable changes to `dependencies` will be documented in this file
 # 1.10.0 - 2024-04-17
 - fix issues with image shield urls by changing the url construction pattern
 - reduce the total runtime of the test suite
+
+
+# 2.0.0 - 2024-04-17
+- cut support for PHP 7.3 & 7.4
+- add support for PHP 8.2 & 8.3
+- cleanup dependency constraints
