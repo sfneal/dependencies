@@ -36,6 +36,7 @@ class GithubUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProviderWithWorkflows
      *
      * @param  string  $package
@@ -50,6 +51,7 @@ class GithubUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProviderWithWorkflows
      *
      * @param  string  $package
@@ -86,6 +88,7 @@ class GithubUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProviderWithWorkflows
      */
     public function github_release(string $package, string $type)
