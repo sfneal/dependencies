@@ -250,7 +250,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         // GitHub API
         if (! is_null(config('dependencies.github_pat'))) {
-
             // Description
             $description = $generator->description();
             $this->assertNotNull($description);

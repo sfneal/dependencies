@@ -9,6 +9,7 @@ class DependencyUrlTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -22,6 +23,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -36,6 +38,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -50,6 +53,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -63,6 +67,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -77,6 +82,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -91,6 +97,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -105,6 +112,7 @@ class DependencyUrlTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package

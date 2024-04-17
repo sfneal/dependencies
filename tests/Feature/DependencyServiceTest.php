@@ -9,6 +9,7 @@ class DependencyServiceTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -25,6 +26,7 @@ class DependencyServiceTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -41,6 +43,7 @@ class DependencyServiceTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package
@@ -68,6 +71,7 @@ class DependencyServiceTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider packageProvider
      *
      * @param  string  $package

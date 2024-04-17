@@ -98,15 +98,15 @@ class DependencyService
             case 'docker':
                 return $this->docker();
 
-            // Python
+                // Python
             case 'python':
                 return $this->pypi();
 
-            // Python
+                // Python
             case 'node':
                 return $this->node();
 
-            // PHP
+                // PHP
             default:
                 return $this->packagist();
         }

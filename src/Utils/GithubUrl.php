@@ -80,8 +80,8 @@ class GithubUrl extends DependencyUrl
     /**
      * Display pass/fail status for a GitHub repo's workflow.
      *
-     * @param string $name
-     * @param string $branch
+     * @param  string  $name
+     * @param  string  $branch
      * @return DependencyUrl
      */
     public function workflow(string $name, string $branch = 'master'): DependencyUrl
