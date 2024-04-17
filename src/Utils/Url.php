@@ -7,12 +7,12 @@ class Url
     /**
      * @var string
      */
-    protected $uri;
+    protected string $uri;
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $params;
+    protected ?array $params = null;
 
     /**
      * Static URL constructor.

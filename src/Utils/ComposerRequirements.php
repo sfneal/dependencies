@@ -10,7 +10,7 @@ class ComposerRequirements
     /**
      * @var bool
      */
-    private $dev;
+    private bool $dev;
 
     /**
      * ComposerDependencies constructor.
