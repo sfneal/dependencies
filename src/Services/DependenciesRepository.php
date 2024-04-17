@@ -15,27 +15,27 @@ class DependenciesRepository
     /**
      * @var array Array of composer or Docker dependencies
      */
-    private $dependencies;
+    private array $dependencies;
 
     /**
      * @var bool Use composer.json dependencies as source
      */
-    private $composerDependencies;
+    private bool $composerDependencies;
 
     /**
      * @var bool Include composer dev dependencies
      */
-    private $devComposerDependencies;
+    private bool $devComposerDependencies;
 
     /**
-     * @var Collection Collection of dependencies retrieved by the `getDependencies()` method
+     * @var Collection|null Collection of dependencies retrieved by the `getDependencies()` method
      */
-    private $dependenciesCollection;
+    private Collection|null $dependenciesCollection = null;
 
     /**
      * @var array|null Array of global Img Shields params to be passed to SVG requests
      */
-    private $imgShieldGlobalParams;
+    private ?array $imgShieldGlobalParams = null;
 
     /**
      * Include Img Shields global params in SVG requests.

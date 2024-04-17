@@ -22,27 +22,27 @@ class DependencyService
     /**
      * @var string Name of the dependency
      */
-    public $package;
+    public string $package;
 
     /**
      * @var string Type of Dependency ('composer', 'docker', 'python' or 'node')
      */
-    public $type;
+    public string $type;
 
     /**
      * @var string Name of the GitHub package.
      */
-    public $githubRepo;
+    public string $githubRepo;
 
     /**
      * @var string Name of the project without the GitHub user prefix (used for Python projects).
      */
-    public $project;
+    public string $project;
 
     /**
      * @var array|null Array of global Img Shields params to be passed to SVG requests
      */
-    private $imgShieldGlobals;
+    private ?array $imgShieldGlobals;
 
     /**
      * DependenciesService constructor.
@@ -63,7 +63,7 @@ class DependencyService
     /**
      * Retrieve a GitHub URL for a dependency.
      *
-     * @return DependencyUrl|GithubUrl
+     * @return GithubUrl
      */
     public function gitHub(): GithubUrl
     {
@@ -93,23 +93,12 @@ class DependencyService
      */
     public function version(): DependencyUrl
     {
-        switch ($this->type) {
-            // Docker
-            case 'docker':
-                return $this->docker();
-
-                // Python
-            case 'python':
-                return $this->pypi();
-
-                // Python
-            case 'node':
-                return $this->node();
-
-                // PHP
-            default:
-                return $this->packagist();
-        }
+        return match ($this->type) {
+            'docker' => $this->docker(),
+            'python' => $this->pypi(),
+            'node' => $this->node(),
+            default => $this->packagist(),
+        };
     }
 
     // todo: refactor github related methods to GitHubUrl

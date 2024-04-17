@@ -11,7 +11,7 @@ class DependenciesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Publish config file
         $this->publishes([
@@ -24,7 +24,7 @@ class DependenciesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Load config file
         $this->mergeConfigFrom(__DIR__.'/../../config/dependencies.php', 'dependencies');

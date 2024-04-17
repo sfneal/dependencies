@@ -10,17 +10,17 @@ class GithubUrl extends DependencyUrl
     /**
      * @var Url
      */
-    private $api;
+    private Url $api;
 
     /**
      * @var string
      */
-    private $githubRepo;
+    private string $githubRepo;
 
     /**
      * @var array|null Array of global Img Shields params to be passed to SVG requests
      */
-    private $imgShieldGlobals;
+    private ?array $imgShieldGlobals;
 
     /**
      * GithubUrl Constructor.
@@ -40,7 +40,7 @@ class GithubUrl extends DependencyUrl
     /**
      * Retrieve the GitHub repo's description.
      *
-     * @return string
+     * @return string|null
      */
     public function description(): ?string
     {

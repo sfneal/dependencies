@@ -7,12 +7,12 @@ class DependencyUrl
     /**
      * @var Url
      */
-    private $url;
+    private Url $url;
 
     /**
      * @var Url|null
      */
-    private $svg;
+    private ?Url $svg;
 
     /**
      * DependencySvg constructor.
