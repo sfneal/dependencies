@@ -168,3 +168,7 @@ All notable changes to `dependencies` will be documented in this file
 - cut support for PHP 7.3 & 7.4
 - add support for PHP 8.2 & 8.3
 - cleanup dependency constraints
+
+
+# 2.1.0 - 2024-04-17
+- add improved type hinting
