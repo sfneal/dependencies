@@ -26,7 +26,7 @@ class GithubUrlTest extends TestCase
             ['sfneal/tracking', 'composer'],
         ])
         ->map(function (array $dependency) {
-            $dependency[] = ['Docker Builds', 'Test Suite'];
+            $dependency[] = ['docker.yml', 'tests.yml'];
 
             return $dependency;
         })
@@ -68,7 +68,7 @@ class GithubUrlTest extends TestCase
             $this->assertInstanceOf(DependencyUrl::class, $generator);
             $this->assertStringContainsString($package, $svg);
             $this->assertStringContainsString("github.com/{$package}/actions", $generator->url());
-            $this->assertStringContainsString('img.shields.io/github/workflow/status', $svg);
+            $this->assertStringContainsString('img.shields.io/github/actions/workflow/status', $svg);
 
             $response = $this->sendRequest($svg);
 
@@ -79,8 +79,8 @@ class GithubUrlTest extends TestCase
             $this->assertTrue(
                 $stringHelper->inString('passing')
                 || $stringHelper->inString('failing')
-                || $stringHelper->inString('not found'),
-                '"passing", "failing" or "not found" were not found in the badge (url: '.$svg.')'
+                || $stringHelper->inString('no status'),
+                '"passing", "failing" or "no status" were not found in the badge (url: '.$svg.')'
             );
         }
     }
