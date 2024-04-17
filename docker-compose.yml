@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: "sfneal/dependencies:${TAG}"
+        image: "sfneal/dependencies:latest"
         env_file: .env.docker
         container_name: dependencies
         tty: true

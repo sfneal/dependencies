@@ -157,3 +157,8 @@ All notable changes to `dependencies` will be documented in this file
 # 1.9.0 - 2022-03-11
 - fix issues with `workflow()` & `release()` methods not properly returning urls & svgs
 - add `Dependency::from()` method for retrieving an object for a single dependency
+
+
+# 1.10.0 - 2024-04-17
+- fix issues with image shield urls by changing the url construction pattern
+- reduce the total runtime of the test suite

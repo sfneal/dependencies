@@ -37,7 +37,9 @@ export TAG
 
 # Build the image
 echo "Building image: sfneal/dependencies:${TAG}"
+echo "Building image: sfneal/dependencies:latest"
 docker build -t sfneal/dependencies:"${TAG}" \
+    -t sfneal/dependencies:latest \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
