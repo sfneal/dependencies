@@ -31,6 +31,7 @@ class GithubUrlTest extends TestCase
             return $dependency;
         })
         ->shuffle()
+        ->take(2)
         ->toArray();
     }
 

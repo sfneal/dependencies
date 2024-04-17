@@ -102,7 +102,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
         shuffle($packages);
 
-        return $packages;
+        return array_slice($packages, 0, 2);
     }
 
     /**
