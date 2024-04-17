@@ -18,15 +18,15 @@
     "require": {
         "php": "^8.0|^8.1|^8.2|^8.3",
         "ext-json": "*",
-        "illuminate/support": ">=8.40",
+        "laravel/framework": "^8.75|^9.0|^10.0|^11.0",
         "sfneal/caching": "^3.0",
         "sfneal/laravel-helpers": "^2.4",
         "sfneal/string-helpers": "^1.0"
     },
     "require-dev": {
         "josiasmontag/laravel-redis-mock": ">=1.2.6",
-        "orchestra/testbench": "^6.24.1|^7.0",
-        "phpunit/phpunit": "^9.3",
+        "orchestra/testbench": "^7.40|^8.0|9.0",
+        "phpunit/phpunit": "^9.6|^10.0|^11.0",
         "predis/predis": "^1.1 || ^2.0",
         "scrutinizer/ocular": "^1.8"
     },
