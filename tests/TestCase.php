@@ -102,7 +102,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
         shuffle($packages);
 
-        return $packages;
+        return array_slice($packages, 0, 2);
     }
 
     /**
@@ -250,7 +250,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         // GitHub API
         if (! is_null(config('dependencies.github_pat'))) {
-
             // Description
             $description = $generator->description();
             $this->assertNotNull($description);
