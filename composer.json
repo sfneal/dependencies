@@ -19,7 +19,7 @@
         "php": "^8.0|^8.1|^8.2|^8.3",
         "ext-json": "*",
         "laravel/framework": "^8.75|^9.0|^10.0|^11.0",
-        "sfneal/caching": "^3.0",
+        "sfneal/caching": "^3.0|^4.0",
         "sfneal/laravel-helpers": "^2.4",
         "sfneal/string-helpers": "^1.0"
     },
