@@ -14,7 +14,7 @@ class GithubUrlTest extends TestCase
      *
      * @return array
      */
-    public function packageProviderWithWorkflows(): array
+    public static function packageProviderWithWorkflows(): array
     {
         return collect([
             ['sfneal/dependencies', 'composer'],
