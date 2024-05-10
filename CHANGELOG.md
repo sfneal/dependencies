@@ -172,3 +172,8 @@ All notable changes to `dependencies` will be documented in this file
 
 # 2.1.0 - 2024-04-17
 - add improved type hinting
+
+
+- # 2.1.1 - 2024-05-09
+- add Laravel v11 testing support
+- cleanup test config
