@@ -46,7 +46,6 @@ class ComposerRequirementsTest extends TestCase
             'phpunit/phpunit',
             'orchestra/testbench',
             'predis/predis',
-            'scrutinizer/ocular',
         ];
         $deps = (new ComposerRequirements(true))->get();
 
