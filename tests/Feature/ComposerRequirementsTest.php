@@ -46,6 +46,7 @@ class ComposerRequirementsTest extends TestCase
             'phpunit/phpunit',
             'orchestra/testbench',
             'predis/predis',
+            'guzzlehttp/guzzle',
         ];
         $deps = (new ComposerRequirements(true))->get();
 
