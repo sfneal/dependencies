@@ -122,7 +122,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param  int  $expected
      * @param  array|null  $globalParams
      */
-    public function assertDependencyServiceCollection(Collection $collection, int $expected, array $globalParams = null): void
+    public function assertDependencyServiceCollection(Collection $collection, int $expected, ?array $globalParams = null): void
     {
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertSame($expected, $collection->count());
@@ -502,7 +502,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param  array|null  $params
      * @return string
      */
-    protected static function generateQueryString(array $params = null): string
+    protected static function generateQueryString(?array $params = null): string
     {
         if (! is_null($params)) {
             $query = '?';
