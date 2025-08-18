@@ -31,7 +31,7 @@ class Url
      * @param  array|null  $params
      * @return $this
      */
-    public function withParams(array $params = null): self
+    public function withParams(?array $params = null): self
     {
         $this->params = $params;
 
@@ -44,7 +44,7 @@ class Url
      * @param  string  $uri
      * @param  array|null  $params
      */
-    public function __construct(string $uri, array $params = null)
+    public function __construct(string $uri, ?array $params = null)
     {
         $this->uri = $uri;
         $this->withParams($params);
@@ -77,7 +77,7 @@ class Url
      * @param  array|null  $params
      * @return string
      */
-    protected static function generateQueryString(array $params = null): string
+    protected static function generateQueryString(?array $params = null): string
     {
         if (! is_null($params)) {
             $query = '?';

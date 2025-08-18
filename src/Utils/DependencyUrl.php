@@ -20,7 +20,7 @@ class DependencyUrl
      * @param  Url  $url
      * @param  Url|null  $svg
      */
-    public function __construct(Url $url, Url $svg = null)
+    public function __construct(Url $url, ?Url $svg = null)
     {
         $this->url = $url;
         $this->svg = $svg;
