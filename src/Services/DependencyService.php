@@ -51,7 +51,7 @@ class DependencyService
      * @param  string  $type
      * @param  array|null  $imgShieldGlobals
      */
-    public function __construct(string $package, string $type = 'composer', array $imgShieldGlobals = null)
+    public function __construct(string $package, string $type = 'composer', ?array $imgShieldGlobals = null)
     {
         $this->package = $package;
         $this->setGitHubRepo($package);

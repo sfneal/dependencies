@@ -30,7 +30,7 @@ class DependenciesRepository
     /**
      * @var Collection|null Collection of dependencies retrieved by the `getDependencies()` method
      */
-    private Collection|null $dependenciesCollection = null;
+    private ?Collection $dependenciesCollection = null;
 
     /**
      * @var array|null Array of global Img Shields params to be passed to SVG requests
@@ -43,7 +43,7 @@ class DependenciesRepository
      * @param  array|null  $imgShieldGlobalParams
      * @return $this
      */
-    public function withImgShieldGlobalParams(array $imgShieldGlobalParams = null): self
+    public function withImgShieldGlobalParams(?array $imgShieldGlobalParams = null): self
     {
         $this->imgShieldGlobalParams = $imgShieldGlobalParams;
 

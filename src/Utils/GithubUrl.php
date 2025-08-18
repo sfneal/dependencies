@@ -27,7 +27,7 @@ class GithubUrl extends DependencyUrl
      *
      * @param  string  $githubRepo  GitHub repo name
      */
-    public function __construct(string $githubRepo, array $imgShieldGlobals = null)
+    public function __construct(string $githubRepo, ?array $imgShieldGlobals = null)
     {
         $this->githubRepo = $githubRepo;
         $this->imgShieldGlobals = $imgShieldGlobals;
